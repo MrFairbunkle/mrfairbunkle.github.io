@@ -2,6 +2,7 @@ import random, os, openai, anvil
 
 site_name = input("What is your site called? ")
 site_col = input("What would you like the main colour to be? ")
+text_col = input("What would you like the text colour to be? ")
 site_sections = input("What sections would you like? Please separate with commas. ")
 
 sections = site_sections.split(", ")
@@ -18,15 +19,18 @@ html = f"""
     <style>
         body {{
             background-color: {site_col};
+            color: {text_col};
         }}
     </style>
 </head>
 <body>
+    <h1>{site_name}</h1>
+    <br>
 """
 
 for section in sections:
     html += f"""
-    <h1>{section}</h1>
+    <h2>{section}</h2>
     <p>This is filler text</p>
     <br>
     """
