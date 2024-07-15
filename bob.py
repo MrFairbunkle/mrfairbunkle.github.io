@@ -1,3 +1,5 @@
+import random, os, openai, anvil
+
 site_name = input("What is your site called? ")
 site_col = input("What would you like the main colour to be? ")
 site_sections = input("What sections would you like? Please separate with commas. ")
