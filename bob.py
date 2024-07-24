@@ -21,6 +21,9 @@ html = f"""
             background-color: {site_col};
             color: {text_col};
         }}
+        h1 {{
+            text-align: center;
+        }}
     </style>
 </head>
 <body>
@@ -40,7 +43,8 @@ html += """
 </html>
 """
 
-html_file_path = "C:\\Users\\22CfAiRbAnKs-WeStOn.TGS\\Desktop\\A-Level-Repo\\site.html"
+#html_file_path = "C:\\Users\\22CfAiRbAnKs-WeStOn.TGS\\Desktop\\A-Level-Repo\\site.html"
+html_file_path = "E:\Stuff\Things\VSCODE\A-Level-Repo\site.html"
 
 try:
     with open(html_file_path, 'w') as file:
