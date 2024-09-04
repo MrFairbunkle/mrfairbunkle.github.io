@@ -13,11 +13,11 @@ text_col = input("What would you like the text color to be? ")
 while True:
     preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").upper()
     if preset == "Y":
-        option = input("Professional, ").lower()
+        option = input("Professional, ").title()
         
         # Preset options
         presets = {
-            "professional": {
+            "Professional": {
                 "site_col": "#333",
                 "text_col": "#fff"
             }
