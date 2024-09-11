@@ -11,7 +11,7 @@ site_col = input("What would you like the main color to be? ")
 text_col = input("What would you like the text color to be? ")
 
 while True:
-    preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").upper()
+    preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").title()
     if preset == "Y":
         option = input("Professional, ").title()
         
