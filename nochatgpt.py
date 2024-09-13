@@ -1,5 +1,4 @@
 import random, os
-#, openai, anvil
 
 # Variables
 html_file_path = "site.html"
@@ -7,7 +6,7 @@ css_file_path = "style.css"
 
 # Inputs from user
 site_name = input("What is your site called? ")
-site_sections = input("What sections would you like? Please separate with commas. ")
+site_sections = input("What sections would you like? Please separate with commas and spaces. ")
 site_col = input("What would you like the main color to be? ")
 text_col = input("What would you like the text color to be? ")
 
