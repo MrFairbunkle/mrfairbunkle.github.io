@@ -7,17 +7,17 @@ css_file_path = "style.css"
 # Inputs from user
 site_name = input("What is your site called? ")
 site_sections = input("What sections would you like? Please separate with commas and spaces. ")
-site_col_choice = input("What would you like the main color to be? ")
-text_col_choice = input("What would you like the text color to be? ")
+site_col_choice = input("What would you like the main color to be? Please use rgb. ")
+text_col_choice = input("What would you like the text color to be? Please use rgb. ")
 site_col = site_col_choice
 text_col = text_col_choice
 
 # Preset options
 presets = {
-    # "Reset": {
-    #     "site_col": {site_col_choice},
-    #     "text_col": {text_col_choice}
-    # },
+    "Reset": {
+        "site_col": site_col_choice,
+        "text_col": text_col_choice
+    },
     "Test1": {
         "site_col": "#ff0000",
         "text_col": "#0000ff"
