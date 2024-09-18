@@ -44,9 +44,69 @@ html = f"""
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>{site_name}</title>
+    <style>
+        body {{
+            background-color: {site_col};
+            color: {text_col};
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }}
+        .menu {{
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #000;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }}
+        .menu-options {{
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+        }}
+        .menu-options h3 {{
+            margin: 0;
+            margin-bottom: 10px;
+        }}
+        .menu-options button {{
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }}
+    </style>
+    <script>
+        function toggleMenu() {{
+            const menu = document.querySelector('.menu-options');
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
+        }}
+
+        function applyPreset(color, textColor) {{
+            document.body.style.backgroundColor = color;
+            document.body.style.color = textColor;
+        }}
+    </script>
 </head>
 <body>
     <h1>{site_name}</h1>
+    <div class="menu" onclick="toggleMenu()">Menu</div>
+    <div class="menu-options">
+        <h3>Choose a Preset</h3>
+        <button onclick="applyPreset('#333', '#fff')">Professional</button>
+        <!-- Add more presets if needed -->
+    </div>
     <br>
 """
 
