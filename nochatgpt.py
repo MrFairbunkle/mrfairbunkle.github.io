@@ -7,21 +7,38 @@ css_file_path = "style.css"
 # Inputs from user
 site_name = input("What is your site called? ")
 site_sections = input("What sections would you like? Please separate with commas and spaces. ")
-site_col = input("What would you like the main color to be? ")
-text_col = input("What would you like the text color to be? ")
+site_col_choice = input("What would you like the main color to be? ")
+text_col_choice = input("What would you like the text color to be? ")
+site_col = site_col_choice
+text_col = text_col_choice
+
+# Preset options
+presets = {
+    "Reset": {
+        "site_col": "{site_col_choice}",
+        "text_col": "{text_col_choice}"
+    },
+    "Test1": {
+        "site_col": "#ff0000",
+        "text_col": "#0000ff"
+    },
+    "Test2": {
+        "site_col": "#333",
+        "text_col": "#fff"
+    },
+    "Test3": {
+        "site_col": "#fff",
+        "text_col": "#333"
+    }
+}
+
+# Converts preset options to strings so that the thing below works 
+preset_options = ", ".join(presets.keys()) # This was chatgpt
 
 while True:
     preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").title()
     if preset == "Y":
-        option = input("Professional, ").title()
-        
-        # Preset options
-        presets = {
-            "Professional": {
-                "site_col": "#333",
-                "text_col": "#fff"
-            }
-        }
+        option = input(f"Choose a preset ({preset_options}): ").title()
         
         if option in presets:
             site_col = presets[option]["site_col"]
@@ -68,6 +85,7 @@ html = f"""
             top: 60px;
             right: 20px;
             background-color: #fff;
+            colour: #000;
             border: 1px solid #ccc;
             padding: 10px;
             width: 200px;
@@ -75,6 +93,8 @@ html = f"""
         .menu-options h3 {{
             margin: 0;
             margin-bottom: 10px;
+            background-color: #fff;
+            colour: #000;
         }}
         .menu-options button {{
             display: block;
@@ -88,6 +108,8 @@ html = f"""
         }}
     </style>
     <script>
+        const presets = {presets};  // Embed the presets as a JS object
+
         function toggleMenu() {{
             const menu = document.querySelector('.menu-options');
             menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
@@ -97,6 +119,19 @@ html = f"""
             document.body.style.backgroundColor = color;
             document.body.style.color = textColor;
         }}
+
+        // Generate preset buttons
+        window.onload = function() {{
+            const menuOptions = document.querySelector('.menu-options');
+            for (let preset in presets) {{
+                const btn = document.createElement('button');
+                btn.textContent = preset;
+                btn.onclick = function() {{
+                    applyPreset(presets[preset].site_col, presets[preset].text_col);
+                }};
+                menuOptions.appendChild(btn);
+            }}
+        }};
     </script>
 </head>
 <body>
@@ -104,8 +139,6 @@ html = f"""
     <div class="menu" onclick="toggleMenu()">Menu</div>
     <div class="menu-options">
         <h3>Choose a Preset</h3>
-        <button onclick="applyPreset('#333', '#fff')">Professional</button>
-        <!-- Add more presets if needed -->
     </div>
     <br>
 """
