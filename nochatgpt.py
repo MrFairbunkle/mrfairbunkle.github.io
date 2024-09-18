@@ -14,10 +14,10 @@ text_col = text_col_choice
 
 # Preset options
 presets = {
-    "Reset": {
-        "site_col": {site_col_choice},
-        "text_col": {text_col_choice}
-    },
+    # "Reset": {
+    #     "site_col": {site_col_choice},
+    #     "text_col": {text_col_choice}
+    # },
     "Test1": {
         "site_col": "#ff0000",
         "text_col": "#0000ff"
@@ -85,7 +85,7 @@ html = f"""
             top: 60px;
             right: 20px;
             background-color: #fff;
-            colour: #000;
+            color: #000;
             border: 1px solid #ccc;
             padding: 10px;
             width: 200px;
@@ -94,7 +94,7 @@ html = f"""
             margin: 0;
             margin-bottom: 10px;
             background-color: #fff;
-            colour: #000;
+            color: #000;
         }}
         .menu-options button {{
             display: block;
