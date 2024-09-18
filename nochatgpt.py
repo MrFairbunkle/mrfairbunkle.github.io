@@ -108,7 +108,7 @@ html = f"""
         }}
     </style>
     <script>
-        const presets = {presets};  // Embed the presets as a JS object
+        const presets = {presets}; 
 
         function toggleMenu() {{
             const menu = document.querySelector('.menu-options');
