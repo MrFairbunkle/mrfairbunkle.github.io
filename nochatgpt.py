@@ -120,7 +120,6 @@ html = f"""
             document.body.style.color = textColor;
         }}
 
-        // Generate preset buttons
         window.onload = function() {{
             const menuOptions = document.querySelector('.menu-options');
             for (let preset in presets) {{
