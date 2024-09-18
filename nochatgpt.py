@@ -15,8 +15,8 @@ text_col = text_col_choice
 # Preset options
 presets = {
     "Reset": {
-        "site_col": "{site_col_choice}",
-        "text_col": "{text_col_choice}"
+        "site_col": {site_col_choice},
+        "text_col": {text_col_choice}
     },
     "Test1": {
         "site_col": "#ff0000",
