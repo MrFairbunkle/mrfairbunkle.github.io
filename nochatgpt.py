@@ -108,7 +108,7 @@ html = f"""
             border-radius: 3px;
         }}
     </style>
-        """
+"""
 
 # if option in presets:
 #     if option == "Test1":
