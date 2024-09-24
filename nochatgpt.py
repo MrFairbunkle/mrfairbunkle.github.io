@@ -135,7 +135,7 @@ html = f"""
 #         </style>
 #             """
 
-html += """
+html += f"""
     <script>
         const presets = {presets}; 
 
