@@ -7,16 +7,16 @@ css_file_path = "style.css"
 # Inputs from user
 site_name = input("What is your site called? ")
 site_sections = input("What sections would you like? Please separate with commas and spaces. ")
-site_col_choice = input("What would you like the main color to be? Please use rgb. ")
-text_col_choice = input("What would you like the text color to be? Please use rgb. ")
+site_col_choice = input("What would you like the main color to be? Please use hex. #")
+text_col_choice = input("What would you like the text color to be? Please use hex. #")
 site_col = site_col_choice
 text_col = text_col_choice
 
 # Preset options
 presets = {
     "Reset": {
-        "site_col": site_col_choice,
-        "text_col": text_col_choice
+        "site_col": "#"+site_col_choice,
+        "text_col": "#"+text_col_choice
     },
     "Test1": {
         "site_col": "#ff0000",
@@ -34,6 +34,8 @@ presets = {
 
 # Converts preset options to strings so that the thing below works 
 preset_options = ", ".join(presets.keys()) # This was chatgpt
+
+option = ""
 
 while True:
     preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").title()
@@ -62,7 +64,7 @@ html = f"""
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>{site_name}</title>
     <style>
-        body {{
+        body {{ // Honestly no idea why I need 2 but someone online used 2 so I am
             background-color: {site_col};
             color: {text_col};
             font-family: Arial, sans-serif;
@@ -145,7 +147,7 @@ html = f"""
                     site_col: bgColor,
                     text_col: textColor
                 }};
-                addPresetButton(presetName);  // Add button to preset menu for custom selection
+                addPresetButton(presetName); // Add button to preset menu for custom selection
             }}
         }}
 
@@ -188,6 +190,46 @@ html = f"""
     
     <br>
 """
+
+
+
+if option in presets:
+    if option == "Test1":
+        html += """
+        <nav>
+        """
+        
+        for section_name in section_names:
+            html += f"""
+                <li>
+                    <a href="#{section_name}">{section_name}</a>
+                </li>
+            """
+
+        html += """
+        </nav>
+        """
+
+        html += """
+        <style>
+            .nav {
+                position: sticky;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: #333;
+                padding: 10px 0;
+                z-index: 1000;
+                text-align: center;
+            }
+            nav li {
+                display: inline;
+                margin: 0 10px;  
+            }
+        </style>
+            """
+
+
 
 for section_name in section_names:
     html += f"""
