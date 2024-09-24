@@ -35,6 +35,7 @@ presets = {
 # Converts preset options to strings so that the thing below works 
 preset_options = ", ".join(presets.keys()) # This was chatgpt
 
+option="" 
 while True:
     preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").title()
     if preset == "Y":

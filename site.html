@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>sddsfdsf</title>
+    <title>Jensen</title>
     <style>
         body {
-            background-color: #ff4531;
-            color: #a6c724;
+            background-color: #b00b1e;
+            color: #000;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -38,6 +38,8 @@
         .menu-options h3 {
             margin: 0;
             margin-bottom: 10px;
+            background-color: #fff;
+            color: #000;
         }
         .menu-options button {
             display: block;
@@ -49,113 +51,45 @@
             border: none;
             border-radius: 3px;
         }
-        #custom-colors {
-            display: none;
-            margin-top: 10px;
-        }
-        #custom-colors input[type='color'] { // This allows for a custom colour to be selected
-            margin-bottom: 10px;
-        }
     </style>
-    <script>
-        const presets = {'Reset': {'site_col': '#ff4531', 'text_col': '#a6c724'}, 'Test1': {'site_col': '#ff0000', 'text_col': '#0000ff'}, 'Test2': {'site_col': '#333', 'text_col': '#fff'}, 'Test3': {'site_col': '#fff', 'text_col': '#333'}};
-
-        function toggleMenu() {
-            const menu = document.querySelector('.menu-options');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // This is apparently something important
-        }
-
-        function applyPreset(color, textColor) {
-            document.body.style.backgroundColor = color;
-            document.body.style.color = textColor;
-        }
-
-        function showCustomColors() {
-            const customColorsDiv = document.getElementById('custom-colors');
-            customColorsDiv.style.display = 'block';
-        }
-
-        function applyCustomColors() {
-            const bgColor = document.getElementById('bg-color').value;
-            const textColor = document.getElementById('text-color').value;
-            applyPreset(bgColor, textColor);
-        }
-
-        function saveCustomPreset() {
-            const presetName = prompt('Enter a name for your custom preset:');
-            if (presetName) {
-                const bgColor = document.getElementById('bg-color').value;
-                const textColor = document.getElementById('text-color').value;
-                presets[presetName] = {
-                    site_col: bgColor,
-                    text_col: textColor
-                };
-                addPresetButton(presetName);  // Add button to preset menu for custom selection
-            }
-        }
-
-        function addPresetButton(presetName) {
-            const menuOptions = document.querySelector('.menu-options');
-            const btn = document.createElement('button');
-            btn.textContent = presetName;
-            btn.onclick = function() {
-                applyPreset(presets[presetName].site_col, presets[presetName].text_col);
-            };
-            menuOptions.appendChild(btn);
-        }
-
-        window.onload = function() {
-            const menuOptions = document.querySelector('.menu-options');
-            for (let preset in presets) {
-                addPresetButton(preset);
-            }
-            const customBtn = document.createElement('button');
-            customBtn.textContent = 'Custom';
-            customBtn.onclick = showCustomColors;
-            menuOptions.appendChild(customBtn);
-        };
-    </script>
-</head>
-<body>
-    <h1>sddsfdsf</h1>
-    <div class="menu" onclick="toggleMenu()">Menu</div>
-    <div class="menu-options">
-        <h3>Choose a Preset</h3>    
-        <div id="custom-colors">
-            <label for="bg-color">Background Color:</label><br>
-            <input type="color" id="bg-color" name="bg-color" value="#ff4531"><br>
-
-            <label for="text-color">Text Color:</label><br>
-            <input type="color" id="text-color" name="text-color" value="#a6c724"><br>
-
-            <button onclick="applyCustomColors()">Apply Custom Colors</button>
-            <button onclick="saveCustomPreset()">Save Custom Preset</button>
-        </div>
-    </div>
-    
-    <br>
-
-    <h2>sdfsdf</h2>
+        
+    <h2>1</h2>
     <p>This is filler text</p>
     <br>
     
-    <h2>sdfsdf</h2>
+    <h2>2</h2>
     <p>This is filler text</p>
     <br>
     
-    <h2>sdfsdf</h2>
+    <h2>3</h2>
     <p>This is filler text</p>
     <br>
     
-    <h2>sdfsdf</h2>
+    <h2>4</h2>
     <p>This is filler text</p>
     <br>
     
-    <h2>sdfsdf</h2>
+    <h2>5</h2>
     <p>This is filler text</p>
     <br>
     
-    <h2>sdfsdf</h2>
+    <h2>6</h2>
+    <p>This is filler text</p>
+    <br>
+    
+    <h2>7</h2>
+    <p>This is filler text</p>
+    <br>
+    
+    <h2>8</h2>
+    <p>This is filler text</p>
+    <br>
+    
+    <h2>9</h2>
+    <p>This is filler text</p>
+    <br>
+    
+    <h2>10</h2>
     <p>This is filler text</p>
     <br>
     
