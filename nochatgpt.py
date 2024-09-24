@@ -93,6 +93,8 @@ html = f"""
         .menu-options h3 {{
             margin: 0;
             margin-bottom: 10px;
+            background-color: #fff;
+            color: #000;
         }}
         .menu-options button {{
             display: block;
@@ -104,20 +106,41 @@ html = f"""
             border: none;
             border-radius: 3px;
         }}
-        #custom-colors {{
-            display: none;
-            margin-top: 10px;
-        }}
-        #custom-colors input[type='color'] {{ // This allows for a custom colour to be selected
-            margin-bottom: 10px;
-        }}
     </style>
+        """
+
+if option in presets:
+    if option == "Test1":
+        html += """
+        <nav>
+        """
+        
+        for section_name in section_names:
+            html += """
+                <li>
+                    <a href="#{section_name}">{section_name}</a>
+                </li>
+            """
+
+        html += """
+        </nav>
+        """
+
+        html += """
+        <style>
+            .nav {{
+            
+            }}
+        </style>
+            """
+
+        html += """
     <script>
-        const presets = {presets};
+        const presets = {presets}; 
 
         function toggleMenu() {{
             const menu = document.querySelector('.menu-options');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // This is apparently something important
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
         }}
 
         function applyPreset(color, textColor) {{
@@ -125,49 +148,16 @@ html = f"""
             document.body.style.color = textColor;
         }}
 
-        function showCustomColors() {{
-            const customColorsDiv = document.getElementById('custom-colors');
-            customColorsDiv.style.display = 'block';
-        }}
-
-        function applyCustomColors() {{
-            const bgColor = document.getElementById('bg-color').value;
-            const textColor = document.getElementById('text-color').value;
-            applyPreset(bgColor, textColor);
-        }}
-
-        function saveCustomPreset() {{
-            const presetName = prompt('Enter a name for your custom preset:');
-            if (presetName) {{
-                const bgColor = document.getElementById('bg-color').value;
-                const textColor = document.getElementById('text-color').value;
-                presets[presetName] = {{
-                    site_col: bgColor,
-                    text_col: textColor
-                }};
-                addPresetButton(presetName);  // Add button to preset menu for custom selection
-            }}
-        }}
-
-        function addPresetButton(presetName) {{
-            const menuOptions = document.querySelector('.menu-options');
-            const btn = document.createElement('button');
-            btn.textContent = presetName;
-            btn.onclick = function() {{
-                applyPreset(presets[presetName].site_col, presets[presetName].text_col);
-            }};
-            menuOptions.appendChild(btn);
-        }}
-
         window.onload = function() {{
             const menuOptions = document.querySelector('.menu-options');
             for (let preset in presets) {{
-                addPresetButton(preset);
+                const btn = document.createElement('button');
+                btn.textContent = preset;
+                btn.onclick = function() {{
+                    applyPreset(presets[preset].site_col, presets[preset].text_col);
+                }};
+                menuOptions.appendChild(btn);
             }}
-            const customBtn = document.createElement('button');
-            customBtn.textContent = 'Custom';
-            customBtn.onclick = showCustomColors;
-            menuOptions.appendChild(customBtn);
         }};
     </script>
 </head>
@@ -175,17 +165,8 @@ html = f"""
     <h1>{site_name}</h1>
     <div class="menu" onclick="toggleMenu()">Menu</div>
     <div class="menu-options">
-        <h3>Choose a Preset</h3>    
-        <div id="custom-colors">
-            <label for="bg-color">Background Color:</label><br>
-            <input type="color" id="bg-color" name="bg-color" value="{site_col}"><br>
-            <label for="text-color">Text Color:</label><br>
-            <input type="color" id="text-color" name="text-color" value="{text_col}"><br>
-            <button onclick="applyCustomColors()">Apply Custom Colors</button>
-            <button onclick="saveCustomPreset()">Save Custom Preset</button>
-        </div>
+        <h3>Choose a Preset</h3>
     </div>
-    
     <br>
 """
 
