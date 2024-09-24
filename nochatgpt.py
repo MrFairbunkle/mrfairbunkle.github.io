@@ -110,32 +110,32 @@ html = f"""
     </style>
         """
 
-if option in presets:
-    if option == "Test1":
-        html += """
-        <nav>
-        """
+# if option in presets:
+#     if option == "Test1":
+#         html += """
+#         <nav>
+#         """
         
-        for section_name in section_names:
-            html += """
-                <li>
-                    <a href="#{section_name}">{section_name}</a>
-                </li>
-            """
+#         for section_name in section_names:
+#             html += """
+#                 <li>
+#                     <a href="#{section_name}">{section_name}</a>
+#                 </li>
+#             """
 
-        html += """
-        </nav>
-        """
+#         html += """
+#         </nav>
+#         """
 
-        html += """
-        <style>
-            .nav {{
+#         html += """
+#         <style>
+#             .nav {{
             
-            }}
-        </style>
-            """
+#             }}
+#         </style>
+#             """
 
-        html += """
+html += """
     <script>
         const presets = {presets}; 
 
