@@ -18,9 +18,9 @@ presets = {
         "site_col": "#"+site_col_choice,
         "text_col": "#"+text_col_choice
     },
-    "Test1": {
-        "site_col": "#ff0000",
-        "text_col": "#0000ff"
+    "Blueish": {
+        "site_col": "#073a69",
+        "text_col": "#b4b6b8"
     },
     "Test2": {
         "site_col": "#333",
@@ -194,7 +194,7 @@ html = f"""
 
 
 if option in presets:
-    if option == "Test1":
+    if option == "Blueish":
         html += """
         <nav>
         """
