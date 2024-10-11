@@ -22,9 +22,9 @@ presets = {
         "site_col": "#073a69",
         "text_col": "#b4b6b8"
     },
-    "Test2": {
-        "site_col": "#333",
-        "text_col": "#fff"
+    "Professional": {
+        "site_col": "#F9F6EF",
+        "text_col": "#282828"
     },
     "Test3": {
         "site_col": "#fff",
@@ -194,42 +194,68 @@ html = f"""
 
 
 if option in presets:
+    html += """
+    <div class="nav">
+    """
+    
+    for section_name in section_names:
+        html += f"""
+            <a href="#{section_name}">{section_name}</a>
+        """
+
+    html += """
+    </div>
+    """
+
     if option == "Blueish":
         html += """
-        <nav>
-        """
+            <style>
+                .nav {
+                    position: sticky;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    background-color: #333;
+                    padding: 10px 0;
+                    z-index: 1000;
+                    text-align: center;
+                }
+                nav li {
+                    display: inline;
+                    margin: 0 10px;  
+                }
+            </style>
+            """
         
-        for section_name in section_names:
-            html += f"""
-                <li>
-                    <a href="#{section_name}">{section_name}</a>
-                </li>
-            """
-
+    elif option == "Professional":
         html += """
-        </nav>
-        """
-
-        html += """
-        <style>
-            .nav {
-                position: sticky;
-                top: 0;
-                left: 0;
-                width: 100%;
-                background-color: #333;
-                padding: 10px 0;
-                z-index: 1000;
-                text-align: center;
-            }
-            nav li {
-                display: inline;
-                margin: 0 10px;  
-            }
-        </style>
+            <style>
+                body {
+                    padding-left: 170px
+                }
+                .nav {
+                    height: 100%;
+                    width: 160px;
+                    position: fixed;
+                    z-index: 1000;
+                    top: 0;
+                    left: 0;
+                    background-color: #193497;
+                    overflow-x: hidden;
+                    padding-top: 20px;
+                }
+                .nav a {
+                    padding: 6px 8px 6px 16px;
+                    text-decoration: none;
+                    font-size: 25px;
+                    color: #818181;
+                    display: block;
+                }
+                .nav a:hover {
+                    color: #EDA398;
+                }
+            </style>
             """
-
-
 
 for section_name in section_names:
     html += f"""
