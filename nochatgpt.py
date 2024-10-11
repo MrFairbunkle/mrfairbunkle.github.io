@@ -40,7 +40,7 @@ option = ""
 while True:
     preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").title()
     if preset == "Y":
-        option = input(f"Choose a preset ({preset_options}): ").title()
+        option = input(f"Choose a preset ({preset_options[7:]}): ").title() # Scuffed job at getting rid of "Reset" option
         
         if option in presets:
             site_col = presets[option]["site_col"]
