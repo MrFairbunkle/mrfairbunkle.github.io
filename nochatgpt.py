@@ -1,72 +1,32 @@
-import random, os
+import os
 
-# Variables
+# File paths
 html_file_path = "site.html"
-css_file_path = "style.css"
 
-# Inputs from user
+# User input for site customization
 site_name = input("What is your site called? ")
-site_sections = input("What sections would you like? Please separate with commas and spaces. ")
-site_col_choice = input("What would you like the main color to be? Please use hex. #")
-text_col_choice = input("What would you like the text color to be? Please use hex. #")
-site_col = site_col_choice
-text_col = text_col_choice
+sections = input("What sections would you like (comma separated)? ")
+main_color = input("Enter main background color (hex, without #): ")
+text_color = input("Enter main text color (hex, without #): ")
 
-# Preset options
-presets = {
-    "Reset": {
-        "site_col": "#"+site_col_choice,
-        "text_col": "#"+text_col_choice
-    },
-    "Blueish": {
-        "site_col": "#073a69",
-        "text_col": "#b4b6b8"
-    },
-    "Professional": {
-        "site_col": "#F9F6EF",
-        "text_col": "#282828"
-    },
-    "Test3": {
-        "site_col": "#fff",
-        "text_col": "#333"
-    }
-}
+# Add "#" prefix automatically
+main_color = f"#{main_color}"
+text_color = f"#{text_color}"
 
-# Converts preset options to strings so that the thing below works 
-preset_options = ", ".join(presets.keys()) # This  was chatgpt
+# Creating HTML structure dynamically
+sections = sections.split(", ")
 
-option = ""
-
-while True:
-    preset = input("Would you like to use a preset? (Overwrites your color choices) Y/N ").title()
-    if preset == "Y":
-        option = input(f"Choose a preset ({preset_options[7:]}): ").title() # Scuffed job at getting rid of "Reset" option
-        
-        if option in presets:
-            site_col = presets[option]["site_col"]
-            text_col = presets[option]["text_col"]
-            break
-        else:
-            print("Invalid preset option.")
-    elif preset == "N":
-        break
-
-# Makes correct number of sections
-section_names = site_sections.split(", ")
-
-# Basic skeleton
-html = f"""
+html_content = f"""
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
     <title>{site_name}</title>
     <style>
-        body {{ // Honestly no idea why I need 2 but someone online used 2 so I am
-            background-color: {site_col};
-            color: {text_col};
+        body {{
+            background-color: {main_color};
+            color: {text_color};
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -86,192 +46,103 @@ html = f"""
             position: fixed;
             top: 60px;
             right: 20px;
-            background-color: #fff;
-            color: #000;
-            border: 1px solid #ccc;
+            background-color: white;
+            border: 1px solid black;
             padding: 10px;
             width: 200px;
         }}
         .menu-options h3 {{
-            margin: 0;
-            margin-bottom: 10px;
+            margin-top: 0;
         }}
         .menu-options button {{
-            display: block;
             width: 100%;
             margin-bottom: 10px;
-            padding: 5px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 3px;
         }}
-        #custom-colors {{
-            display: none;
-            margin-top: 10px;
+        section {{
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid black;
         }}
-        #custom-colors input[type='color'] {{ // This allows for a custom colour to be selected
-            margin-bottom: 10px;
+        .editable {{
+            cursor: pointer;
+            border: 1px dashed gray;
+        }}
+        img {{
+            max-width: 100%;
         }}
     </style>
     <script>
-        const presets = {presets};
-
         function toggleMenu() {{
             const menu = document.querySelector('.menu-options');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // This is apparently something important
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
+        }}
+
+        function applyStyle(element, property, value) {{
+            document.querySelector(element).style[property] = value;
+        }}
+
+        function moveElement(id) {{
+            const element = document.getElementById(id);
+            element.style.position = 'relative';
+            const newTop = prompt('Enter the top position (e.g., 50px):');
+            const newLeft = prompt('Enter the left position (e.g., 50px):');
+            element.style.top = newTop;
+            element.style.left = newLeft;
         }}
 
         function applyPreset(color, textColor) {{
             document.body.style.backgroundColor = color;
             document.body.style.color = textColor;
         }}
-
-        function showCustomColors() {{
-            const customColorsDiv = document.getElementById('custom-colors');
-            customColorsDiv.style.display = 'block';
-        }}
-
-        function applyCustomColors() {{
-            const bgColor = document.getElementById('bg-color').value;
-            const textColor = document.getElementById('text-color').value;
-            applyPreset(bgColor, textColor);
-        }}
-
-        function saveCustomPreset() {{
-            const presetName = prompt('Enter a name for your custom preset:');
-            if (presetName) {{
-                const bgColor = document.getElementById('bg-color').value;
-                const textColor = document.getElementById('text-color').value;
-                presets[presetName] = {{
-                    site_col: bgColor,
-                    text_col: textColor
-                }};
-                addPresetButton(presetName); // Add button to preset menu for custom selection
-            }}
-        }}
-
-        function addPresetButton(presetName) {{
-            const menuOptions = document.querySelector('.menu-options');
-            const btn = document.createElement('button');
-            btn.textContent = presetName;
-            btn.onclick = function() {{
-                applyPreset(presets[presetName].site_col, presets[presetName].text_col);
-            }};
-            menuOptions.appendChild(btn);
-        }}
-
-        window.onload = function() {{
-            const menuOptions = document.querySelector('.menu-options');
-            for (let preset in presets) {{
-                addPresetButton(preset);
-            }}
-            const customBtn = document.createElement('button');
-            customBtn.textContent = 'Custom';
-            customBtn.onclick = showCustomColors;
-            menuOptions.appendChild(customBtn);
-        }};
     </script>
 </head>
 <body>
     <h1>{site_name}</h1>
     <div class="menu" onclick="toggleMenu()">Menu</div>
     <div class="menu-options">
-        <h3>Choose a Preset</h3>    
-        <div id="custom-colors">
-            <label for="bg-color">Background Color:</label><br>
-            <input type="color" id="bg-color" name="bg-color" value="{site_col}"><br>
-            <label for="text-color">Text Color:</label><br>
-            <input type="color" id="text-color" name="text-color" value="{text_col}"><br>
-            <button onclick="applyCustomColors()">Apply Custom Colors</button>
-            <button onclick="saveCustomPreset()">Save Custom Preset</button>
-        </div>
+        <h3>Edit Elements</h3>
+        <button onclick="applyStyle('body', 'backgroundColor', prompt('Enter background color (hex, without #):'))">Change Background</button>
+        <button onclick="applyStyle('body', 'color', prompt('Enter text color (hex, without #):'))">Change Text Color</button>
+        <button onclick="moveElement('{sections[0]}')">Move Section</button>
+        <h3>Insert Image</h3>
+        <input type="file" id="image-upload" accept="image/*" onchange="addImageToSection('{sections[0]}', event)">
     </div>
-    
-    <br>
+
+    <div class="content">
 """
 
-
-
-if option in presets:
-    html += """
-    <div class="nav">
+# Dynamically generate sections
+for section in sections:
+    html_content += f"""
+    <section id="{section}" class="editable">
+        <h2>{section}</h2>
+        <p>This is the {section} section. Click to edit!</p>
+    </section>
     """
-    
-    for section_name in section_names:
-        html += f"""
-            <a href="#{section_name}">{section_name}</a>
-        """
 
-    html += """
+html_content += """
     </div>
-    """
 
-    if option == "Blueish":
-        html += """
-            <style>
-                .nav {
-                    position: sticky;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    background-color: #333;
-                    padding: 10px 0;
-                    z-index: 1;
-                    text-align: center;
-                }
-                nav li {
-                    display: inline;
-                    margin: 0 10px;  
-                }
-            </style>
-            """
-        
-    elif option == "Professional":
-        html += """
-            <style>
-                body {
-                    padding-left: 170px
-                }
-                .nav {
-                    height: 100%;
-                    width: 160px;
-                    position: fixed;
-                    z-index: 1;
-                    top: 0;
-                    left: 0;
-                    background-color: #193497;
-                    overflow-x: hidden;
-                    padding-top: 20px;
-                }
-                .nav a {
-                    padding: 6px 8px 6px 16px;
-                    text-decoration: none;
-                    font-size: 25px;
-                    color: #818181;
-                    display: block;
-                }
-                .nav a:hover {
-                    color: #EDA398;
-                }
-            </style>
-            """
+    <script>
+        function addImageToSection(sectionId, event) {{
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {{
+                const section = document.getElementById(sectionId);
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                section.appendChild(img);
+            }};
+            reader.readAsDataURL(file);
+        }}
+    </script>
 
-for section_name in section_names:
-    html += f"""
-    <h2>{section_name}</h2>
-    <p>This is filler text</p>
-    <br>
-    """
-
-html += """
 </body>
 </html>
 """
 
-try:
-    with open(html_file_path, 'w') as file:
-        file.write(html)
-    print(f"The content has been saved to {html_file_path}")
-except Exception as e:
-    print(f"An error occurred while writing to the file: {str(e)}")
+# Write the content to an HTML file
+with open(html_file_path, 'w') as f:
+    f.write(html_content)
+
+print(f"Website saved as {html_file_path}.")
