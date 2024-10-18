@@ -217,7 +217,7 @@ if option in presets:
                     width: 100%;
                     background-color: #333;
                     padding: 10px 0;
-                    z-index: 1000;
+                    z-index: 1;
                     text-align: center;
                 }
                 nav li {
@@ -237,7 +237,7 @@ if option in presets:
                     height: 100%;
                     width: 160px;
                     position: fixed;
-                    z-index: 1000;
+                    z-index: 1;
                     top: 0;
                     left: 0;
                     background-color: #193497;
