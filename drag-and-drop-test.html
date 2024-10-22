@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drag & Drop Test</title>
+        <link rel="stylesheet" href="drag-and-drop-test.css"> 
+    </head>
+    <body>
+        <div class="container">
+            <div id="left">
+                <div class="list" draggable="true">Drag me!!</div>
+                <div class="list" draggable="true">Drag me!!</div>
+                <div class="list" draggable="true">Drag me!!</div>
+                <div class="list" draggable="true">Drag me!!</div>
+            </div>
+            <div id="right">
+            </div>
+        </div>
+    <script>
+        let lists = document.getElementsByClassName("list");
+        let leftBox = document.getElementById("left");
+        let rightBox = document.getElementById("right");
+
+        for (let list of lists) {
+            list.addEventListener("dragstart", function(e){
+                let selected = e.target;
+
+                leftBox.addEventListener("dragover", function(e){
+                    e.preventDefault();
+                });
+
+                leftBox.addEventListener("drop", function(e){
+                    leftBox.appendChild(selected);
+                    selected = null;
+                });
+
+                rightBox.addEventListener("dragover", function(e){
+                    e.preventDefault();
+                });
+
+                rightBox.addEventListener("drop", function(e){
+                    rightBox.appendChild(selected);
+                    selected = null;
+                });
+            });
+        }
+    </script>
+    </body>
+</html>
