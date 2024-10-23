@@ -40,7 +40,7 @@ html_content += """
             </div>
         </div>
     <script>
-        let editMode = false;  // Track whether we are in edit mode
+        let editMode = false;
         const editButton = document.getElementById('edit-btn');
         const leftBox = document.getElementById('left');
         const rightBox = document.getElementById('right');
