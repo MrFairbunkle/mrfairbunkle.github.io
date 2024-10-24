@@ -1,137 +1,139 @@
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>what</title>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drag & Drop Test</title>
+        <link rel="stylesheet" href="drag-and-drop-test.css"> 
+    </head>
+    <body>
+    <button id="edit-btn">Enable Edit Mode</button>
+        <div class="container">
+            <div id="left">
+            
+    <div class="list" draggable="false">ward</div>
+    
+    <div class="list" draggable="false">ward</div>
+    
+    <div class="list" draggable="false">ward</div>
+    
+    <div class="list" draggable="false">ward</div>
+    
+            </div>
+            <div id="right">
+            </div>
+        </div>
+    <script>
+        let editMode = false;
+        const editButton = document.getElementById('edit-btn');
+        const leftBox = document.getElementById('left');
+        const rightBox = document.getElementById('right');
+        const lists = document.getElementsByClassName('list');
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            if (editMode) {
+                editButton.textContent = 'Disable Edit Mode';
+                leftBox.style.border = '2px dashed #ffffff';
+                rightBox.style.border = '2px dashed #ffffff';
+
+                for (let list of lists) {
+                    list.setAttribute('draggable', 'true');
+                }
+            } else {
+                editButton.textContent = 'Enable Edit Mode';
+                leftBox.style.border = 'none';
+                rightBox.style.border = 'none';
+
+                for (let list of lists) {
+                    list.setAttribute('draggable', 'false');
+                }
+            }
+        }
+
+        editButton.addEventListener('click', toggleEditMode);
+
+        for (let list of lists) {
+            list.addEventListener('dragstart', function(e) {
+                if (editMode) {
+                    let selected = e.target;
+
+                    leftBox.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                    });
+
+                    leftBox.addEventListener('drop', function(e) {
+                        if (editMode) {
+                            leftBox.appendChild(selected);
+                            selected = null;
+                        }
+                    });
+
+                    rightBox.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                    });
+
+                    rightBox.addEventListener('drop', function(e) {
+                        if (editMode) {
+                            rightBox.appendChild(selected);
+                            selected = null;
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+    
     <style>
-        body {
-            background-color: #123456;
-            color: #654321;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .menu {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #000;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .menu-options {
-            display: none;
-            position: fixed;
-            top: 60px;
-            right: 20px;
-            background-color: white;
-            border: 1px solid black;
-            padding: 10px;
-            width: 200px;
-        }
-        .menu-options h3 {
-            margin-top: 0;
-        }
-        .menu-options button {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        section {
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px solid black;
-        }
-        .editable {
-            cursor: pointer;
-            border: 1px dashed gray;
-        }
-        img {
-            max-width: 100%;
-        }
+    * {
+    margin: 0;
+    padding: 0;
+    font-family:'Courier New', Courier, monospace;
+    box-sizing: border-box;
+    background: #123456;
+    color: #654321;
+    }
+
+    .container {
+        width: 100%;
+        min-height: 100vh;
+        background: #0b0423;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    #left, #right {
+        width: 300px;
+        min-height: 400px;
+        margin: 2px;
+        border: none;
+        transition: border 0.3s ease;
+    }
+
+    .list {
+        background: #e91e63;
+        height: 60px;
+        margin: 30px;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        cursor: grab;
+    }
+
+    #edit-btn {
+        background: #00bcd4;
+        color: ffffff;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #edit-btn:hover {
+        background: #0097a7;
+    }
     </style>
-    <script>
-        function toggleMenu() {
-            const menu = document.querySelector('.menu-options');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
-        }
-
-        function applyStyle(element, property, value) {
-            document.querySelector(element).style[property] = value;
-        }
-
-        function moveElement(id) {
-            const element = document.getElementById(id);
-            element.style.position = 'relative';
-            const newTop = prompt('Enter the top position (e.g., 50px):');
-            const newLeft = prompt('Enter the left position (e.g., 50px):');
-            element.style.top = newTop;
-            element.style.left = newLeft;
-        }
-
-        function applyPreset(color, textColor) {
-            document.body.style.backgroundColor = color;
-            document.body.style.color = textColor;
-        }
-    </script>
-</head>
-<body>
-    <h1>what</h1>
-    <div class="menu" onclick="toggleMenu()">Menu</div>
-    <div class="menu-options">
-        <h3>Edit Elements</h3>
-        <button onclick="applyStyle('body', 'backgroundColor', prompt('Enter background color (hex, without #):'))">Change Background</button>
-        <button onclick="applyStyle('body', 'color', prompt('Enter text color (hex, without #):'))">Change Text Color</button>
-        <button onclick="moveElement('its all a lie')">Move Section</button>
-        <h3>Insert Image</h3>
-        <input type="file" id="image-upload" accept="image/*" onchange="addImageToSection('its all a lie', event)">
-    </div>
-
-    <div class="content">
-
-    <section id="its all a lie" class="editable">
-        <h2>its all a lie</h2>
-        <p>This is the its all a lie section. Click to edit!</p>
-    </section>
-    
-    <section id="wake up" class="editable">
-        <h2>wake up</h2>
-        <p>This is the wake up section. Click to edit!</p>
-    </section>
-    
-    <section id="wake up" class="editable">
-        <h2>wake up</h2>
-        <p>This is the wake up section. Click to edit!</p>
-    </section>
-    
-    <section id="WAKE UP" class="editable">
-        <h2>WAKE UP</h2>
-        <p>This is the WAKE UP section. Click to edit!</p>
-    </section>
-    
-    <section id="WAKE UP" class="editable">
-        <h2>WAKE UP</h2>
-        <p>This is the WAKE UP section. Click to edit!</p>
-    </section>
-    
-    </div>
-
-    <script>
-        function addImageToSection(sectionId, event) {{
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {{
-                const section = document.getElementById(sectionId);
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                section.appendChild(img);
-            }};
-            reader.readAsDataURL(file);
-        }}
-    </script>
-
-</body>
+    </body>
 </html>
