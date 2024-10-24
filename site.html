@@ -4,18 +4,17 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Drag & Drop Test</title>
-        <link rel="stylesheet" href="drag-and-drop-test.css"> 
     </head>
     <body>
-    <h1>dsbgkjixcdsnkldsfbkjf</h1>
+    <h1>test4</h1>
     <div class="menu" onclick="toggleMenu()">Menu</div>
     <div class="menu-options">
         <h3>Choose a Preset</h3>    
         <div id="custom-colors">
             <label for="bg-color">Background Color:</label><br>
-            <input type="color" id="bg-color" name="bg-color" value="#ffffff"><br>
+            <input type="color" id="bg-color" name="bg-color" value="#123456"><br>
             <label for="text-color">Text Color:</label><br>
-            <input type="color" id="text-color" name="text-color" value="#000000"><br>
+            <input type="color" id="text-color" name="text-color" value="#654321"><br>
             <button onclick="applyCustomColors()">Apply Custom Colors</button>
             <button onclick="saveCustomPreset()">Save Custom Preset</button>
         </div>
@@ -24,13 +23,17 @@
         <div class="container">
             <div id="left">
             
-    <div class="list" draggable="false">12</div>
+    <div class="list" draggable="false">1</div>
     
-    <div class="list" draggable="false">12</div>
+    <div class="list" draggable="false">2</div>
     
-    <div class="list" draggable="false">12</div>
+    <div class="list" draggable="false">3</div>
     
-    <div class="list" draggable="false">12</div>
+    <div class="list" draggable="false">4</div>
+    
+    <div class="list" draggable="false">5</div>
+    
+    <div class="list" draggable="false">6</div>
     
             </div>
             <div id="right">
@@ -100,7 +103,7 @@
 
         function toggleMenu() {
             const menu = document.querySelector('.menu-options');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // This is apparently something important
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // ChatGPT Magic
         }
 
         function applyPreset(color, textColor) {
@@ -128,7 +131,7 @@
                     site_col: bgColor,
                     text_col: textColor
                 };
-                addPresetButton(presetName); // Add button to preset menu for custom selection
+                addPresetButton(presetName);
             }
         }
 
