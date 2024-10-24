@@ -46,7 +46,6 @@ html_content = f"""
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Drag & Drop Test</title>
-        <link rel="stylesheet" href="drag-and-drop-test.css"> 
     </head>
     <body>
     <h1>{site_name}</h1>
@@ -141,7 +140,7 @@ html_content += f"""
 
         function toggleMenu() {{
             const menu = document.querySelector('.menu-options');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // This is apparently something important
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // ChatGPT Magic
         }}
 
         function applyPreset(color, textColor) {{
@@ -169,7 +168,7 @@ html_content += f"""
                     site_col: bgColor,
                     text_col: textColor
                 }};
-                addPresetButton(presetName); // Add button to preset menu for custom selection
+                addPresetButton(presetName);
             }}
         }}
 
