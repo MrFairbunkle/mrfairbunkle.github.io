@@ -64,7 +64,7 @@ html = f"""
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>{site_name}</title>
     <style>
-        body {{ // Honestly no idea why I need 2 but someone online used 2 so I am
+        body {{
             background-color: {site_col};
             color: {text_col};
             font-family: Arial, sans-serif;
@@ -158,7 +158,7 @@ html = f"""
             btn.onclick = function() {{
                 applyPreset(presets[presetName].site_col, presets[presetName].text_col);
             }};
-            menuOptions.appendChild(btn);
+            menuOptions.appendChild();
         }}
 
         window.onload = function() {{
