@@ -1,4 +1,4 @@
-import os
+import os, openai
 
 # File paths
 html_file_path = "site.html"
@@ -133,6 +133,30 @@ html_content += """
                 }
             });
         }
+
+        // Function to generate text content for a section
+        async function generateText(sectionName) {
+            const response = await fetch("https://api.openai.com/v1/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer OPEN_AI_KEY"
+                },
+                body: "text-davinci-003",
+                    prompt: Write a brief description for the section: {{sectionName}},
+                    max_tokens: 100
+                })
+            });
+            const data = await response.json();
+            const generatedText = data.choices[0].text.trim();
+
+            // Find the section element and populate it with generated text
+            const sectionElement = Array.from(lists).find(list => list.textContent === sectionName);
+            if (sectionElement) {
+                sectionElement.textContent = generatedText;
+            }
+        }
+
         """
 
 html_content += f"""
