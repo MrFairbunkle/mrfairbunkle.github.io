@@ -65,6 +65,7 @@ html_content = f"""
         <div class="container">
             <div id="left">
             """
+# Makes sections for website
 for section in sections:
     html_content += f"""
     <div class="list" draggable="false">{section}</div>
@@ -81,6 +82,7 @@ html_content += """
         const rightBox = document.getElementById('right');
         const lists = document.getElementsByClassName('list');
 
+        // Adds edit mode thing
         function toggleEditMode() {
             editMode = !editMode;
             if (editMode) {
@@ -134,13 +136,13 @@ html_content += """
             });
         }
 
-        // Function to generate text content for a section
+        // Generates the text from openai
         async function generateText(sectionName) {
             const response = await fetch("https://api.openai.com/v1/completions", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer OPEN_AI_KEY"
+                    "Authorization": "Bearer OPEN_AI_KEY" // Embed in a file??
                 },
                 body: "text-davinci-003",
                     prompt: Write a brief description for the section: {{sectionName}},
@@ -150,7 +152,7 @@ html_content += """
             const data = await response.json();
             const generatedText = data.choices[0].text.trim();
 
-            // Find the section element and populate it with generated text
+            // Find the section to put the text in
             const sectionElement = Array.from(lists).find(list => list.textContent === sectionName);
             if (sectionElement) {
                 sectionElement.textContent = generatedText;
@@ -162,6 +164,7 @@ html_content += """
 html_content += f"""
         const presets = {presets}; 
 
+        // Presest menu thing
         function toggleMenu() {{
             const menu = document.querySelector('.menu-options');
             menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none'; // ChatGPT Magic
