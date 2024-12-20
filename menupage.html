@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .header {
+            background-color: #2b579a;
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar {
+            margin-left: 20px;
+            padding: 6px 12px;
+            border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            width: 200px;
+        }
+
+        .content {
+            display: flex;
+            height: calc(100vh - 48px);
+        }
+
+        .left-panel {
+            width: 200px;
+            background-color: #f3f3f3;
+            padding: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #2b579a;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .template-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .template-item:hover {
+            border-color: #2b579a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .template-preview {
+            height: 140px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .template-name {
+            padding: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .recent-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recent-item {
+            padding: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+
+        .recent-item:hover {
+            background-color: #e6e6e6;
+        }
+
+        .icon {
+            margin-right: 8px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span>Unsiteled</span>
+        <input type="text" placeholder="Search for templates" class="search-bar">
+    </div>
+
+    <div class="content">
+        <div class="left-panel">
+            <div class="section-title">Recent</div>
+            <ul class="recent-list">
+                <li class="recent-item">
+                    <span class="icon">📄</span>
+                    <span>Project_001</span>
+                </li>
+                <li class="recent-item">
+                    <span class="icon">📄</span>
+                    <span>Project_002</span>
+                </li>
+                <li class="recent-item">
+                    <span class="icon">📄</span>
+                    <span>Project_003</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="section-title">New</div>
+            <div class="template-grid">
+                <div class="template-item">
+                    <div class="template-preview">
+                        <span style="font-size: 40px">📄</span>
+                    </div>
+                    <div class="template-name">Blank document</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-preview">
+                        <span style="font-size: 40px">📝</span>
+                    </div>
+                    <div class="template-name">Business Letter</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-preview">
+                        <span style="font-size: 40px">📋</span>
+                    </div>
+                    <div class="template-name">CV</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-preview">
+                        <span style="font-size: 40px">📊</span>
+                    </div>
+                    <div class="template-name">Report</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-preview">
+                        <span style="font-size: 40px">📅</span>
+                    </div>
+                    <div class="template-name">Calendar</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-preview">
+                        <span style="font-size: 40px">📌</span>
+                    </div>
+                    <div class="template-name">Meeting Agenda</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
