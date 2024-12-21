@@ -1,62 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <!-- Font for loading screen -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="menupage.css">
+
+    <style>
+        /* Loading screen styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #loading-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .typewriter p {
+            font-size: 1.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 1px solid;
+            width: 0;
+            animation: typing 2s steps(9) forwards, blink 1s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Hide main website */
+        #main-website {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <span>Unsiteled</span>
-        <input type="text" placeholder="Search for templates" class="search-bar">
+    <!-- Loading screen HTML -->
+    <div id="loading-screen">
+        <div class="typewriter">
+            <p>Unsiteled</p> <!-- The word to be typed -->
+        </div>
     </div>
 
-    <div class="content">
-        <div class="left-panel">
-            <div class="section-title">Saved Projects</div>
-            <ul class="saved-list">
-                <li class="saved-item">
-                    <span class="icon">📄</span>
-                    <span>Project_001</span>
-                </li>
-                <li class="saved-item">
-                    <span class="icon">📄</span>
-                    <span>Project_002</span>
-                </li>
-                <li class="saved-item">
-                    <span class="icon">📄</span>
-                    <span>Project_003</span>
-                </li>
-            </ul>
+    <!-- Main website HTML -->
+    <div id="main-website">
+        <div class="header">
+            <span>Unsiteled</span>
+            <input type="text" placeholder="Search for templates" class="search-bar">
         </div>
 
-        <div class="main-content">
-            <div class="section-title">New</div>
-            <div class="template-grid">
-                <a href="blanksite.html" class="template-item">
-                    <div class="template-preview">
-                        <span style="font-size: 40px">📄</span>
-                    </div>
-                    <div class="template-name">Blank site</div>
-                </a>
-                <a href="template1.html" class="template-item">
-                    <div class="template-preview">
-                        <span style="font-size: 40px">🔨</span>
-                    </div>
-                    <div class="template-name">Template 1</div>
-                </a>
-                <a href="template2.html" class="template-item">
-                    <div class="template-preview">
-                        <span style="font-size: 40px">🔨</span>
-                    </div>
-                    <div class="template-name">Template 2</div>
-                </a>
-                <a href="template3.html" class="template-item">
-                    <div class="template-preview">
-                        <span style="font-size: 40px">🔨</span>
-                    </div>
-                    <div class="template-name">Template 3</div>
-                </a>
+        <div class="content">
+            <div class="left-panel">
+                <div class="section-title">Saved Projects</div>
+                <ul class="saved-list">
+                    <li class="saved-item">
+                        <span class="icon">📄</span>
+                        <span>Project_001</span>
+                    </li>
+                    <li class="saved-item">
+                        <span class="icon">📄</span>
+                        <span>Project_002</span>
+                    </li>
+                    <li class="saved-item">
+                        <span class="icon">📄</span>
+                        <span>Project_003</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div class="section-title">New</div>
+                <div class="template-grid">
+                    <a href="blanksite.html" class="template-item">
+                        <div class="template-preview">
+                            <span style="font-size: 40px">📄</span>
+                        </div>
+                        <div class="template-name">Blank site</div>
+                    </a>
+                    <a href="template1.html" class="template-item">
+                        <div class="template-preview">
+                            <span style="font-size: 40px">🔨</span>
+                        </div>
+                        <div class="template-name">Template 1</div>
+                    </a>
+                    <a href="template2.html" class="template-item">
+                        <div class="template-preview">
+                            <span style="font-size: 40px">🔨</span>
+                        </div>
+                        <div class="template-name">Template 2</div>
+                    </a>
+                    <a href="template3.html" class="template-item">
+                        <div class="template-preview">
+                            <span style="font-size: 40px">🔨</span>
+                        </div>
+                        <div class="template-name">Template 3</div>
+                    </a>
+                </div>
             </div>
         </div>        
     </div>
+
+    <script>
+        // JavaScript for the loading screen
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainWebsite = document.getElementById('main-website');
+
+        const typingDuration = 2 * 1000;
+        const repeatCount = 2;
+
+        const totalLoadingTime = typingDuration * repeatCount;
+
+        setTimeout(() => {
+            loadingScreen.style.display = 'none'; // Hide the loading screen
+            mainWebsite.style.display = 'block'; // Show the main website
+        }, totalLoadingTime);
+    </script>
 </body>
 </html>
