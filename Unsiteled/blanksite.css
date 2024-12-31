@@ -1,45 +1,65 @@
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.container {
-    background-color: #ccc;
-    border-radius: 15px;
-    height: 150px;
-    width: 300px;
-    text-align: center;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    border: 2px solid #000;
+header {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
 }
 
-.buttons {
-    display: flex; 
-    gap: 10px;
+main {
+  display: flex;
+  flex: 1;
 }
 
-.tutorial-accept {
-    background-color: #44AF69;
-    width: 40px;
-    border-radius: 5px;
-    border-color: #44AF69;
+.toolbox {
+  width: 20%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
-.tutorial-accept:hover {
-    border-color: #000;
+.workspace {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  border-left: 1px solid #ddd;
+  position: relative;
 }
 
-.tutorial-decline {
-    background-color: #F8333C;
-    width: 40px;
-    border-radius: 5px;
-    border-color: #F8333C;
-}  
+.draggable {
+  background-color: #e0e0e0;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: grab;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-.tutorial-decline:hover {
-    border-color: #000;
+.draggable:active {
+  cursor: grabbing;
+}
+
+.workspace .element {
+  position: absolute;
+  padding: 5px;
+  border: 1px dashed #bbb;
+  cursor: pointer;
+}
+
+.workspace .element.selected {
+  border-color: #4CAF50;
+}
+
+.workspace .element input {
+  width: 100%;
+  border: none;
+  outline: none;
 }

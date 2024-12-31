@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="blanksite.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop Website Builder</title>
+  <link rel="stylesheet" href="blanksite.css">
 </head>
 <body>
-    <div class="container">
-        <p>Would you like a tutorial?</p>
-        <div class="buttons">
-            <button onclick="tutorialFunction" class="tutorial-accept">Yes</button>
-            <button onclick="closeFunction" class="tutorial-decline">No</button>
-        </div>
-    </div>
-    
+  <main>
+    <aside class="toolbox">
+      <h2>Toolbox</h2>
+      <div class="draggable" draggable="true" data-type="text">Text Box</div>
+      <div class="draggable" draggable="true" data-type="title">Title</div>
+      <div class="draggable" draggable="true" data-type="image">Image</div>
+    </aside>
+    <section id="workspace" class="workspace">
+      <h2>Workspace</h2>
+      <p>Drag and drop elements here</p>
+    </section>
+  </main>
+  <script src="blanksite.js"></script>
 </body>
-</html>
+</html> 
