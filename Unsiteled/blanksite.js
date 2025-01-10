@@ -8,12 +8,10 @@ let snapToGrid = true;
 
 // Variables to track dragging
 let isDragging = false;
-let currentX;
-let currentY;
 let initialX;
 let initialY;
-let xOffset = 0;
-let yOffset = 0;
+let currentX;
+let currentY;
 let activeElement = null;
 
 // Create grid toggle button
@@ -58,6 +56,10 @@ snapToggle.addEventListener('click', () => {
   snapToGrid = !snapToGrid;
   snapToggle.style.backgroundColor = snapToGrid ? '#4CAF50' : '#888';
 });
+
+// Add mousemove listener to workspace
+workspace.addEventListener('mousemove', drag);
+workspace.addEventListener('mouseup', dragEnd);
 
 // Handle drag events for toolbox items
 toolbox.addEventListener('dragstart', (e) => {
@@ -153,50 +155,73 @@ function addElementToWorkspace(type, x, y) {
 
 function setupDraggable(element) {
   element.addEventListener('mousedown', dragStart);
-  element.addEventListener('mousemove', drag);
-  element.addEventListener('mouseup', dragEnd);
-  element.addEventListener('mouseleave', dragEnd);
-
+  
   function dragStart(e) {
     if (e.target.tagName.toLowerCase() === 'input') {
       return;
     }
     
+    e.preventDefault();
     isDragging = true;
     activeElement = element;
     
+    // Get the current transform values or default to 0
+    const style = window.getComputedStyle(element);
+    const matrix = new DOMMatrix(style.transform);
+    currentX = matrix.m41;
+    currentY = matrix.m42;
+    
+    // Calculate cursor offset relative to element
     const rect = element.getBoundingClientRect();
-    initialX = e.clientX - rect.left;
-    initialY = e.clientY - rect.top;
+    initialX = e.clientX - rect.left - currentX;
+    initialY = e.clientY - rect.top - currentY;
     
     element.style.cursor = 'grabbing';
+    
+    // Prevent text selection during drag
+    document.body.style.userSelect = 'none';
   }
+}
 
-  function drag(e) {
-    if (!isDragging || activeElement !== element) return;
-    
-    e.preventDefault();
-    
-    // Calculate new position
-    currentX = e.clientX - workspace.getBoundingClientRect().left - initialX;
-    currentY = e.clientY - workspace.getBoundingClientRect().top - initialY;
-    
-    // Snap to grid if enabled
-    if (snapToGrid) {
-      currentX = snapToGridPos(currentX);
-      currentY = snapToGridPos(currentY);
-    }
-    
-    // Update element position
-    element.style.left = `${currentX}px`;
-    element.style.top = `${currentY}px`;
+function drag(e) {
+  if (!isDragging || !activeElement) return;
+  
+  e.preventDefault();
+  
+  // Calculate new position
+  let newX = e.clientX - workspace.getBoundingClientRect().left - initialX;
+  let newY = e.clientY - workspace.getBoundingClientRect().top - initialY;
+  
+  // Snap to grid if enabled
+  if (snapToGrid) {
+    newX = snapToGridPos(newX);
+    newY = snapToGridPos(newY);
   }
+  
+  // Transform element position
+  activeElement.style.transform = `translate(${newX}px, ${newY}px)`;
+  
+  // Update current position
+  currentX = newX;
+  currentY = newY;
+}
 
-  function dragEnd(e) {
-    if (activeElement !== element) return;
+function dragEnd(e) {
+  if (!isDragging) return;
+  
+  isDragging = false;
+  
+  if (activeElement) {
+    activeElement.style.cursor = 'grab';
     
-    isDragging = false;
+    // Convert transform to left/top for consistent positioning
+    activeElement.style.left = `${currentX}px`;
+    activeElement.style.top = `${currentY}px`;
+    activeElement.style.transform = 'none';
+    
     activeElement = null;
-    element.style.cursor = 'grab';
   }
+  
+  // Re-enable text selection
+  document.body.style.userSelect = '';
 }
