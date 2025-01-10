@@ -63,3 +63,18 @@ main {
   border: none;
   outline: none;
 }
+
+.workspace .element img {
+  margin-top: 10px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.workspace .element input {
+  width: 100%;
+  min-width: 200px;
+  border: none;
+  outline: none;
+  padding: 5px;
+}
