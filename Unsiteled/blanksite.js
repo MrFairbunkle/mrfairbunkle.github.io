@@ -19,7 +19,6 @@ workspace.addEventListener('drop', (e) => {
   const type = e.dataTransfer.getData('type');
   const x = e.clientX - workspace.getBoundingClientRect().left;
   const y = e.clientY - workspace.getBoundingClientRect().top;
-
   if (type) addElementToWorkspace(type, x, y);
 });
 
@@ -38,7 +37,41 @@ function addElementToWorkspace(type, x, y) {
       element.innerHTML = `<input type="text" value="Title" style="font-size: 1.5em; font-weight: bold;" />`;
       break;
     case 'image':
-      element.innerHTML = `<input type="text" placeholder="Image URL" />`;
+      const container = document.createElement('div');
+      const input = document.createElement('input');
+      const img = document.createElement('img');
+      
+      input.type = 'text';
+      input.placeholder = 'Image URL';
+      img.style.display = 'none';
+      img.style.maxWidth = '200px';
+      img.style.maxHeight = '200px';
+      
+      // Handle input changes
+      input.addEventListener('change', () => {
+        const url = input.value.trim();
+        if (url) {
+          img.src = url;
+          img.style.display = 'block';
+          
+          // Handle image load errors
+          img.onerror = () => {
+            img.style.display = 'none';
+            alert('Failed to load image. Please check the URL.');
+          };
+          
+          // Handle successful image load
+          img.onload = () => {
+            img.style.display = 'block';
+          };
+        } else {
+          img.style.display = 'none';
+        }
+      });
+      
+      container.appendChild(input);
+      container.appendChild(img);
+      element.appendChild(container);
       break;
     default:
       return;
@@ -47,6 +80,6 @@ function addElementToWorkspace(type, x, y) {
   element.addEventListener('click', () => {
     element.classList.toggle('selected');
   });
-
+  
   workspace.appendChild(element);
 }
