@@ -31,6 +31,14 @@ main {
   padding: 20px;
   border-left: 1px solid #ddd;
   position: relative;
+  background-image: 
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.workspace.hide-grid {
+  background-image: none;
 }
 
 .draggable {
@@ -51,17 +59,14 @@ main {
   position: absolute;
   padding: 5px;
   border: 1px dashed #bbb;
-  cursor: pointer;
+  cursor: grab;
+  user-select: none;
+  background-color: white;
+  transition: transform 0.05s ease-out;
 }
 
-.workspace .element.selected {
-  border-color: #4CAF50;
-}
-
-.workspace .element input {
-  width: 100%;
-  border: none;
-  outline: none;
+.workspace .element:active {
+  cursor: grabbing;
 }
 
 .workspace .element img {
@@ -69,6 +74,7 @@ main {
   object-fit: contain;
   border: 1px solid #ddd;
   border-radius: 4px;
+  pointer-events: none;
 }
 
 .workspace .element input {
@@ -77,4 +83,10 @@ main {
   border: none;
   outline: none;
   padding: 5px;
+  cursor: text;
+}
+
+.workspace .element.selected {
+  border-color: #4CAF50;
+  border-width: 2px;
 }
