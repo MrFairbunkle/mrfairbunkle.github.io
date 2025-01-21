@@ -106,17 +106,41 @@ function addElementToWorkspace(type, x, y) {
       break;
     case 'image':
       const container = document.createElement('div');
-      const input = document.createElement('input');
-      const img = document.createElement('img');
+      const inputContainer = document.createElement('div');
+      inputContainer.style.display = 'flex';
+      inputContainer.style.gap = '8px';
+      inputContainer.style.marginBottom = '8px';
       
-      input.type = 'text';
-      input.placeholder = 'Image URL';
+      // URL input
+      const urlInput = document.createElement('input');
+      urlInput.type = 'text';
+      urlInput.placeholder = 'Image URL';
+      urlInput.style.flex = '1';
+      
+      // File input
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*'; // Is an image or something
+      fileInput.style.display = 'none';
+      
+      // File upload button
+      const uploadButton = document.createElement('button');
+      uploadButton.textContent = 'Upload';
+      uploadButton.style.padding = '4px 8px';
+      uploadButton.style.backgroundColor = '#4CAF50';
+      uploadButton.style.color = 'white';
+      uploadButton.style.border = 'none';
+      uploadButton.style.borderRadius = '4px';
+      uploadButton.style.cursor = 'pointer';
+      
+      const img = document.createElement('img');
       img.style.display = 'none';
       img.style.maxWidth = '200px';
       img.style.maxHeight = '200px';
       
-      input.addEventListener('change', () => {
-        const url = input.value.trim();
+      // Handle URL input
+      urlInput.addEventListener('change', () => {
+        const url = urlInput.value.trim();
         if (url) {
           img.src = url;
           img.style.display = 'block';
@@ -134,11 +158,37 @@ function addElementToWorkspace(type, x, y) {
         }
       });
       
-      input.addEventListener('mousedown', (e) => {
-        e.stopPropagation();
+      // Handle file upload
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            img.src = e.target.result;
+            img.style.display = 'block';
+            urlInput.value = ''; // Clear URL input when file is uploaded
+          };
+          reader.readAsDataURL(file);
+        }
       });
       
-      container.appendChild(input);
+      // Upload button click handler
+      uploadButton.addEventListener('click', () => {
+        fileInput.click();
+      });
+      
+      // Prevent drag start when interacting with inputs
+      [urlInput, uploadButton].forEach(el => {
+        el.addEventListener('mousedown', (e) => {
+          e.stopPropagation();
+        });
+      });
+      
+      // Assemble the components
+      inputContainer.appendChild(urlInput);
+      inputContainer.appendChild(uploadButton);
+      container.appendChild(inputContainer);
+      container.appendChild(fileInput);
       container.appendChild(img);
       element.appendChild(container);
       break;
