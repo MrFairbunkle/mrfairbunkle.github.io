@@ -14,8 +14,9 @@ let currentX;
 let currentY;
 let activeElement = null;
 
-// Create grid toggle button
-const gridToggle = document.createElement('button');
+// Create buttons
+
+const gridToggle = document.createElement('button'); // Grid toggle button
 gridToggle.textContent = 'Toggle Grid';
 gridToggle.style.position = 'absolute';
 gridToggle.style.width = '120px';
@@ -29,8 +30,7 @@ gridToggle.style.border = 'none';
 gridToggle.style.borderRadius = '4px';
 gridToggle.style.cursor = 'pointer';
 
-// Create snap toggle button
-const snapToggle = document.createElement('button');
+const snapToggle = document.createElement('button'); // Grid snap toggle button
 snapToggle.textContent = 'Toggle Snap';
 snapToggle.style.position = 'absolute';
 snapToggle.style.width = '120px';
@@ -44,8 +44,7 @@ snapToggle.style.border = 'none';
 snapToggle.style.borderRadius = '4px';
 snapToggle.style.cursor = 'pointer';
 
-// Create save button
-const saveButton = document.createElement('button');
+const saveButton = document.createElement('button'); // Save website button
 saveButton.textContent = 'Save Website';
 saveButton.style.position = 'absolute';
 saveButton.style.width = '120px';
@@ -64,7 +63,7 @@ workspace.appendChild(gridToggle);
 workspace.appendChild(snapToggle);
 workspace.appendChild(saveButton);
 
-// Add event listeners for toggles
+// Add event listeners for buttons
 gridToggle.addEventListener('click', () => {
   workspace.classList.toggle('hide-grid');
   gridToggle.style.backgroundColor = workspace.classList.contains('hide-grid') ? '#888' : '#4CAF50';
@@ -73,6 +72,10 @@ gridToggle.addEventListener('click', () => {
 snapToggle.addEventListener('click', () => {
   snapToGrid = !snapToGrid;
   snapToggle.style.backgroundColor = snapToGrid ? '#4CAF50' : '#888';
+});
+
+saveButton.addEventListener('click', () => {
+  saveButton 
 });
 
 // Add mousemove listener to workspace
@@ -122,7 +125,7 @@ function addElementToWorkspace(type, x, y) {
     case 'title':
       element.innerHTML = `<input type="text" value="Title" style="font-size: 1.5em; font-weight: bold;" />`;
       break;
-    case 'image':
+    case 'image': // Add resizing 
       const container = document.createElement('div');
       const inputContainer = document.createElement('div');
       inputContainer.style.display = 'flex';
@@ -293,3 +296,155 @@ function dragEnd(e) {
   // Re-enable text selection
   document.body.style.userSelect = '';
 }
+
+
+
+// Separate code for all the save button stuff
+
+// Save the current website 
+function saveWorkspace() {
+  const elements = workspace.querySelectorAll('.element');
+  const savedElements = [];
+
+  elements.forEach(element => {
+    const elementData = {
+      type: '',
+      left: element.style.left,
+      top: element.style.top,
+      content: ''
+    };
+
+    // Determine element type and save relevant content
+    const input = element.querySelector('input[type="text"]');
+    const img = element.querySelector('img');
+
+    if (input && input.style.fontSize === '1.5em') {
+      elementData.type = 'title';
+      elementData.content = input.value;
+    } else if (input && !img) {
+      elementData.type = 'text';
+      elementData.content = input.value;
+    } else if (img) {
+      elementData.type = 'image';
+      elementData.content = img.src;
+    }
+
+    savedElements.push(elementData);
+  });
+
+  // Create the save data object
+  const saveData = {
+    elements: savedElements,
+    gridSettings: {
+      snapToGrid: snapToGrid,
+      gridVisible: !workspace.classList.contains('hide-grid')
+    }
+  };
+
+  // Convert to JSON string
+  const saveString = JSON.stringify(saveData, null, 2);
+
+  // Create and trigger download
+  const blob = new Blob([saveString], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'website-layout.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Add this function to load a saved layout
+function loadWorkspace(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const saveData = JSON.parse(e.target.result);
+      
+      // Clear existing elements
+      workspace.querySelectorAll('.element').forEach(el => el.remove());
+      
+      // Restore grid settings
+      snapToGrid = saveData.gridSettings.snapToGrid;
+      snapToggle.style.backgroundColor = snapToGrid ? '#4CAF50' : '#888';
+      
+      if (saveData.gridSettings.gridVisible) {
+        workspace.classList.remove('hide-grid');
+        gridToggle.style.backgroundColor = '#4CAF50';
+      } else {
+        workspace.classList.add('hide-grid');
+        gridToggle.style.backgroundColor = '#888';
+      }
+      
+      // Restore elements
+      saveData.elements.forEach(elementData => {
+        addElementToWorkspace(
+          elementData.type,
+          parseInt(elementData.left),
+          parseInt(elementData.top)
+        );
+        
+        // Restore element content
+        const element = workspace.lastElementChild;
+        if (elementData.type === 'image') {
+          const img = element.querySelector('img');
+          const urlInput = element.querySelector('input[type="text"]');
+          if (img && urlInput) {
+            img.src = elementData.content;
+            img.style.display = 'block';
+            urlInput.value = elementData.content;
+          }
+        } else {
+          const input = element.querySelector('input[type="text"]');
+          if (input) {
+            input.value = elementData.content;
+          }
+        }
+      });
+    } catch (error) {
+      alert('Failed to load layout file. Please check the file format.');
+      console.error('Load error:', error);
+    }
+  };
+  reader.readAsText(file);
+}
+
+// Update the save button event listener
+saveButton.addEventListener('click', saveWorkspace);
+
+// Add load button
+const loadButton = document.createElement('button');
+loadButton.textContent = 'Load Website';
+loadButton.style.position = 'absolute';
+loadButton.style.width = '120px';
+loadButton.style.top = '10px';
+loadButton.style.right = '392px';
+loadButton.style.zIndex = '1000';
+loadButton.style.padding = '8px 16px';
+loadButton.style.backgroundColor = '#4CAF50';
+loadButton.style.color = 'white';
+loadButton.style.border = 'none';
+loadButton.style.borderRadius = '4px';
+loadButton.style.cursor = 'pointer';
+
+// Add file input for loading
+const loadInput = document.createElement('input');
+loadInput.type = 'file';
+loadInput.accept = '.json';
+loadInput.style.display = 'none';
+loadInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    loadWorkspace(e.target.files[0]);
+  }
+});
+
+// Add load button click handler
+loadButton.addEventListener('click', () => {
+  loadInput.click();
+});
+
+// Add load button and input to workspace
+workspace.appendChild(loadButton);
+workspace.appendChild(loadInput);
