@@ -18,6 +18,7 @@ let activeElement = null;
 const gridToggle = document.createElement('button');
 gridToggle.textContent = 'Toggle Grid';
 gridToggle.style.position = 'absolute';
+gridToggle.style.width = '120px';
 gridToggle.style.top = '10px';
 gridToggle.style.right = '10px';
 gridToggle.style.zIndex = '1000';
@@ -32,8 +33,9 @@ gridToggle.style.cursor = 'pointer';
 const snapToggle = document.createElement('button');
 snapToggle.textContent = 'Toggle Snap';
 snapToggle.style.position = 'absolute';
+snapToggle.style.width = '120px';
 snapToggle.style.top = '10px';
-snapToggle.style.right = '120px';
+snapToggle.style.right = '136px';
 snapToggle.style.zIndex = '1000';
 snapToggle.style.padding = '8px 16px';
 snapToggle.style.backgroundColor = '#4CAF50';
@@ -42,9 +44,25 @@ snapToggle.style.border = 'none';
 snapToggle.style.borderRadius = '4px';
 snapToggle.style.cursor = 'pointer';
 
+// Create save button
+const saveButton = document.createElement('button');
+saveButton.textContent = 'Save Website';
+saveButton.style.position = 'absolute';
+saveButton.style.width = '120px';
+saveButton.style.top = '10px';
+saveButton.style.right = '264px';
+saveButton.style.zIndex = '1000';
+saveButton.style.padding = '8px 16px';
+saveButton.style.backgroundColor = '#4CAF50';
+saveButton.style.color = 'white';
+saveButton.style.border = 'none';
+saveButton.style.borderRadius = '4px';
+saveButton.style.cursor = 'pointer';
+
 // Add buttons to workspace
 workspace.appendChild(gridToggle);
 workspace.appendChild(snapToggle);
+workspace.appendChild(saveButton);
 
 // Add event listeners for toggles
 gridToggle.addEventListener('click', () => {
