@@ -122,9 +122,11 @@ function addElementToWorkspace(type, x, y) {
     case 'text':
       element.innerHTML = `<input type="text" value="Text Box" />`;
       break;
+
     case 'title':
       element.innerHTML = `<input type="text" value="Title" style="font-size: 1.5em; font-weight: bold;" />`;
       break;
+
     case 'image': // Add resizing 
       const container = document.createElement('div');
       const inputContainer = document.createElement('div');
@@ -213,6 +215,18 @@ function addElementToWorkspace(type, x, y) {
       container.appendChild(img);
       element.appendChild(container);
       break;
+
+    case 'image-slideshow':
+      break;
+
+    case 'text-rand':
+      element.innerHTML = `<input type="text" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus ipsum neque, ac fermentum tortor commodo at. Sed tempus sollicitudin placerat. Nulla condimentum convallis magna, sit amet rhoncus velit. Ut in tellus ac nulla luctus convallis. Duis lacinia lobortis enim nec vehicula. Donec tempor sit amet tortor sit amet vestibulum. Vivamus ultrices tortor neque, et rhoncus libero laoreet sit amet. Aenean malesuada neque id nisl suscipit, at rutrum felis efficitur. Suspendisse non dui pretium lectus cursus eleifend sit amet quis massa. Cras a felis imperdiet massa tristique elementum in eget quam. Vivamus urna ipsum, consectetur at nulla quis, tincidunt consequat sapien. Vestibulum in sapien in neque porta iaculis. Sed nibh ipsum, ornare sit amet augue sit amet, congue euismod turpis. Donec volutpat neque vitae odio maximus consectetur." />`;
+      break;
+
+    case 'image-rand':
+      element.innerHTML = `<img src="https://picsum.photos/200" />`;
+      break;
+
     default:
       return;
   }
