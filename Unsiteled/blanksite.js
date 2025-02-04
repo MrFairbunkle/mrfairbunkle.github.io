@@ -224,7 +224,8 @@ function addElementToWorkspace(type, x, y) {
       break;
 
     case 'image-rand':
-      element.innerHTML = `<img src="https://picsum.photos/200" />`;
+      const timestamp = new Date().GetTime();
+      element.innerHTML = `<img src="https://picsum.photos/200/?random&t=${timestamp}" />`;
       break;
 
     default:
