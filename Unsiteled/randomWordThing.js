@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Random Text Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/2.8.1/rita.js"></script>
-</head>
-<body>
-    <h1>Random Text Generator</h1>
-    <div id="output"></div>
-
-    <script>
-        // Sample text - using more text for better results
+// Sample text - using more text for better results
         const text = `
             The sun dipped below the horizon, casting an orange glow across the sky.
             A stray cat wandered through the alley, searching for scraps of food.
@@ -131,6 +120,3 @@
             p.textContent = sentence;
             outputDiv.appendChild(p);
         }
-    </script>
-</body>
-</html>
