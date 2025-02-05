@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Text Generator</title>
+    <!-- Include RiTa library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/2.5.2/rita.min.js"></script>
+</head>
+<body>
+    <h1>Random Text Generator</h1>
+    <div id="output"></div>
+
+    <script>
+        // Sample text - you can replace this with your own longer text
+        const text = `
+        The quick brown fox jumps over the lazy dog. 
+        Programming is fun and exciting. 
+        Random text generation can create interesting results. 
+        Markov chains are a powerful way to generate text. 
+        Each sentence can sound surprisingly natural.
+        `;
+
+        // Create a Markov model with order 5
+        const rm = new RiMarkov(5);
+        
+        // Load the text
+        rm.loadText(text);
+        
+        // Generate 5 sentences
+        const sentences = rm.generateSentences(5);
+        
+        // Display the sentences
+        const outputDiv = document.getElementById('output');
+        sentences.forEach(sentence => {
+            const p = document.createElement('p');
+            p.textContent = sentence;
+            outputDiv.appendChild(p);
+        });
+    </script>
+</body>
+</html>
