@@ -2,39 +2,131 @@
 <html>
 <head>
     <title>Random Text Generator</title>
-    <!-- Include RiTa library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/2.5.2/rita.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/2.8.1/rita.js"></script>
 </head>
 <body>
     <h1>Random Text Generator</h1>
     <div id="output"></div>
 
     <script>
-        // Sample text - you can replace this with your own longer text
+        // Sample text - using more text for better results
         const text = `
-        The quick brown fox jumps over the lazy dog. 
-        Programming is fun and exciting. 
-        Random text generation can create interesting results. 
-        Markov chains are a powerful way to generate text. 
-        Each sentence can sound surprisingly natural.
-        `;
+            The furnace repairman indicated the heating system was acting as an air conditioner.
+            Sometimes you have to just give up and win by cheating.
+            He swore he just saw his sushi move.
+            He used to get confused between soldiers and shoulders, but as a military man, he now soldiers responsibility.
+            You can't compare apples and oranges, but what about bananas and plantains?
+            Waffles are always better without fire ants and fleas.
+            My biggest joy is roasting almonds while stalking prey.
+            Beach-combing replaced wine tasting as his new obsession.
+            Peter found road kill an excellent way to save money on dinner.
+            A good example of a useful vegetable is medicinal rhubarb.
+            Homesickness became contagious in the young campers' cabin.
+            I’m working on a sweet potato farm.
+            The wooden spoon couldn’t cut but left emotional scars.
+            He ran out of money, so he had to stop playing poker.
+            The team members were hard to tell apart since they all wore their hair in a ponytail.
+            Fluffy pink unicorns are a popular status symbol among macho men.
+            Please wait outside of the house.
+            Acres of almond trees lined the interstate highway which complimented the crazy driving nuts.
+            There was no telling what thoughts would come from the machine.
+            Everyone pretends to like wheat until you mention barley.
+            There's no reason a hula hoop can't also be a circus ring.
+            As she walked along the street and looked in the gutter, she realized facemasks had become the new cigarette butts.
+            Gary didn't understand why Doug went upstairs to get one dollar bills when he invited him to go cow tipping.
+            I've always wanted to go to Tajikistan, but my cat would miss me.
+            The stench from the feedlot permeated the car despite having the air conditioning on recycled air.
+            Patricia loves the sound of nails strongly pressed against the chalkboard.
+            The beauty of the African sunset disguised the danger lurking nearby.
+            It must be five o'clock somewhere.
+            The glacier came alive as the climbers hiked closer.
+            People who insist on picking their teeth with their elbows are so annoying!
+            They got there early, and they got really good seats.
+            As he waited for the shower to warm, he noticed that he could hear water change temperature.
+            On each full moon
+            Their argument could be heard across the parking lot.
+            Check back tomorrow; I will see if the book has arrived.
+            I'd always thought lightning was something only I could see.
+            He wasn't bitter that she had moved on but from the radish.
+            He realized there had been several deaths on this road, but his concern rose when he saw the exact number.
+            Two more days and all his problems would be solved.
+            He found the chocolate covered roaches quite tasty.
+            Whenever he saw a red flag warning at the beach he grabbed his surfboard.
+            There was no ice cream in the freezer, nor did they have money to go to the store.
+            It was the scarcity that fueled his creativity.
+            He spiked his hair green to support his iguana.
+            Andy loved to sleep on a bed of nails.
+            Wisdom is easily acquired when hiding under the bed with a saucepan on your head.
+            With a single flip of the coin, his life changed forever.
+            I checked to make sure that he was still alive.
+            She borrowed the book from him many years ago and hasn't yet returned it.
+            There's an art to getting your way, and spitting olive pits across the table isn't it.
+            The teens wondered what was kept in the red shed on the far edge of the school grounds.
+            This book is sure to liquefy your brain.
+            Strawberries must be the one food that doesn't go well with this brand of paint.
+            The hand sanitizer was actually clear glue.
+            My Mum tries to be cool by saying that she likes all the same things that I do.
+            There aren't enough towels in the world to stop the sewage flowing from his mouth.
+            You're good at English when you know the difference between a man eating chicken and a man-eating chicken.
+            The sight of his goatee made me want to run and hide under my sister-in-law's bed.
+            It was getting dark, and we weren’t there yet.
+            If you spin around three times, you'll start to feel melancholy.
+            If you don't like toenails, you probably shouldn't look at your feet.
+            Mom didn’t understand why no one else wanted a hot tub full of jello.
+            She always speaks to him in a loud voice.
+            When he asked her favorite number, she answered without hesitation that it was diamonds.
+            He colored deep space a soft yellow.
+            This made him feel like an old-style rootbeer float smells.
+            He was the only member of the club who didn't like plum pudding.
+            The green tea and avocado smoothie turned out exactly as would be expected.
+            The bullet pierced the window shattering it before missing Danny's head by mere millimeters.
+            Andy loved to sleep on a bed of nails.
+            Pink horses galloped across the sea.
+            Kevin embraced his ability to be at the wrong place at the wrong time.
+            I'm not a party animal, but I do like animal parties.
+            He knew it was going to be a bad day when he saw mountain lions roaming the streets.
+            Flash photography is best used in full sunlight.
+            He didn't understand why the bird wanted to ride the bicycle.
+            It's always a good idea to seek shelter from the evil gaze of the sun.
+            She thought there'd be sufficient time if she hid her watch.
+            She could hear him in the shower singing with a joy she hoped he'd retain after she delivered the news.
+            On each full moon
+            It turns out you don't need all that stuff you insisted you did.
+            He was so preoccupied with whether or not he could that he failed to stop to consider if he should.
+            Greetings from the real universe.
+            Two more days and all his problems would be solved.
+            After fighting off the alligator, Brian still had to face the anaconda.
+            She had a difficult time owning up to her own crazy self.
+            Swim at your own risk was taken as a challenge for the group of Kansas City college students.
+            A suit of armor provides excellent sun protection on hot days.
+            I'm worried by the fact that my daughter looks to the local carpet seller as a role model.
+            The Guinea fowl flies through the air with all the grace of a turtle.
+            I think I will buy the red car, or I will lease the blue one.
+            Peter found road kill an excellent way to save money on dinner.
+            Flesh-colored yoga pants were far worse than even he feared.
+            To the surprise of everyone, the Rapture happened yesterday but it didn't quite go as expected.
+            Martha came to the conclusion that shake weights are a great gift for any occasion.
+            It caught him off guard that space smelled of seared steak.
+            The external scars tell only part of the story.
+            Pat ordered a ghost pepper pie.
+            Check back tomorrow; I will see if the book has arrived.
+            You realize you're not alone as you sit in your bedroom massaging your calves after a long day of playing tug-of-war with Grandpa Joe in the hospital.
+            `;
 
-        // Create a Markov model with order 5
-        const rm = new RiMarkov(5);
+        // Create RiTa markov model (2, or 3, or 4)
+        let markov = RiTa.markov(3);
         
-        // Load the text
-        rm.loadText(text);
+        // Load the text into the model
+        markov.addText(text);
         
-        // Generate 5 sentences
-        const sentences = rm.generateSentences(5);
-        
-        // Display the sentences
+        // Generate and display sentences
         const outputDiv = document.getElementById('output');
-        sentences.forEach(sentence => {
+        for (let i = 0; i < 10; i++) {
+            const sentence = markov.generate();
             const p = document.createElement('p');
             p.textContent = sentence;
             outputDiv.appendChild(p);
-        });
+        }
     </script>
 </body>
 </html>
