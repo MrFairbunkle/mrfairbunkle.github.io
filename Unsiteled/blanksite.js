@@ -215,7 +215,114 @@ function snapToGridPos(pos) {
   return Math.round(pos / GRID_SIZE) * GRID_SIZE;
 }
 
-// Add element to workspace
+// Resize elements
+function addResizeHandles(element) {
+  const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right']; // corner bits
+  
+  corners.forEach(corner => {
+    const resizeHandle = document.createElement('div');
+    resizeHandle.classList.add('resize-handle', `resize-${corner}`);
+    
+    resizeHandle.style.position = 'absolute';
+    resizeHandle.style.width = '10px';
+    resizeHandle.style.height = '10px';
+    resizeHandle.style.backgroundColor = 'blue';
+    resizeHandle.style.zIndex = '10';
+    
+    switch(corner) {
+      case 'top-left':
+        resizeHandle.style.top = '-5px';
+        resizeHandle.style.left = '-5px';
+        resizeHandle.style.cursor = 'nwse-resize';
+        break;
+      case 'top-right':
+        resizeHandle.style.top = '-5px';
+        resizeHandle.style.right = '-5px';
+        resizeHandle.style.cursor = 'nesw-resize';
+        break;
+      case 'bottom-left':
+        resizeHandle.style.bottom = '-5px';
+        resizeHandle.style.left = '-5px';
+        resizeHandle.style.cursor = 'nesw-resize';
+        break;
+      case 'bottom-right':
+        resizeHandle.style.bottom = '-5px';
+        resizeHandle.style.right = '-5px';
+        resizeHandle.style.cursor = 'nwse-resize';
+        break;
+    }
+    
+    let isResizing = false;
+    let originalWidth, originalHeight, originalX, originalY;
+    
+    resizeHandle.addEventListener('mousedown', startResize);
+    
+    function startResize(e) {
+      e.stopPropagation();
+      isResizing = true;
+      
+      // Store original sizes and stuff
+      const rect = element.getBoundingClientRect();
+      originalWidth = rect.width;
+      originalHeight = rect.height;
+      originalX = e.clientX;
+      originalY = e.clientY;
+      
+      document.addEventListener('mousemove', resize);
+      document.addEventListener('mouseup', stopResize);
+      
+      document.body.style.userSelect = 'none';
+    }
+    
+    function resize(e) {
+      if (!isResizing) return;
+      
+      const deltaX = e.clientX - originalX;
+      const deltaY = e.clientY - originalY;
+      
+      // Which corner hmmmmm maths
+      switch(corner) {
+        case 'bottom-right':
+          element.style.width = `${Math.max(originalWidth + deltaX, 50)}px`;
+          element.style.height = `${Math.max(originalHeight + deltaY, 50)}px`;
+          break;
+        case 'top-right':
+          element.style.width = `${Math.max(originalWidth + deltaX, 50)}px`;
+          element.style.height = `${Math.max(originalHeight - deltaY, 50)}px`;
+          element.style.top = `${originalY + deltaY}px`;
+          break;
+        case 'bottom-left':
+          element.style.width = `${Math.max(originalWidth - deltaX, 50)}px`;
+          element.style.height = `${Math.max(originalHeight + deltaY, 50)}px`;
+          element.style.left = `${originalX + deltaX}px`;
+          break;
+        case 'top-left':
+          element.style.width = `${Math.max(originalWidth - deltaX, 50)}px`;
+          element.style.height = `${Math.max(originalHeight - deltaY, 50)}px`;
+          element.style.top = `${originalY + deltaY}px`;
+          element.style.left = `${originalX + deltaX}px`;
+          break;
+      }
+    }
+    
+    function stopResize() {
+      isResizing = false;
+      
+      document.removeEventListener('mousemove', resize);
+      document.removeEventListener('mouseup', stopResize);
+
+      document.body.style.userSelect = '';
+    }
+    
+    element.appendChild(resizeHandle);
+  });
+  
+  element.style.position = 'absolute';
+  element.style.resize = 'none'; // Browser stuff go no
+  element.style.overflow = 'hidden';
+}
+
+// Add elements to workspace
 function addElementToWorkspace(type, x, y) {
   const element = document.createElement('div');
   element.classList.add('element');
@@ -225,6 +332,9 @@ function addElementToWorkspace(type, x, y) {
   // Make element draggable
   element.setAttribute('draggable', 'false');
   setupDraggable(element);
+  
+  // Add resize handles to all elements
+  addResizeHandles(element);
 
   switch (type) {
     case 'text':
@@ -327,23 +437,49 @@ function addElementToWorkspace(type, x, y) {
     case 'image-slideshow':
       break;
 
-    case 'text-rand':
-      // Create RiTa markov model (2, or 3, or 4)
-      let markov = RiTa.markov(3);
+      case 'text-rand':
+        // Create a container for the random text
+        const randomTextContainer = document.createElement('div');
+        randomTextContainer.style.padding = '10px';
+        randomTextContainer.style.border = '1px solid #ccc';
+        randomTextContainer.style.borderRadius = '4px';
+        randomTextContainer.style.minWidth = '200px';
+        randomTextContainer.style.minHeight = '50px';
+        randomTextContainer.style.backgroundColor = '#f9f9f9';
       
-      // Load the text into the model
-      markov.addText(text);
+        // Default text for generation
+        const defaultText = `
+          The sun dipped below the horizon, casting an orange glow across the sky.
+          A stray cat wandered through the alley, searching for scraps of food.
+          The sound of rain tapping against the window was oddly comforting.
+          She flipped through the old book, its pages yellowed with age.
+          The wind howled through the trees, making the branches sway wildly.
+          A distant thunderclap signaled the arrival of the approaching storm.
+          His footsteps echoed through the empty hallway, the silence unnerving.
+          She carefully arranged the flowers in the vase, adjusting each petal.
+        `;
       
-      // Generate and display sentences
-      const outputDiv = document.getElementById('output');
-      for (let i = 0; i < 1; i++) {
-          const sentence = markov.generate();
-          const p = document.createElement('p');
-          p.textContent = sentence;
-          outputDiv.appendChild(p);
-      };
-      element.innerHTML = `<script src="randomWordThing.js" type="text" />`;
-      break;
+        // Create RiTa markov model
+        let markov = RiTa.markov(3);
+        
+        // Load the text into the model
+        markov.addText(defaultText);
+        
+        // Generate sentences
+        const sentence = markov.generate();
+        
+        // Create text element
+        const randomTextElement = document.createElement('p');
+        randomTextElement.textContent = sentence;
+        randomTextElement.style.margin = '0';
+        randomTextElement.style.fontStyle = 'italic';
+      
+        // Add to container
+        randomTextContainer.appendChild(randomTextElement);
+        
+        // Add container to element
+        element.appendChild(randomTextContainer);
+        break;
 
     case 'image-rand':
       element.innerHTML = `<img src="https://picsum.photos/200/?random" />`;
@@ -359,6 +495,20 @@ function addElementToWorkspace(type, x, y) {
   
   workspace.appendChild(element);
 }
+
+// Add CSS for resize handles
+const resizeStyleSheet = document.createElement('style');
+resizeStyleSheet.textContent = `
+  .resize-handle {
+    border: 1px solid blue;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .resize-handle:hover {
+    opacity: 1;
+  }
+`;
+document.head.appendChild(resizeStyleSheet);
 
 function setupDraggable(element) {
   element.addEventListener('mousedown', dragStart);
