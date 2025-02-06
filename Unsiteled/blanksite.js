@@ -1,111 +1,3 @@
-// Please collapse this
-const text = `
-            The sun dipped below the horizon, casting an orange glow across the sky.
-            A stray cat wandered through the alley, searching for scraps of food.
-            The sound of rain tapping against the window was oddly comforting.
-            She flipped through the old book, its pages yellowed with age.
-            The wind howled through the trees, making the branches sway wildly.
-            A distant thunderclap signaled the arrival of the approaching storm.
-            His footsteps echoed through the empty hallway, the silence unnerving.
-            She carefully arranged the flowers in the vase, adjusting each petal.
-            The coffee machine whirred to life, filling the air with a rich aroma.
-            A small boat bobbed gently on the surface of the calm lake.
-            He adjusted his tie in the mirror, preparing for the important meeting.
-            The library was eerily silent, except for the rustling of pages.
-            A single candle flickered in the darkness, casting strange shadows.
-            She hesitated at the door, uncertain if she should knock or leave.
-            The ancient clock in the hallway chimed loudly at midnight.
-            A faint melody drifted through the air, barely audible over the wind.
-            The scent of freshly baked bread filled the tiny kitchen.
-            A lone crow perched on the fence, watching everything intently.
-            The car engine sputtered before finally roaring to life.
-            She traced patterns in the sand with the tip of her finger.
-            A cool breeze carried the scent of salt from the nearby ocean.
-            The marketplace bustled with people shouting and haggling over prices.
-            A dog barked in the distance, breaking the stillness of the night.
-            The waves crashed against the rocks, sending white foam into the air.
-            He opened the old wooden chest, revealing a collection of forgotten trinkets.
-            The streetlights flickered as he walked down the deserted road.
-            She carefully folded the letter and slipped it into an envelope.
-            A soft chuckle escaped his lips as he recalled an old memory.
-            The room was filled with the soft hum of conversation and laughter.
-            A butterfly landed gently on her outstretched hand.
-            The spaceship hovered just above the surface, its lights blinking.
-            The crisp autumn leaves crunched beneath his boots with every step.
-            A single tear rolled down her cheek, but she quickly wiped it away.
-            The train rumbled down the tracks, its whistle echoing through the valley.
-            The neon lights of the city glowed brightly against the night sky.
-            She ran her fingers along the spines of the books on the shelf.
-            A mysterious figure stood at the end of the foggy street.
-            The fire crackled in the fireplace, casting a warm glow in the room.
-            The ice cubes clinked against the glass as he took a slow sip.
-            She whispered something under her breath before turning away.
-            The old wooden bridge creaked under his weight as he crossed.
-            A soft drizzle began to fall, dampening the dusty pavement.
-            The painting hung crookedly on the wall, its colors fading with time.
-            The detective examined the footprints closely, deep in thought.
-            She turned the key in the lock, holding her breath as the door creaked open.
-            A sudden gust of wind scattered the papers across the table.
-            The campfire crackled as sparks rose into the night sky.
-            The radio played a song from decades ago, filling the room with nostalgia.
-            A squirrel darted up the tree, disappearing into the dense foliage.
-            She carefully stitched the fabric together, lost in concentration.
-            The roller coaster clattered up the steep track, anticipation building.
-            A gentle knock on the door interrupted her train of thought.
-            The clouds parted, revealing a sky full of shimmering stars.
-            He carefully arranged the chess pieces, planning his next move.
-            The air smelled of pine and damp earth after the morning rain.
-            The old bicycle leaned against the fence, its tires slightly deflated.
-            A firefly flickered in the darkness, briefly illuminating the night.
-            The bakery windows were fogged up from the warmth inside.
-            A forgotten melody played in the back of his mind, familiar yet distant.
-            She ran barefoot through the grass, feeling the earth beneath her feet.
-            The moon cast long shadows across the empty parking lot.
-            He shuffled the deck of cards with practiced ease.
-            The canoe drifted lazily down the slow-moving river.
-            A row of candles flickered on the windowsill, their light dancing.
-            The mechanic wiped the grease from his hands and sighed.
-            A rabbit darted across the path, disappearing into the underbrush.
-            The elevator doors slid open with a soft chime.
-            The wind carried the scent of fresh flowers from the garden.
-            The bookstore was filled with the quiet rustling of pages being turned.
-            A violin played softly in the background, adding to the atmosphere.
-            The rusty gate creaked as he pushed it open.
-            The soft hum of a ceiling fan filled the quiet room.
-            The soccer ball rolled to a stop at the edge of the field.
-            The mailman whistled as he placed the letters in the mailbox.
-            A drop of water fell from the leaky faucet, echoing in the sink.
-            She tied the ribbon carefully, making sure the bow was perfect.
-            The mountain peaks were shrouded in mist, barely visible.
-            A shooting star streaked across the night sky in a brilliant flash.
-            The subway car rocked gently as it sped through the tunnels.
-            The black cat watched him curiously from its perch on the windowsill.
-            A distant church bell rang, signaling the end of the hour.
-            The tea kettle whistled, steam curling into the air.
-            The old rocking chair creaked with every gentle movement.
-            He adjusted his glasses and squinted at the tiny print in the book.
-            The children chased each other through the park, their laughter ringing out.
-            The echo of footsteps in the empty corridor sent a chill down his spine.
-            A spider dangled from a single thread of silk, swaying slightly.
-            The aroma of fresh coffee was enough to wake him up completely.
-            She carefully arranged the chessboard, ready for another game.
-            The old train station had an air of nostalgia, frozen in time.
-            A layer of frost covered the grass, shimmering in the morning light.
-            The lighthouse stood tall against the crashing waves.
-            She traced a heart in the fogged-up window with her finger.
-            The clouds gathered ominously, promising a heavy downpour.
-            A lone street performer played the violin, his melody hauntingly beautiful.
-            The grandfather clock chimed, marking the passage of another hour.
-            The market was alive with the chatter of vendors and customers.
-            He absentmindedly drummed his fingers on the wooden table.
-            The scent of lavender and vanilla lingered in the air.
-            A single candle flickered in the dark, barely illuminating the room.
-            The river flowed smoothly over the rocks, creating a soothing sound.
-            She wrapped the scarf tightly around her neck, bracing against the cold.
-            The empty swing swayed gently in the breeze, creaking softly.
-            A pigeon fluttered down to peck at the crumbs on the pavement.
-            `;
-
 // Elements
 const toolbox = document.querySelector('.toolbox');
 const workspace = document.getElementById('workspace');
@@ -215,45 +107,67 @@ function snapToGridPos(pos) {
   return Math.round(pos / GRID_SIZE) * GRID_SIZE;
 }
 
-// Resize elements
+// Function to add resize handles and make elements resizable
 function addResizeHandles(element) {
-  const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right']; // corner bits
+  const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+  
+  // First, let's set proper positioning and sizing for the element container
+  element.style.position = 'absolute';
+  element.style.resize = 'none';
+  element.style.minWidth = '50px';
+  element.style.minHeight = '50px';
+  
+  // For text elements, make the input fill the container
+  const input = element.querySelector('input[type="text"]');
+  if (input) {
+    input.style.width = '100%';
+    input.style.height = '100%';
+    input.style.boxSizing = 'border-box';
+    input.style.resize = 'none';
+    input.style.border = 'none';
+    input.style.padding = '5px';
+  }
+
+  // For random text container, make it resize properly
+  const randomTextContainer = element.querySelector('div');
+  if (randomTextContainer && element.querySelector('p')) {
+    randomTextContainer.style.width = '100%';
+    randomTextContainer.style.height = '100%';
+    randomTextContainer.style.boxSizing = 'border-box';
+    randomTextContainer.style.display = 'flex';
+    randomTextContainer.style.alignItems = 'center';
+    
+    // Make the paragraph text wrap properly
+    const paragraph = randomTextContainer.querySelector('p');
+    paragraph.style.width = '100%';
+    paragraph.style.wordWrap = 'break-word';
+  }
   
   corners.forEach(corner => {
     const resizeHandle = document.createElement('div');
     resizeHandle.classList.add('resize-handle', `resize-${corner}`);
     
-    resizeHandle.style.position = 'absolute';
-    resizeHandle.style.width = '10px';
-    resizeHandle.style.height = '10px';
-    resizeHandle.style.backgroundColor = 'blue';
-    resizeHandle.style.zIndex = '10';
+    // Style the resize handles
+    Object.assign(resizeHandle.style, {
+      position: 'absolute',
+      width: '10px',
+      height: '10px',
+      backgroundColor: 'blue',
+      zIndex: '10'
+    });
     
-    switch(corner) {
-      case 'top-left':
-        resizeHandle.style.top = '-5px';
-        resizeHandle.style.left = '-5px';
-        resizeHandle.style.cursor = 'nwse-resize';
-        break;
-      case 'top-right':
-        resizeHandle.style.top = '-5px';
-        resizeHandle.style.right = '-5px';
-        resizeHandle.style.cursor = 'nesw-resize';
-        break;
-      case 'bottom-left':
-        resizeHandle.style.bottom = '-5px';
-        resizeHandle.style.left = '-5px';
-        resizeHandle.style.cursor = 'nesw-resize';
-        break;
-      case 'bottom-right':
-        resizeHandle.style.bottom = '-5px';
-        resizeHandle.style.right = '-5px';
-        resizeHandle.style.cursor = 'nwse-resize';
-        break;
-    }
+    // Position handles correctly
+    const handlePositions = {
+      'top-left': { top: '-5px', left: '-5px', cursor: 'nwse-resize' },
+      'top-right': { top: '-5px', right: '-5px', cursor: 'nesw-resize' },
+      'bottom-left': { bottom: '-5px', left: '-5px', cursor: 'nesw-resize' },
+      'bottom-right': { bottom: '-5px', right: '-5px', cursor: 'nwse-resize' }
+    };
+    
+    Object.assign(resizeHandle.style, handlePositions[corner]);
     
     let isResizing = false;
-    let originalWidth, originalHeight, originalX, originalY;
+    let originalWidth, originalHeight, originalX, originalY, originalLeft, originalTop;
     
     resizeHandle.addEventListener('mousedown', startResize);
     
@@ -261,16 +175,16 @@ function addResizeHandles(element) {
       e.stopPropagation();
       isResizing = true;
       
-      // Store original sizes and stuff
       const rect = element.getBoundingClientRect();
       originalWidth = rect.width;
       originalHeight = rect.height;
       originalX = e.clientX;
       originalY = e.clientY;
+      originalLeft = parseInt(element.style.left);
+      originalTop = parseInt(element.style.top);
       
       document.addEventListener('mousemove', resize);
       document.addEventListener('mouseup', stopResize);
-      
       document.body.style.userSelect = 'none';
     }
     
@@ -280,72 +194,81 @@ function addResizeHandles(element) {
       const deltaX = e.clientX - originalX;
       const deltaY = e.clientY - originalY;
       
-      // Which corner hmmmmm maths
+      // Calculate new dimensions and position
+      let newWidth, newHeight, newLeft, newTop;
+      
       switch(corner) {
         case 'bottom-right':
-          element.style.width = `${Math.max(originalWidth + deltaX, 50)}px`;
-          element.style.height = `${Math.max(originalHeight + deltaY, 50)}px`;
+          newWidth = Math.max(originalWidth + deltaX, 50);
+          newHeight = Math.max(originalHeight + deltaY, 50);
           break;
         case 'top-right':
-          element.style.width = `${Math.max(originalWidth + deltaX, 50)}px`;
-          element.style.height = `${Math.max(originalHeight - deltaY, 50)}px`;
-          element.style.top = `${originalY + deltaY}px`;
+          newWidth = Math.max(originalWidth + deltaX, 50);
+          newHeight = Math.max(originalHeight - deltaY, 50);
+          newTop = originalTop + deltaY;
           break;
         case 'bottom-left':
-          element.style.width = `${Math.max(originalWidth - deltaX, 50)}px`;
-          element.style.height = `${Math.max(originalHeight + deltaY, 50)}px`;
-          element.style.left = `${originalX + deltaX}px`;
+          newWidth = Math.max(originalWidth - deltaX, 50);
+          newHeight = Math.max(originalHeight + deltaY, 50);
+          newLeft = originalLeft + deltaX;
           break;
         case 'top-left':
-          element.style.width = `${Math.max(originalWidth - deltaX, 50)}px`;
-          element.style.height = `${Math.max(originalHeight - deltaY, 50)}px`;
-          element.style.top = `${originalY + deltaY}px`;
-          element.style.left = `${originalX + deltaX}px`;
+          newWidth = Math.max(originalWidth - deltaX, 50);
+          newHeight = Math.max(originalHeight - deltaY, 50);
+          newTop = originalTop + deltaY;
+          newLeft = originalLeft + deltaX;
           break;
+      }
+      
+      // Apply new dimensions
+      if (newWidth !== undefined) element.style.width = `${newWidth}px`;
+      if (newHeight !== undefined) element.style.height = `${newHeight}px`;
+      if (newLeft !== undefined) element.style.left = `${newLeft}px`;
+      if (newTop !== undefined) element.style.top = `${newTop}px`;
+      
+      // Update input or container sizes
+      if (input) {
+        input.style.width = '100%';
+        input.style.height = '100%';
+      }
+      
+      if (randomTextContainer) {
+        randomTextContainer.style.width = '100%';
+        randomTextContainer.style.height = '100%';
       }
     }
     
     function stopResize() {
       isResizing = false;
-      
       document.removeEventListener('mousemove', resize);
       document.removeEventListener('mouseup', stopResize);
-
       document.body.style.userSelect = '';
     }
     
     element.appendChild(resizeHandle);
   });
-  
-  element.style.position = 'absolute';
-  element.style.resize = 'none'; // Browser stuff go no
-  element.style.overflow = 'hidden';
 }
 
-// Add elements to workspace
+// Update the addElementToWorkspace function to set initial sizes
 function addElementToWorkspace(type, x, y) {
   const element = document.createElement('div');
   element.classList.add('element');
   element.style.left = `${x}px`;
   element.style.top = `${y}px`;
   
-  // Make element draggable
-  element.setAttribute('draggable', 'false');
-  setupDraggable(element);
-  
-  // Add resize handles to all elements
-  addResizeHandles(element);
-
+  // Set initial sizes based on type
   switch (type) {
     case 'text':
+      element.style.width = '200px';
+      element.style.height = '40px';
       element.innerHTML = `<input type="text" value="Text Box" />`;
       break;
-
     case 'title':
+      element.style.width = '300px';
+      element.style.height = '50px';
       element.innerHTML = `<input type="text" value="Title" style="font-size: 1.5em; font-weight: bold;" />`;
       break;
-
-    case 'image': // Add resizing 
+      case 'image': // Add resizing 
       const container = document.createElement('div');
       const inputContainer = document.createElement('div');
       inputContainer.style.display = 'flex';
@@ -449,15 +372,111 @@ function addElementToWorkspace(type, x, y) {
       
         // Default text for generation
         const defaultText = `
-          The sun dipped below the horizon, casting an orange glow across the sky.
-          A stray cat wandered through the alley, searching for scraps of food.
-          The sound of rain tapping against the window was oddly comforting.
-          She flipped through the old book, its pages yellowed with age.
-          The wind howled through the trees, making the branches sway wildly.
-          A distant thunderclap signaled the arrival of the approaching storm.
-          His footsteps echoed through the empty hallway, the silence unnerving.
-          She carefully arranged the flowers in the vase, adjusting each petal.
-        `;
+            The sun dipped below the horizon, casting an orange glow across the sky.
+            A stray cat wandered through the alley, searching for scraps of food.
+            The sound of rain tapping against the window was oddly comforting.
+            She flipped through the old book, its pages yellowed with age.
+            The wind howled through the trees, making the branches sway wildly.
+            A distant thunderclap signaled the arrival of the approaching storm.
+            His footsteps echoed through the empty hallway, the silence unnerving.
+            She carefully arranged the flowers in the vase, adjusting each petal.
+            The coffee machine whirred to life, filling the air with a rich aroma.
+            A small boat bobbed gently on the surface of the calm lake.
+            He adjusted his tie in the mirror, preparing for the important meeting.
+            The library was eerily silent, except for the rustling of pages.
+            A single candle flickered in the darkness, casting strange shadows.
+            She hesitated at the door, uncertain if she should knock or leave.
+            The ancient clock in the hallway chimed loudly at midnight.
+            A faint melody drifted through the air, barely audible over the wind.
+            The scent of freshly baked bread filled the tiny kitchen.
+            A lone crow perched on the fence, watching everything intently.
+            The car engine sputtered before finally roaring to life.
+            She traced patterns in the sand with the tip of her finger.
+            A cool breeze carried the scent of salt from the nearby ocean.
+            The marketplace bustled with people shouting and haggling over prices.
+            A dog barked in the distance, breaking the stillness of the night.
+            The waves crashed against the rocks, sending white foam into the air.
+            He opened the old wooden chest, revealing a collection of forgotten trinkets.
+            The streetlights flickered as he walked down the deserted road.
+            She carefully folded the letter and slipped it into an envelope.
+            A soft chuckle escaped his lips as he recalled an old memory.
+            The room was filled with the soft hum of conversation and laughter.
+            A butterfly landed gently on her outstretched hand.
+            The spaceship hovered just above the surface, its lights blinking.
+            The crisp autumn leaves crunched beneath his boots with every step.
+            A single tear rolled down her cheek, but she quickly wiped it away.
+            The train rumbled down the tracks, its whistle echoing through the valley.
+            The neon lights of the city glowed brightly against the night sky.
+            She ran her fingers along the spines of the books on the shelf.
+            A mysterious figure stood at the end of the foggy street.
+            The fire crackled in the fireplace, casting a warm glow in the room.
+            The ice cubes clinked against the glass as he took a slow sip.
+            She whispered something under her breath before turning away.
+            The old wooden bridge creaked under his weight as he crossed.
+            A soft drizzle began to fall, dampening the dusty pavement.
+            The painting hung crookedly on the wall, its colors fading with time.
+            The detective examined the footprints closely, deep in thought.
+            She turned the key in the lock, holding her breath as the door creaked open.
+            A sudden gust of wind scattered the papers across the table.
+            The campfire crackled as sparks rose into the night sky.
+            The radio played a song from decades ago, filling the room with nostalgia.
+            A squirrel darted up the tree, disappearing into the dense foliage.
+            She carefully stitched the fabric together, lost in concentration.
+            The roller coaster clattered up the steep track, anticipation building.
+            A gentle knock on the door interrupted her train of thought.
+            The clouds parted, revealing a sky full of shimmering stars.
+            He carefully arranged the chess pieces, planning his next move.
+            The air smelled of pine and damp earth after the morning rain.
+            The old bicycle leaned against the fence, its tires slightly deflated.
+            A firefly flickered in the darkness, briefly illuminating the night.
+            The bakery windows were fogged up from the warmth inside.
+            A forgotten melody played in the back of his mind, familiar yet distant.
+            She ran barefoot through the grass, feeling the earth beneath her feet.
+            The moon cast long shadows across the empty parking lot.
+            He shuffled the deck of cards with practiced ease.
+            The canoe drifted lazily down the slow-moving river.
+            A row of candles flickered on the windowsill, their light dancing.
+            The mechanic wiped the grease from his hands and sighed.
+            A rabbit darted across the path, disappearing into the underbrush.
+            The elevator doors slid open with a soft chime.
+            The wind carried the scent of fresh flowers from the garden.
+            The bookstore was filled with the quiet rustling of pages being turned.
+            A violin played softly in the background, adding to the atmosphere.
+            The rusty gate creaked as he pushed it open.
+            The soft hum of a ceiling fan filled the quiet room.
+            The soccer ball rolled to a stop at the edge of the field.
+            The mailman whistled as he placed the letters in the mailbox.
+            A drop of water fell from the leaky faucet, echoing in the sink.
+            She tied the ribbon carefully, making sure the bow was perfect.
+            The mountain peaks were shrouded in mist, barely visible.
+            A shooting star streaked across the night sky in a brilliant flash.
+            The subway car rocked gently as it sped through the tunnels.
+            The black cat watched him curiously from its perch on the windowsill.
+            A distant church bell rang, signaling the end of the hour.
+            The tea kettle whistled, steam curling into the air.
+            The old rocking chair creaked with every gentle movement.
+            He adjusted his glasses and squinted at the tiny print in the book.
+            The children chased each other through the park, their laughter ringing out.
+            The echo of footsteps in the empty corridor sent a chill down his spine.
+            A spider dangled from a single thread of silk, swaying slightly.
+            The aroma of fresh coffee was enough to wake him up completely.
+            She carefully arranged the chessboard, ready for another game.
+            The old train station had an air of nostalgia, frozen in time.
+            A layer of frost covered the grass, shimmering in the morning light.
+            The lighthouse stood tall against the crashing waves.
+            She traced a heart in the fogged-up window with her finger.
+            The clouds gathered ominously, promising a heavy downpour.
+            A lone street performer played the violin, his melody hauntingly beautiful.
+            The grandfather clock chimed, marking the passage of another hour.
+            The market was alive with the chatter of vendors and customers.
+            He absentmindedly drummed his fingers on the wooden table.
+            The scent of lavender and vanilla lingered in the air.
+            A single candle flickered in the dark, barely illuminating the room.
+            The river flowed smoothly over the rocks, creating a soothing sound.
+            She wrapped the scarf tightly around her neck, bracing against the cold.
+            The empty swing swayed gently in the breeze, creaking softly.
+            A pigeon fluttered down to peck at the crumbs on the pavement.
+            `;
       
         // Create RiTa markov model
         let markov = RiTa.markov(3);
@@ -488,7 +507,14 @@ function addElementToWorkspace(type, x, y) {
     default:
       return;
   }
-
+  
+  // Make element draggable
+  element.setAttribute('draggable', 'false');
+  setupDraggable(element);
+  
+  // Add resize handles
+  addResizeHandles(element);
+  
   element.addEventListener('click', () => {
     element.classList.toggle('selected');
   });
