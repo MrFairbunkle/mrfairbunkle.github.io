@@ -514,6 +514,7 @@ function addElementToWorkspace(type, x, y) {
   workspace.appendChild(element);
 }
 
+// Styling for the grabby bits 
 const resizeStyleSheet = document.createElement('style');
 resizeStyleSheet.textContent = `
   .resize-handle {
