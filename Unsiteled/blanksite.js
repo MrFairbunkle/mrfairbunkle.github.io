@@ -511,10 +511,15 @@ resizeStyleSheet.textContent = `
 document.head.appendChild(resizeStyleSheet);
 
 function setupDraggable(element) {
+  element.style.cursor = 'grab'; // Add grab cursor to indicate draggability
   element.addEventListener('mousedown', dragStart);
   
   function dragStart(e) {
-    if (e.target.tagName.toLowerCase() === 'input') {
+    // Prevent dragging if interacting with inputs or resize handles
+    if (
+      e.target.tagName.toLowerCase() === 'input' || 
+      e.target.classList.contains('resize-handle')
+    ) {
       return;
     }
     
@@ -522,16 +527,16 @@ function setupDraggable(element) {
     isDragging = true;
     activeElement = element;
     
-    // Get the current transform values or default to 0
-    const style = window.getComputedStyle(element);
-    const matrix = new DOMMatrix(style.transform);
-    currentX = matrix.m41;
-    currentY = matrix.m42;
-    
-    // Calculate cursor offset relative to element
+    // Get the element's current position
     const rect = element.getBoundingClientRect();
-    initialX = e.clientX - rect.left - currentX;
-    initialY = e.clientY - rect.top - currentY;
+    const workspaceRect = workspace.getBoundingClientRect();
+    
+    initialX = e.clientX - rect.left;
+    initialY = e.clientY - rect.top;
+    
+    // Store the element's current position 
+    currentX = rect.left - workspaceRect.left;
+    currentY = rect.top - workspaceRect.top;
     
     element.style.cursor = 'grabbing';
     
@@ -546,17 +551,19 @@ function drag(e) {
   e.preventDefault();
   
   // Calculate new position
-  let newX = e.clientX - workspace.getBoundingClientRect().left - initialX;
-  let newY = e.clientY - workspace.getBoundingClientRect().top - initialY;
+  const workspaceRect = workspace.getBoundingClientRect();
+  let newX = e.clientX - workspaceRect.left - initialX;
+  let newY = e.clientY - workspaceRect.top - initialY;
   
-  // Snap to grid if enabled
+  // Snap to grid?
   if (snapToGrid) {
     newX = snapToGridPos(newX);
     newY = snapToGridPos(newY);
   }
   
-  // Transform element position
-  activeElement.style.transform = `translate(${newX}px, ${newY}px)`;
+  // Update element's position
+  activeElement.style.left = `${newX}px`;
+  activeElement.style.top = `${newY}px`;
   
   // Update current position
   currentX = newX;
@@ -571,21 +578,15 @@ function dragEnd(e) {
   if (activeElement) {
     activeElement.style.cursor = 'grab';
     
-    // Convert transform to left/top for consistent positioning
-    activeElement.style.left = `${currentX}px`;
-    activeElement.style.top = `${currentY}px`;
-    activeElement.style.transform = 'none';
-    
     activeElement = null;
   }
   
-  // Re-enable text selection
   document.body.style.userSelect = '';
 }
 
 
 
-// Separate code for all the save button stuff
+// Separated code for all the save button stuff cos idk where to put it 
 
 // Save the current website 
 function saveWorkspace() {
