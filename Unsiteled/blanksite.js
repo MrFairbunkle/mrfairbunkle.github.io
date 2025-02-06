@@ -107,17 +107,16 @@ function snapToGridPos(pos) {
   return Math.round(pos / GRID_SIZE) * GRID_SIZE;
 }
 
-// Function to add resize handles and make elements resizable
+// Function for resizing corners
 function addResizeHandles(element) {
   const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
   
-  // First, let's set proper positioning and sizing for the element container
+  // Positioning of the stuff in the element
   element.style.position = 'absolute';
   element.style.resize = 'none';
   element.style.minWidth = '50px';
   element.style.minHeight = '50px';
   
-  // For text elements, make the input fill the container
   const input = element.querySelector('input[type="text"]');
   if (input) {
     input.style.width = '100%';
@@ -128,7 +127,6 @@ function addResizeHandles(element) {
     input.style.padding = '5px';
   }
 
-  // For random text container, make it resize properly
   const randomTextContainer = element.querySelector('div');
   if (randomTextContainer && element.querySelector('p')) {
     randomTextContainer.style.width = '100%';
@@ -137,7 +135,6 @@ function addResizeHandles(element) {
     randomTextContainer.style.display = 'flex';
     randomTextContainer.style.alignItems = 'center';
     
-    // Make the paragraph text wrap properly
     const paragraph = randomTextContainer.querySelector('p');
     paragraph.style.width = '100%';
     paragraph.style.wordWrap = 'break-word';
@@ -147,7 +144,6 @@ function addResizeHandles(element) {
     const resizeHandle = document.createElement('div');
     resizeHandle.classList.add('resize-handle', `resize-${corner}`);
     
-    // Style the resize handles
     Object.assign(resizeHandle.style, {
       position: 'absolute',
       width: '10px',
@@ -156,7 +152,7 @@ function addResizeHandles(element) {
       zIndex: '10'
     });
     
-    // Position handles correctly
+    // Position corners
     const handlePositions = {
       'top-left': { top: '-5px', left: '-5px', cursor: 'nwse-resize' },
       'top-right': { top: '-5px', right: '-5px', cursor: 'nesw-resize' },
@@ -226,7 +222,6 @@ function addResizeHandles(element) {
       if (newLeft !== undefined) element.style.left = `${newLeft}px`;
       if (newTop !== undefined) element.style.top = `${newTop}px`;
       
-      // Update input or container sizes
       if (input) {
         input.style.width = '100%';
         input.style.height = '100%';
@@ -249,7 +244,6 @@ function addResizeHandles(element) {
   });
 }
 
-// Update the addElementToWorkspace function to set initial sizes
 function addElementToWorkspace(type, x, y) {
   const element = document.createElement('div');
   element.classList.add('element');
@@ -268,7 +262,7 @@ function addElementToWorkspace(type, x, y) {
       element.style.height = '50px';
       element.innerHTML = `<input type="text" value="Title" style="font-size: 1.5em; font-weight: bold;" />`;
       break;
-      case 'image': // Add resizing 
+      case 'image':
       const container = document.createElement('div');
       const inputContainer = document.createElement('div');
       inputContainer.style.display = 'flex';
@@ -284,7 +278,7 @@ function addElementToWorkspace(type, x, y) {
       // File input
       const fileInput = document.createElement('input');
       fileInput.type = 'file';
-      fileInput.accept = 'image/*'; // Is an image or something
+      fileInput.accept = 'image/*';
       fileInput.style.display = 'none';
       
       // File upload button
@@ -361,7 +355,6 @@ function addElementToWorkspace(type, x, y) {
       break;
 
       case 'text-rand':
-        // Create a container for the random text
         const randomTextContainer = document.createElement('div');
         randomTextContainer.style.padding = '10px';
         randomTextContainer.style.border = '1px solid #ccc';
@@ -370,7 +363,7 @@ function addElementToWorkspace(type, x, y) {
         randomTextContainer.style.minHeight = '50px';
         randomTextContainer.style.backgroundColor = '#f9f9f9';
       
-        // Default text for generation
+        // Default text for generation, leave collapsed
         const defaultText = `
             The sun dipped below the horizon, casting an orange glow across the sky.
             A stray cat wandered through the alley, searching for scraps of food.
@@ -500,7 +493,7 @@ function addElementToWorkspace(type, x, y) {
         element.appendChild(randomTextContainer);
         break;
 
-    case 'image-rand':
+    case 'image-rand': // Fix this, image always same random image on each load
       element.innerHTML = `<img src="https://picsum.photos/200/?random" />`;
       break;
 
@@ -512,7 +505,6 @@ function addElementToWorkspace(type, x, y) {
   element.setAttribute('draggable', 'false');
   setupDraggable(element);
   
-  // Add resize handles
   addResizeHandles(element);
   
   element.addEventListener('click', () => {
@@ -522,7 +514,6 @@ function addElementToWorkspace(type, x, y) {
   workspace.appendChild(element);
 }
 
-// Add CSS for resize handles
 const resizeStyleSheet = document.createElement('style');
 resizeStyleSheet.textContent = `
   .resize-handle {
@@ -537,11 +528,10 @@ resizeStyleSheet.textContent = `
 document.head.appendChild(resizeStyleSheet);
 
 function setupDraggable(element) {
-  element.style.cursor = 'grab'; // Add grab cursor to indicate draggability
+  element.style.cursor = 'grab';
   element.addEventListener('mousedown', dragStart);
   
   function dragStart(e) {
-    // Prevent dragging if interacting with inputs or resize handles
     if (
       e.target.tagName.toLowerCase() === 'input' || 
       e.target.classList.contains('resize-handle')
@@ -581,7 +571,7 @@ function drag(e) {
   let newX = e.clientX - workspaceRect.left - initialX;
   let newY = e.clientY - workspaceRect.top - initialY;
   
-  // Snap to grid?
+  // Snap to grid???
   if (snapToGrid) {
     newX = snapToGridPos(newX);
     newY = snapToGridPos(newY);
