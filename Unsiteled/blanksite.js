@@ -364,7 +364,7 @@ function addElementToWorkspace(type, x, y) {
         randomTextContainer.style.backgroundColor = '#f9f9f9';
       
         // Default text for generation, leave collapsed
-        const defaultText = `
+        const defaultText = ` 
             The sun dipped below the horizon, casting an orange glow across the sky.
             A stray cat wandered through the alley, searching for scraps of food.
             The sound of rain tapping against the window was oddly comforting.
