@@ -47,8 +47,8 @@ const saveButton = document.createElement('button'); // Save website button
 saveButton.textContent = 'Save Website';
 saveButton.style.position = 'absolute'; 
 saveButton.style.width = '120px';
-saveButton.style.top = '10px';
-saveButton.style.right = '264px';
+saveButton.style.top = '48px';
+saveButton.style.right = '10px';
 saveButton.style.zIndex = '1000';
 saveButton.style.padding = '8px 16px';
 saveButton.style.backgroundColor = '#4CAF50';
@@ -57,10 +57,25 @@ saveButton.style.border = 'none'; // who is none???
 saveButton.style.borderRadius = '4px';
 saveButton.style.cursor = 'pointer';
 
+const viewMode = document.createElement('button'); // View mode button
+viewMode.textContent = 'View mode; ESC to exit';
+viewMode.style.position = 'absolute'; 
+viewMode.style.width = '120px';
+viewMode.style.top = '10px';
+viewMode.style.left = '10px';
+viewMode.style.zIndex = '1000';
+viewMode.style.padding = '8px 16px';
+viewMode.style.backgroundColor = '#0096FF';
+viewMode.style.color = 'white';
+viewMode.style.border = 'none';
+viewMode.style.borderRadius = '4px';
+viewMode.style.cursor = 'pointer';
+
 // Add buttons to workspace
 workspace.appendChild(gridToggle);
 workspace.appendChild(snapToggle);
 workspace.appendChild(saveButton);
+workspace.appendChild(viewMode);
 
 // Add event listeners for buttons
 gridToggle.addEventListener('click', () => {
@@ -765,8 +780,8 @@ const loadButton = document.createElement('button');
 loadButton.textContent = 'Load Website';
 loadButton.style.position = 'absolute';
 loadButton.style.width = '120px';
-loadButton.style.top = '10px';
-loadButton.style.right = '392px';
+loadButton.style.top = '48px';
+loadButton.style.right = '136px';
 loadButton.style.zIndex = '1000';
 loadButton.style.padding = '8px 16px';
 loadButton.style.backgroundColor = '#4CAF50';
