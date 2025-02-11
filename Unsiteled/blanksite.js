@@ -17,13 +17,13 @@ let activeElement = null;
 // Create buttons
 const gridToggle = document.createElement('button'); // Grid toggle button
 gridToggle.textContent = 'Toggle Grid';
-gridToggle.style.position = 'absolute';
+gridToggle.style.position = 'absolute'; // absolfruitely
 gridToggle.style.width = '120px';
 gridToggle.style.top = '10px';
 gridToggle.style.right = '10px';
 gridToggle.style.zIndex = '1000';
 gridToggle.style.padding = '8px 16px';
-gridToggle.style.backgroundColor = '#4CAF50';
+gridToggle.style.backgroundColor = '#4CAF50'; // Your elemental power is green. What's that? Green. Okay, so, uh, just to recap. Fire, Ice, Water, Earth, Lightning, snd... Green.
 gridToggle.style.color = 'white';
 gridToggle.style.border = 'none';
 gridToggle.style.borderRadius = '4px';
@@ -45,7 +45,7 @@ snapToggle.style.cursor = 'pointer';
 
 const saveButton = document.createElement('button'); // Save website button
 saveButton.textContent = 'Save Website';
-saveButton.style.position = 'absolute';
+saveButton.style.position = 'absolute'; 
 saveButton.style.width = '120px';
 saveButton.style.top = '10px';
 saveButton.style.right = '264px';
@@ -53,7 +53,7 @@ saveButton.style.zIndex = '1000';
 saveButton.style.padding = '8px 16px';
 saveButton.style.backgroundColor = '#4CAF50';
 saveButton.style.color = 'white';
-saveButton.style.border = 'none';
+saveButton.style.border = 'none'; // who is none???
 saveButton.style.borderRadius = '4px';
 saveButton.style.cursor = 'pointer';
 
@@ -74,7 +74,7 @@ snapToggle.addEventListener('click', () => {
 });
 
 saveButton.addEventListener('click', () => {
-  saveButton 
+  saveButton // wow no way
 });
 
 // Add mousemove listener to workspace
@@ -98,12 +98,12 @@ workspace.addEventListener('drop', (e) => {
   const type = e.dataTransfer.getData('type');
   const x = e.clientX - workspace.getBoundingClientRect().left;
   const y = e.clientY - workspace.getBoundingClientRect().top;
-  if (type) addElementToWorkspace(type, snapToGrid ? snapToGridPos(x) : x, snapToGrid ? snapToGridPos(y) : y);
+  if (type) addElementToWorkspace(type, snapToGrid ? snapToGridPos(x) : x, snapToGrid ? snapToGridPos(y) : y); // python user's worst nightmare
 });
 
 // Function to snap position to grid
 function snapToGridPos(pos) {
-  return Math.round(pos / GRID_SIZE) * GRID_SIZE;
+  return Math.round(pos / GRID_SIZE) * GRID_SIZE; // STOP SHOUTING
 }
 
 // Function for resizing corners
@@ -136,7 +136,7 @@ function addResizeHandles(element) {
     
     const paragraph = randomTextContainer.querySelector('p');
     paragraph.style.width = '100%';
-    paragraph.style.wordWrap = 'break-word';
+    paragraph.style.wordWrap = 'break-word'; // no overflow thanks
   }
   
   corners.forEach(corner => {
@@ -164,7 +164,7 @@ function addResizeHandles(element) {
     let isResizing = false;
     let originalWidth, originalHeight, originalX, originalY, originalLeft, originalTop;
     
-    resizeHandle.addEventListener('mousedown', startResize);
+    resizeHandle.addEventListener('mousedown', startResize); // I thought that said mountain
     
     function startResize(e) {
       e.stopPropagation();
@@ -249,13 +249,14 @@ function addElementToWorkspace(type, x, y) {
   element.style.left = `${x}px`;
   element.style.top = `${y}px`;
   
-  // Set initial sizes based on type
+  // All the stuff for the elements
   switch (type) {
     case 'text':
       element.style.width = '200px';
       element.style.height = '40px';
       element.innerHTML = `<input type="text" value="Text Box" />`;
       break;
+
     case 'title':
       element.style.width = '300px';
       element.style.height = '50px';
@@ -303,12 +304,12 @@ function addElementToWorkspace(type, x, y) {
           img.src = url;
           img.style.display = 'block';
           
-          img.onerror = () => {
+          img.onerror = () => { // Wait til they hear about two error, wait not that says on error. Wait til they hear about off error!!! :O
             img.style.display = 'none';
             alert('Failed to load image. Please check the URL.');
           };
           
-          img.onload = () => {
+          img.onload = () => { // Wait til they hear about two load, wait not that says on load. Wait til they hear about off load!!! :O
             img.style.display = 'block';
           };
         } else {
@@ -468,7 +469,7 @@ function addElementToWorkspace(type, x, y) {
           A pigeon fluttered down to peck at the crumbs on the pavement.
           `;
     
-      // Create RiTa markov model
+      // Create RiTa markov model, totally know how it works
       let markov = RiTa.markov(3);
       
       // Load the text into the model
@@ -490,7 +491,7 @@ function addElementToWorkspace(type, x, y) {
       element.appendChild(randomTextContainer);
       break;
 
-    case 'image-rand': // Fix this, image always same random image on each load
+    case 'image-rand': // Fix this, image always same random image on each load, kinda doesn't matter
       element.innerHTML = `<img src="https://picsum.photos/200/?random" />`;
       break;
 
@@ -608,31 +609,46 @@ function saveWorkspace() {
   const savedElements = [];
 
   elements.forEach(element => {
+    // Get element dimensions
     const elementData = {
       type: '',
       left: element.style.left,
       top: element.style.top,
+      width: element.style.width,
+      height: element.style.height,
       content: ''
     };
 
     // Determine element type and save relevant content
     const input = element.querySelector('input[type="text"]');
     const img = element.querySelector('img');
-    const randtext = element.querySelector('p');
-
+    const randTextP = element.querySelector('p');
+    
     if (input && input.style.fontSize === '1.5em') {
+      // Title element
       elementData.type = 'title';
       elementData.content = input.value;
     } else if (input && !img) {
+      // Text element
       elementData.type = 'text';
       elementData.content = input.value;
-    } else if (img) {
-      elementData.type = 'image';
+    } else if (img && img.src.includes('picsum')) {
+      // Random image element
+      elementData.type = 'image-rand';
       elementData.content = img.src;
-    } else if (randtext) {
-      elementData.type = 'rand-text';
-      elementData.content = sentence;
-    } // HERE
+    } else if (img) {
+      // Regular image element
+      elementData.type = 'image';
+      const urlInput = element.querySelector('input[type="text"]');
+      elementData.content = {
+        src: img.src,
+        url: urlInput ? urlInput.value : ''
+      };
+    } else if (randTextP) {
+      // Random text element
+      elementData.type = 'text-rand';
+      elementData.content = randTextP.textContent;
+    }
 
     savedElements.push(elementData);
   });
@@ -661,7 +677,7 @@ function saveWorkspace() {
   URL.revokeObjectURL(url);
 }
 
-// Add this function to load a saved layout
+// Update the load function to handle the new save format
 function loadWorkspace(file) {
   const reader = new FileReader();
   reader.onload = (e) => {
@@ -685,27 +701,52 @@ function loadWorkspace(file) {
       
       // Restore elements
       saveData.elements.forEach(elementData => {
+        // Create element with correct position
         addElementToWorkspace(
           elementData.type,
           parseInt(elementData.left),
           parseInt(elementData.top)
         );
         
-        // Restore element content
-        const element = workspace.lastElementChild; // HERE
-        if (elementData.type === 'image') {
-          const img = element.querySelector('img');
-          const urlInput = element.querySelector('input[type="text"]');
-          if (img && urlInput) {
-            img.src = elementData.content;
-            img.style.display = 'block';
-            urlInput.value = elementData.content;
-          }
-        } else {
-          const input = element.querySelector('input[type="text"]');
-          if (input) {
-            input.value = elementData.content;
-          }
+        const element = workspace.lastElementChild;
+        
+        // Set dimensions
+        if (elementData.width) element.style.width = elementData.width;
+        if (elementData.height) element.style.height = elementData.height;
+        
+        // Restore content based on type
+        switch (elementData.type) {
+          case 'image':
+            const img = element.querySelector('img');
+            const urlInput = element.querySelector('input[type="text"]');
+            if (img && urlInput) {
+              img.src = elementData.content.src;
+              img.style.display = 'block';
+              urlInput.value = elementData.content.url;
+            }
+            break;
+            
+          case 'image-rand':
+            const randImg = element.querySelector('img');
+            if (randImg) {
+              randImg.src = elementData.content;
+            }
+            break;
+            
+          case 'text-rand':
+            const randTextP = element.querySelector('p');
+            if (randTextP) {
+              randTextP.textContent = elementData.content;
+            }
+            break;
+            
+          case 'title':
+          case 'text':
+            const input = element.querySelector('input[type="text"]');
+            if (input) {
+              input.value = elementData.content;
+            }
+            break;
         }
       });
     } catch (error) {
