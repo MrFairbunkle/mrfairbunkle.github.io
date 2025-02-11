@@ -1,3 +1,11 @@
+:root {
+  --main-bg-colour: ;
+  --prim-acc-colour: ;
+  --scnd-acc-colour: ;
+  --hlgt-colour: ;
+  --text-colour: ;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;

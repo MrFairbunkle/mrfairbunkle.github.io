@@ -1,3 +1,11 @@
+:root {
+    --main-bg-colour: ;
+    --prim-acc-colour: ;
+    --scnd-acc-colour: ;
+    --hlgt-colour: ;
+    --text-colour: ;
+  }
+
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
