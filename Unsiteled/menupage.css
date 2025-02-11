@@ -1,9 +1,9 @@
 :root {
-    --main-bg-colour: ;
-    --prim-acc-colour: ;
-    --scnd-acc-colour: ;
-    --hlgt-colour: ;
-    --text-colour: ;
+    --main-bg-colour: #2C2F38;
+    --prim-acc-colour: #A1A6B4;
+    --scnd-acc-colour: #D6BFB2;
+    --hlgt-colour: #8EA4BF;
+    --text-colour: #EAEAEA ;
   }
 
 body {
