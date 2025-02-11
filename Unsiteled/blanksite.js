@@ -667,10 +667,10 @@ function saveWorkspace() {
 
   // Create and trigger download
   const blob = new Blob([saveString], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob); // blob the builder
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'Unsiteled_Project.json';
+  a.download = 'Unsiteled_Project.json'; // probably use this for the saved projects thing
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
