@@ -23,8 +23,8 @@ gridToggle.style.top = '10px';
 gridToggle.style.right = '10px';
 gridToggle.style.zIndex = '1000';
 gridToggle.style.padding = '8px 16px';
-gridToggle.style.backgroundColor = '#4CAF50'; // Your elemental power is green. What's that? Green. Okay, so, uh, just to recap. Fire, Ice, Water, Earth, Lightning, snd... Green.
-gridToggle.style.color = 'white';
+gridToggle.style.backgroundColor = '#A08970'; // Your elemental power is green. What's that? Green. Okay, so, uh, just to recap. Fire, Ice, Water, Earth, Lightning, snd... Green.
+gridToggle.style.color = '#F1E3C6';
 gridToggle.style.border = 'none';
 gridToggle.style.borderRadius = '4px';
 gridToggle.style.cursor = 'pointer';
@@ -37,8 +37,8 @@ snapToggle.style.top = '10px';
 snapToggle.style.right = '136px';
 snapToggle.style.zIndex = '1000';
 snapToggle.style.padding = '8px 16px';
-snapToggle.style.backgroundColor = '#4CAF50';
-snapToggle.style.color = 'white';
+snapToggle.style.backgroundColor = '#A08970';
+snapToggle.style.color = '#F1E3C6';
 snapToggle.style.border = 'none';
 snapToggle.style.borderRadius = '4px';
 snapToggle.style.cursor = 'pointer';
@@ -51,8 +51,8 @@ saveButton.style.top = '48px';
 saveButton.style.right = '10px';
 saveButton.style.zIndex = '1000';
 saveButton.style.padding = '8px 16px';
-saveButton.style.backgroundColor = '#4CAF50';
-saveButton.style.color = 'white';
+saveButton.style.backgroundColor = '#A08970';
+saveButton.style.color = '#F1E3C6';
 saveButton.style.border = 'none'; // who is none???
 saveButton.style.borderRadius = '4px';
 saveButton.style.cursor = 'pointer';
@@ -65,8 +65,8 @@ viewMode.style.top = '10px';
 viewMode.style.left = '10px';
 viewMode.style.zIndex = '1000';
 viewMode.style.padding = '8px 16px';
-viewMode.style.backgroundColor = '#0096FF';
-viewMode.style.color = 'white';
+viewMode.style.backgroundColor = '#C6A64B';
+viewMode.style.color = '#F1E3C6';
 viewMode.style.border = 'none';
 viewMode.style.borderRadius = '4px';
 viewMode.style.cursor = 'pointer';
@@ -80,12 +80,12 @@ workspace.appendChild(viewMode);
 // Add event listeners for buttons
 gridToggle.addEventListener('click', () => {
   workspace.classList.toggle('hide-grid');
-  gridToggle.style.backgroundColor = workspace.classList.contains('hide-grid') ? '#888' : '#4CAF50';
+  gridToggle.style.backgroundColor = workspace.classList.contains('hide-grid') ? '#888' : '#A08970';
 });
 
 snapToggle.addEventListener('click', () => {
   snapToGrid = !snapToGrid;
-  snapToggle.style.backgroundColor = snapToGrid ? '#4CAF50' : '#888';
+  snapToggle.style.backgroundColor = snapToGrid ? '#A08970' : '#888';
 });
 
 saveButton.addEventListener('click', () => {
@@ -162,7 +162,7 @@ function addResizeHandles(element) {
       position: 'absolute',
       width: '10px',
       height: '10px',
-      backgroundColor: 'blue',
+      backgroundColor: '#D9BF77',
       zIndex: '10'
     });
     
@@ -301,8 +301,8 @@ function addElementToWorkspace(type, x, y) {
       const uploadButton = document.createElement('button');
       uploadButton.textContent = 'Upload';
       uploadButton.style.padding = '4px 8px';
-      uploadButton.style.backgroundColor = '#4CAF50';
-      uploadButton.style.color = 'white';
+      uploadButton.style.backgroundColor = '#A08970';
+      uploadButton.style.color = '#F1E3C6';
       uploadButton.style.border = 'none';
       uploadButton.style.borderRadius = '4px';
       uploadButton.style.cursor = 'pointer';
@@ -370,11 +370,11 @@ function addElementToWorkspace(type, x, y) {
     case 'text-rand':
       const randomTextContainer = document.createElement('div');
       randomTextContainer.style.padding = '10px';
-      randomTextContainer.style.border = '1px solid #ccc';
+      randomTextContainer.style.border = '1px solid #554b42';
       randomTextContainer.style.borderRadius = '4px';
       randomTextContainer.style.minWidth = '200px';
       randomTextContainer.style.minHeight = '50px';
-      randomTextContainer.style.backgroundColor = '#f9f9f9';
+      randomTextContainer.style.backgroundColor = '#554b42';
     
       // Default text for generation, leave collapsed
       const defaultText = ` 
@@ -704,11 +704,11 @@ function loadWorkspace(file) {
       
       // Restore grid settings
       snapToGrid = saveData.gridSettings.snapToGrid;
-      snapToggle.style.backgroundColor = snapToGrid ? '#4CAF50' : '#888';
+      snapToggle.style.backgroundColor = snapToGrid ? '#A08970' : '#888';
       
       if (saveData.gridSettings.gridVisible) {
         workspace.classList.remove('hide-grid');
-        gridToggle.style.backgroundColor = '#4CAF50';
+        gridToggle.style.backgroundColor = '#A08970';
       } else {
         workspace.classList.add('hide-grid');
         gridToggle.style.backgroundColor = '#888';
@@ -784,8 +784,8 @@ loadButton.style.top = '48px';
 loadButton.style.right = '136px';
 loadButton.style.zIndex = '1000';
 loadButton.style.padding = '8px 16px';
-loadButton.style.backgroundColor = '#4CAF50';
-loadButton.style.color = 'white';
+loadButton.style.backgroundColor = '#A08970';
+loadButton.style.color = '#F1E3C6';
 loadButton.style.border = 'none';
 loadButton.style.borderRadius = '4px';
 loadButton.style.cursor = 'pointer';

@@ -18,11 +18,13 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: var(--main-bg-colour);
+  color: var(--text-colour);
 }
 
 header {
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--header-bg-colour);
+  color: var(--text-colour);
   text-align: center;
   padding: 10px 0;
 }
@@ -34,20 +36,20 @@ main {
 
 .toolbox {
   width: 20%;
-  background-color: #f4f4f4;
+  background-color: var(--panel-bg-colour);
   padding: 10px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid var(--item-border-colour);
 }
 
 .workspace {
   flex: 1;
-  background-color: #ffffff;
+  background-color: var(--main-content-bg-colour);
   padding: 20px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid var(--item-border-colour);
   position: relative;
   background-image: 
-    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
-    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+    linear-gradient(to right, var(--item-border-colour) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--item-border-colour) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -56,13 +58,14 @@ main {
 }
 
 .draggable {
-  background-color: #e0e0e0;
+  background-color: var(--panel-bg-colour);
   padding: 10px;
   margin: 5px 0;
   cursor: grab;
   text-align: center;
-  border: 1px solid #ccc;
+  border: 1px solid var(--second-acc-colour);
   border-radius: 4px;
+  color: var(--text-colour);
 }
 
 .draggable:active {
@@ -72,11 +75,12 @@ main {
 .workspace .element {
   position: absolute;
   padding: 5px;
-  border: 1px dashed #bbb;
+  border: 1px dashed var(--second-acc-colour);
   cursor: grab;
   user-select: none;
-  background-color: white;
+  background-color: var(--panel-bg-colour);
   transition: transform 0.05s ease-out;
+  color: var(--text-colour);
 }
 
 .workspace .element:active {
@@ -86,7 +90,7 @@ main {
 .workspace .element img {
   margin-top: 10px;
   object-fit: contain;
-  border: 1px solid #ddd;
+  border: 1px solid var(--item-border-colour);
   border-radius: 4px;
   pointer-events: none;
 }
@@ -98,9 +102,11 @@ main {
   outline: none;
   padding: 5px;
   cursor: text;
+  background-color: var(--main-content-bg-colour);
+  color: var(--text-colour);
 }
 
 .workspace .element.selected {
-  border-color: #4CAF50;
+  border-color: var(--primary-acc-colour);
   border-width: 2px;
 }
