@@ -17,7 +17,7 @@ let activeElement = null;
 // Create buttons
 const gridToggle = document.createElement('button'); // Grid toggle button
 gridToggle.textContent = 'Toggle Grid';
-gridToggle.style.position = 'absolute'; // absolfruitely
+gridToggle.style.position = 'absolute'; // absofruitely
 gridToggle.style.width = '120px';
 gridToggle.style.top = '10px';
 gridToggle.style.right = '10px';
