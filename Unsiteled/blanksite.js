@@ -531,7 +531,7 @@ function addElementToWorkspace(type, x, y) {
 const resizeStyleSheet = document.createElement('style');
 resizeStyleSheet.textContent = `
   .resize-handle {
-    border: 1px solid blue;
+    border: 1px solid #D9BF77;
     opacity: 0.5;
     transition: opacity 0.2s;
   }
