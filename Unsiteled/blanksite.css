@@ -1,9 +1,15 @@
 :root {
-  --main-bg-colour: ;
-  --prim-acc-colour: ;
-  --scnd-acc-colour: ;
-  --hlgt-colour: ;
-  --text-colour: ;
+  --main-bg-colour: #2E2B27;
+  --primary-acc-colour: #C6A64B;
+  --second-acc-colour: #A08970;
+  --highlight-colour: #D9BF77;
+  --text-colour: #F1E3C6;
+  --header-bg-colour: #3D3531;
+  --panel-bg-colour: #4B4239;
+  --main-content-bg-colour: #554b42;
+  --link-colour: #f1e3c6;
+  --saved-hover-colour: #605047;
+  --item-border-colour: #6a5b4e;
 }
 
 body {
