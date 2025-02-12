@@ -1,32 +1,72 @@
 :root {
-    --main-bg-colour: #2C2F38;
-    --prim-acc-colour: #A1A6B4;
-    --scnd-acc-colour: #D6BFB2;
-    --hlgt-colour: #8EA4BF;
-    --text-colour: #EAEAEA ;
-  }
+    --main-bg-colour: #2E2B27;
+    --primary-acc-colour: #C6A64B;
+    --second-acc-colour: #A08970;
+    --highlight-colour: #D9BF77;
+    --text-colour: #F1E3C6;
+    --header-bg-colour: #3D3531;
+    --panel-bg-colour: #4B4239;
+    --main-content-bg-colour: #554b42;
+    --link-colour: #f1e3c6;
+    --saved-hover-colour: #605047;
+    --item-border-colour: #6a5b4e;
+}
 
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #ffffff;
+    background-color: var(--main-bg-colour);
+    color: var(--text-colour);
+}
+
+#loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.typewriter p {
+    font-size: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--primary-acc-colour);
+    width: 0;
+    animation: typing 2s steps(9) forwards, blink 1s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+#main-website {
+    display: none;
 }
 
 .header {
-    background-color: #2b579a;
+    background-color: var(--header-bg-colour);
     color: white;
     padding: 8px 16px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-}
-
-.search-bar {
-    margin-left: 20px;
-    padding: 6px 12px;
-    border: 1px solid rgba(255,255,255,0.4);
-    background: rgba(255,255,255,0.1);
-    color: white;
-    width: 200px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--second-acc-colour);
 }
 
 .content {
@@ -35,22 +75,27 @@ body {
 }
 
 .left-panel {
-    width: 200px;
-    background-color: #f3f3f3;
+    width: 250px;
+    background-color: var(--panel-bg-colour);
     padding: 20px;
+    color: var(--text-colour);
+    border-right: 1px solid var(--second-acc-colour);
 }
 
 .main-content {
     flex: 1;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: var(--main-content-bg-colour);
     overflow-y: auto;
 }
 
 .section-title {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 20px;
-    color: #2b579a;
+    color: var(--primary-acc-colour);
+    font-weight: 600;
+    border-bottom: 2px solid var(--highlight-colour);
+    padding-bottom: 5px;
 }
 
 .template-grid {
@@ -60,31 +105,35 @@ body {
 }
 
 .template-item {
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    border: 1px solid var(--item-border-colour);
+    border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .template-item:hover {
-    border-color: #2b579a;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-color: var(--primary-acc-colour);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .template-preview {
     height: 140px;
-    background-color: #f8f9fa;
+    background-color: var(--second-acc-colour);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--item-border-colour);
 }
 
 .template-name {
-    padding: 8px;
-    font-size: 14px;
+    padding: 10px;
+    font-size: 16px;
     text-align: center;
+    color: var(--text-colour);
+    font-weight: 500;
 }
 
 .saved-list {
@@ -94,23 +143,25 @@ body {
 }
 
 .saved-item {
-    padding: 8px;
+    padding: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: #666;
+    color: var(--text-colour);
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
 }
 
 .saved-item:hover {
-    background-color: #e6e6e6;
+    background-color: var(--saved-hover-colour);
 }
 
 .icon {
-    margin-right: 8px;
-    color: #666;
+    margin-right: 12px;
+    color: var(--primary-acc-colour);
 }
 
 a {
     text-decoration: none;
-    color: #000;
+    color: var(--link-colour);
 }
