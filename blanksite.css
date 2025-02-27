@@ -81,6 +81,7 @@ main {
   background-color: var(--panel-bg-colour);
   transition: transform 0.05s ease-out;
   color: var(--text-colour);
+  overflow: hidden; /* #10 */
 }
 
 .workspace .element:active {
@@ -89,10 +90,12 @@ main {
 
 .workspace .element img {
   margin-top: 10px;
+  max-width: 100%; /* #10 */
+  max-height: 100%; /* #10 */
   object-fit: contain;
   border: 1px solid var(--item-border-colour);
   border-radius: 4px;
-  pointer-events: none;
+  pointer-events: auto; /* Allow click for #5 */
 }
 
 .workspace .element input {
@@ -104,9 +107,17 @@ main {
   cursor: text;
   background-color: var(--main-content-bg-colour);
   color: var(--text-colour);
+  overflow-wrap: break-word; /* #10 */
+  resize: none; /* #10 */
 }
 
 .workspace .element.selected {
   border-color: var(--primary-acc-colour);
   border-width: 2px;
+}
+
+.workspace .element button, /* #1 */
+.workspace .element form input, /* #3 */
+.workspace .element form button /* #3 */ {
+  box-sizing: border-box;
 }

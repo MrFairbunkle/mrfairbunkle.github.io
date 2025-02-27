@@ -1,26 +1,15 @@
-<!-- To do 
- Use details and summary tags for something idk they seem cool 
- Fieldlist and legend somewhere because cool
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Font for loading screen -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
-
-    <!-- Main CSS -->
     <link rel="stylesheet" href="menupage.css">
 </head>
 <body>
-    <!-- Loading screen HTML -->
     <div id="loading-screen">
         <div class="typewriter">
-            <p>Unsiteled</p> <!-- The word to be typed -->
+            <p>Unsiteled</p>
         </div>
     </div>
-
-    <!-- Main website HTML -->
     <div id="main-website">
         <div class="header">
             <span>Unsiteled</span>
@@ -31,72 +20,95 @@
                 <option value="Template 3"></option>
             </datalist>
         </div>
-
         <div class="content">
             <div class="left-panel">
                 <div class="section-title">Saved Projects</div>
                 <ul class="saved-list">
-                    <li class="saved-item">
-                        <span class="icon">📄</span>
-                        <span>Project_001</span>
-                    </li>
-                    <li class="saved-item">
-                        <span class="icon">📄</span>
-                        <span>Project_002</span>
-                    </li>
-                    <li class="saved-item">
-                        <span class="icon">📄</span>
-                        <span>Project_003</span>
-                    </li>
+                    <li class="saved-item"><span class="icon">📄</span><span>Project_001</span></li>
+                    <li class="saved-item"><span class="icon">📄</span><span>Project_002</span></li>
+                    <li class="saved-item"><span class="icon">📄</span><span>Project_003</span></li>
                 </ul>
             </div>
-
             <div class="main-content">
                 <div class="section-title">Create New</div>
                 <div class="template-grid">
                     <a href="blanksite.html" class="template-item">
-                        <div class="template-preview">
-                            <span style="font-size: 40px">📄</span>
-                        </div>
+                        <div class="template-preview"><span style="font-size: 40px">📄</span></div>
                         <div class="template-name">Blank site</div>
                     </a>
-                    <a href="template1.html" class="template-item">
-                        <div class="template-preview">
-                            <span style="font-size: 40px">🔨</span>
-                        </div>
+                    <a href="blanksite.html" class="template-item">
+                        <div class="template-preview"><span style="font-size: 40px">🔨</span></div>
                         <div class="template-name">Template 1</div>
                     </a>
-                    <a href="template2.html" class="template-item">
-                        <div class="template-preview">
-                            <span style="font-size: 40px">🔨</span>
-                        </div>
+                    <a href="blanksite.html" class="template-item">
+                        <div class="template-preview"><span style="font-size: 40px">🔨</span></div>
                         <div class="template-name">Template 2</div>
                     </a>
-                    <a href="template3.html" class="template-item">
-                        <div class="template-preview">
-                            <span style="font-size: 40px">🔨</span>
-                        </div>
+                    <a href="blanksite.html" class="template-item">
+                        <div class="template-preview"><span style="font-size: 40px">🔨</span></div>
                         <div class="template-name">Template 3</div>
                     </a>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
-
     <script>
-        // JavaScript for the loading screen
         const loadingScreen = document.getElementById('loading-screen');
         const mainWebsite = document.getElementById('main-website');
-
         const typingDuration = 2 * 1000;
         const repeatCount = 2;
-
         const totalLoadingTime = typingDuration * repeatCount;
 
         setTimeout(() => {
-            loadingScreen.style.display = 'none'; // Hide the loading screen
-            mainWebsite.style.display = 'block'; // Show the main website
+            loadingScreen.style.display = 'none';
+            mainWebsite.style.display = 'block';
         }, totalLoadingTime);
+
+        // #7 Template loading
+        const templateFiles = {
+            'Template 1': 'template1.json',
+            'Template 2': 'template2.json',
+            'Template 3': 'template3.json'
+        };
+
+        function loadTemplate(templateName) {
+            fetch(templateFiles[templateName])
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('loadedTemplate', JSON.stringify(data));
+                    window.location.href = 'blanksite.html';
+                })
+                .catch(err => console.error('Template load failed:', err));
+        }
+
+        document.querySelectorAll('.template-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const templateName = item.querySelector('.template-name').textContent;
+                if (templateName !== 'Blank site') {
+                    loadTemplate(templateName);
+                } else {
+                    window.location.href = 'blanksite.html';
+                }
+            });
+        });
+
+        // #8 Saved project loading
+        document.querySelectorAll('.saved-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const projectName = item.querySelector('span:nth-child(2)').textContent;
+                fetch(`${projectName}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        localStorage.setItem('loadedProject', JSON.stringify(data));
+                        window.location.href = 'blanksite.html';
+                    })
+                    .catch(err => {
+                        console.error('Failed to load project:', err);
+                        alert('Could not load the project. Please ensure the file exists.');
+                    });
+            });
+        });
     </script>
 </body>
 </html>
