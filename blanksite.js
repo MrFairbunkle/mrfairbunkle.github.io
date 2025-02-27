@@ -1,4 +1,4 @@
- // Elements
+// Elements
 const toolbox = document.querySelector('.toolbox');
 const workspace = document.getElementById('workspace');
 
