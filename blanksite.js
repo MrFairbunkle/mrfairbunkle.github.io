@@ -395,12 +395,12 @@ function addElementToWorkspace(type, x, y) {
         case 'text':
             element.style.width = '200px';
             element.style.height = '40px';
-            element.innerHTML = `<input type="text" value="Text Box" />`;
+            element.innerHTML = `<input type="text" value="Text Box" style="color: #000000;" />`;
             break;
         case 'title':
             element.style.width = '300px';
             element.style.height = '50px';
-            element.innerHTML = `<input type="text" value="Title" style="font-size: 1.5em; font-weight: bold;" />`;
+            element.innerHTML = `<input type="text" value="Title" style="color: #000000; font-size: 1.5em; font-weight: bold;" />`;
             break;
         case 'image':
             setupImageElement(element);
