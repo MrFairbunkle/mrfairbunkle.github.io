@@ -160,6 +160,17 @@ viewMode.addEventListener('click', () => {
     document.addEventListener('keydown', escHandler);
 });
 
+// Add Delete key functionality for selected elements
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Delete' && selectedElement) {
+        if (confirm('Delete this element?')) {
+            selectedElement.remove();
+            selectedElement = null;
+            stylePanel.style.display = 'none';
+        }
+    }
+});
+
 // Drag and drop functionality
 workspace.addEventListener('mousemove', drag);
 workspace.addEventListener('mouseup', dragEnd);
@@ -430,7 +441,13 @@ function addElementToWorkspace(type, x, y) {
     element.setAttribute('draggable', 'false');
     setupDraggable(element);
     addResizeHandles(element);
+    setupElementEvents(element);
 
+    workspace.appendChild(element);
+}
+
+// Setup element events
+function setupElementEvents(element) {
     // Element selection handlers
     element.addEventListener('click', (e) => {
         if (selectedElement) selectedElement.classList.remove('selected');
@@ -443,20 +460,6 @@ function addElementToWorkspace(type, x, y) {
         textColor.value = element.style.color ? rgbToHex(element.style.color) : '#F1E3C6';
         fontSize.value = parseInt(element.style.fontSize) || 16;
     });
-
-    // Right-click to delete
-    element.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        if (confirm('Delete this element?')) {
-            element.remove();
-            if (selectedElement === element) {
-                selectedElement = null;
-                stylePanel.style.display = 'none';
-            }
-        }
-    });
-
-    workspace.appendChild(element);
 }
 
 // Handle click outside elements
