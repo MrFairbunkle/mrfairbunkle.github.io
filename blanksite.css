@@ -6,8 +6,7 @@
   --text-colour: #F1E3C6;
   --header-bg-colour: #3D3531;
   --panel-bg-colour: #4B4239;
-  --main-content-bg-colour: #554b42;
-  --link-colour: #f1e3c6;
+  --main-content-bg-colour: #F1E3C6;
   --saved-hover-colour: #605047;
   --item-border-colour: #6a5b4e;
 }
@@ -81,7 +80,7 @@ main {
   background-color: var(--panel-bg-colour);
   transition: transform 0.05s ease-out;
   color: var(--text-colour);
-  overflow: hidden; /* #10 */
+  overflow: hidden; 
 }
 
 .workspace .element:active {
@@ -90,12 +89,12 @@ main {
 
 .workspace .element img {
   margin-top: 10px;
-  max-width: 100%; /* #10 */
-  max-height: 100%; /* #10 */
+  max-width: 100%; 
+  max-height: 100%; 
   object-fit: contain;
   border: 1px solid var(--item-border-colour);
   border-radius: 4px;
-  pointer-events: auto; /* Allow click for #5 */
+  pointer-events: auto; 
 }
 
 .workspace .element input {
@@ -107,8 +106,8 @@ main {
   cursor: text;
   background-color: var(--main-content-bg-colour);
   color: var(--text-colour);
-  overflow-wrap: break-word; /* #10 */
-  resize: none; /* #10 */
+  overflow-wrap: break-word; 
+  resize: none; 
 }
 
 .workspace .element.selected {
@@ -116,8 +115,8 @@ main {
   border-width: 2px;
 }
 
-.workspace .element button, /* #1 */
-.workspace .element form input, /* #3 */
-.workspace .element form button /* #3 */ {
+.workspace .element button, 
+.workspace .element form input, 
+.workspace .element form button {
   box-sizing: border-box;
 }

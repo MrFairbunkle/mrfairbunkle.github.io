@@ -11,7 +11,7 @@ let activeElement = null;
 let selectedElement = null;
 
 // Create UI elements
-const createButton = (text, top, right, color = '#A08970') => {
+const createButton = (text, top, right) => {
     const btn = document.createElement('button');
     btn.textContent = text;
     Object.assign(btn.style, {
@@ -21,7 +21,7 @@ const createButton = (text, top, right, color = '#A08970') => {
         right: `${right}px`,
         zIndex: '1000',
         padding: '8px 16px',
-        backgroundColor: color,
+        backgroundColor: '#A08970',
         color: '#F1E3C6',
         border: 'none',
         borderRadius: '4px',
@@ -110,7 +110,22 @@ bgColor.addEventListener('input', () => {
 });
 
 textColor.addEventListener('input', () => {
-    if (selectedElement) selectedElement.style.color = textColor.value;
+    if (selectedElement) {
+        // Set color on the selected element itself
+        selectedElement.style.color = textColor.value;
+        
+        // Also set color on common child elements that might contain text
+        const children = selectedElement.querySelectorAll('input, button, p, div, form');
+        children.forEach(child => {
+            child.style.color = textColor.value;
+        });
+        
+        // Special case for text elements with inputs
+        const textInput = selectedElement.querySelector('input[type="text"]');
+        if (textInput) {
+            textInput.style.color = textColor.value;
+        }
+    }
 });
 
 fontSize.addEventListener('input', () => {
