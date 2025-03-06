@@ -1,0 +1,47 @@
+{
+    "elements": [
+      {
+        "type": "image-rand",
+        "left": "50px",
+        "top": "50px",
+        "width": "200px",
+        "height": "200px",
+        "content": "https://picsum.photos/200/?random",
+        "styles": {
+          "backgroundColor": "rgb(75, 66, 57)",
+          "color": "rgb(241, 227, 198)",
+          "fontSize": "16px"
+        }
+      },
+      {
+        "type": "image-rand",
+        "left": "300px",
+        "top": "50px",
+        "width": "200px",
+        "height": "200px",
+        "content": "https://picsum.photos/200/?random",
+        "styles": {
+          "backgroundColor": "rgb(75, 66, 57)",
+          "color": "rgb(241, 227, 198)",
+          "fontSize": "16px"
+        }
+      },
+      {
+        "type": "break",
+        "left": "25px",
+        "top": "300px",
+        "width": "550px",
+        "height": "2px",
+        "content": "",
+        "styles": {
+          "backgroundColor": "rgb(217, 191, 119)",
+          "color": "rgb(241, 227, 198)",
+          "fontSize": "16px"
+        }
+      }
+    ],
+    "gridSettings": {
+      "snapToGrid": true,
+      "gridVisible": true
+    }
+  }
