@@ -163,11 +163,10 @@ viewMode.addEventListener('click', () => {
 // Add Delete key functionality for selected elements
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Delete' && selectedElement) {
-        if (confirm('Delete this element?')) {
-            selectedElement.remove();
-            selectedElement = null;
-            stylePanel.style.display = 'none';
-        }
+        e.preventDefault();
+        selectedElement.remove();
+        selectedElement = null;
+        stylePanel.style.display = 'none';
     }
 });
 
