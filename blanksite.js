@@ -28,13 +28,13 @@ const createButton = (text, top, right, customStyles = {}) => {
         cursor: 'pointer',
         transition: 'background-color 0.2s, transform 0.1s',
         boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-        ...customStyles
+        ...customStyles // S p r e a d function
     });
     
     // Add hover effect
     btn.addEventListener('mouseover', () => {
         btn.style.backgroundColor = '#b09a80';
-        btn.style.transform = 'translateY(-2px)';
+        btn.style.transform = 'translateY(-2px)'; // Up a bit
     });
     
     btn.addEventListener('mouseout', () => {
@@ -92,6 +92,7 @@ Object.assign(stylePanel.style, {
     boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
 });
 
+// Bit styling menu thing
 stylePanel.innerHTML = `
     <h3 style="margin-top: 0; border-bottom: 1px solid #6a5b4e; padding-bottom: 5px;">Element Style</h3>
     <div style="margin-bottom: 8px;">
@@ -246,7 +247,7 @@ const history = {
     maxStates: 30,
     
     saveState() {
-        // Remove any future states if we're not at the end
+        // Remove any future states if not at the end
         if (this.currentIndex < this.states.length - 1) {
             this.states = this.states.slice(0, this.currentIndex + 1);
         }
@@ -255,6 +256,7 @@ const history = {
         const elements = workspace.querySelectorAll('.element');
         const stateData = [];
         
+        // Save all the stuff in the current state
         elements.forEach(element => {
             stateData.push({
                 html: element.outerHTML,
@@ -278,7 +280,7 @@ const history = {
         
         this.states.push(stateData);
         
-        // Limit the number of saved states
+        // Limit the number of saved states because memory 
         if (this.states.length > this.maxStates) {
             this.states.shift();
         } else {
@@ -291,7 +293,7 @@ const history = {
     
     undo() {
         if (this.currentIndex > 0) {
-            this.currentIndex--;
+            this.currentIndex--; // -1
             this.restoreState();
             return true;
         }
@@ -300,7 +302,7 @@ const history = {
     
     redo() {
         if (this.currentIndex < this.states.length - 1) {
-            this.currentIndex++;
+            this.currentIndex++; // +1
             this.restoreState();
             return true;
         }
@@ -343,7 +345,7 @@ const history = {
 // Update undo/redo button states
 function updateUndoRedoButtons() {
     undoButton.disabled = history.currentIndex <= 0;
-    undoButton.style.opacity = history.currentIndex <= 0 ? '0.5' : '1';
+    undoButton.style.opacity = history.currentIndex <= 0 ? '0.5' : '1'; // Can't press if nothing to undo/redo
     
     redoButton.disabled = history.currentIndex >= history.states.length - 1;
     redoButton.style.opacity = history.currentIndex >= history.states.length - 1 ? '0.5' : '1';
@@ -354,12 +356,14 @@ function snapToGridPos(pos) {
     return Math.round(pos / GRID_SIZE) * GRID_SIZE;
 }
 
+// RGB to Hex as suggested by the name 
 function rgbToHex(rgb) {
     if (!rgb || !rgb.startsWith('rgb')) return rgb;
     const [r, g, b] = rgb.match(/\d+/g) || [0, 0, 0];
     return `#${((1 << 24) + (parseInt(r) << 16) + (parseInt(g) << 8) + parseInt(b)).toString(16).slice(1)}`;
 }
 
+// Toast is a popup because toaster pops up toast 😱
 function showToast(message, duration = 3000) {
     const toast = document.createElement('div');
     toast.className = 'toast-notification';
@@ -469,11 +473,11 @@ duplicateBtn.addEventListener('click', () => {
         const clone = selectedElement.cloneNode(true);
         const rect = selectedElement.getBoundingClientRect();
         
-        // Offset the cloned element a bit
+        // Offset the cloned element a bit 
         clone.style.left = `${parseInt(selectedElement.style.left) + 20}px`;
         clone.style.top = `${parseInt(selectedElement.style.top) + 20}px`;
         
-        // Reset selection state
+        // Don't select it anymore
         clone.classList.remove('selected');
         
         // Re-attach event handlers
@@ -527,7 +531,7 @@ redoButton.addEventListener('click', () => {
     }
 });
 
-// Help overlay
+// Help overlay information 
 helpButton.addEventListener('click', () => {
     const helpOverlay = document.createElement('div');
     helpOverlay.id = 'help-overlay';
