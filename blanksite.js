@@ -48,8 +48,8 @@ const createButton = (text, top, right, customStyles = {}) => {
 // Create main UI buttons
 const gridToggle = createButton('Toggle Grid', 10, 10);
 const snapToggle = createButton('Toggle Snap', 10, 136);
-const saveButton = createButton('Save Website', 48, 10);
-const loadButton = createButton('Load Website', 48, 136);
+const saveButton = createButton('Export JSON', 48, 10);
+const loadButton = createButton('Load JSON', 48, 136);
 const viewMode = createButton('View Mode', 10, 10, { 
     right: 'auto', 
     left: '10px', 
@@ -64,6 +64,125 @@ const helpButton = createButton('Help', 10, 10, {
 });
 const zoomOutButton = createButton('-', 124, 10);
 const zoomInButton = createButton('+', 124, 136);
+
+// Add export HTML button as per feedback
+const exportHtmlButton = createButton('Export HTML', 48, 10, {
+    right: 'auto', 
+    left: '10px', 
+    backgroundColor: '#C6A64B' 
+});
+workspace.appendChild(exportHtmlButton);
+
+// Function to export the workspace as HTML
+function exportToHtml() {
+    const elements = workspace.querySelectorAll('.element');
+    
+    // Create the basic HTML structure
+    let htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsiteled Export</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .element {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+`;
+
+    // Process each element
+    elements.forEach(element => {
+        // Get element properties
+        const left = element.style.left;
+        const top = element.style.top;
+        const width = element.style.width;
+        const height = element.style.height;
+        const backgroundColor = element.style.backgroundColor;
+        const color = element.style.color;
+        const fontSize = element.style.fontSize;
+        const borderStyle = element.style.borderStyle;
+        const borderWidth = element.style.borderWidth;
+        const borderColor = element.style.borderColor;
+        const borderRadius = element.style.borderRadius;
+        
+        // Start the element div
+        htmlContent += `    <div class="element" style="left: ${left}; top: ${top}; width: ${width}; height: ${height}; `;
+        
+        // Add styling if there is any on the element
+        if (backgroundColor) htmlContent += `background-color: ${backgroundColor}; `;
+        if (color) htmlContent += `color: ${color}; `;
+        if (fontSize) htmlContent += `font-size: ${fontSize}; `;
+        if (borderStyle && borderStyle !== 'none') {
+            htmlContent += `border-style: ${borderStyle}; `;
+            if (borderWidth) htmlContent += `border-width: ${borderWidth}; `;
+            if (borderColor) htmlContent += `border-color: ${borderColor}; `;
+        }
+        if (borderRadius) htmlContent += `border-radius: ${borderRadius}; `;
+        
+        htmlContent += '">\n';
+        
+        // Process content based on element type
+        const input = element.querySelector('input[type="text"]');
+        const img = element.querySelector('img');
+        const paragraph = element.querySelector('p');
+        const button = element.querySelector('button');
+        const form = element.querySelector('form');
+        
+        if (input && !form) {
+            // Text or title element
+            htmlContent += `        <div style="width: 100%; height: 100%; display: flex; align-items: center; padding: 5px; box-sizing: border-box;">${input.value}</div>\n`;
+        } else if (img) {
+            // Image element
+            const imgSrc = img.src;
+            htmlContent += `        <img src="${imgSrc}" style="max-width: 100%; max-height: 100%;">\n`;
+        } else if (paragraph) {
+            // Random text element
+            htmlContent += `        <p style="margin: 0; padding: 10px; box-sizing: border-box;">${paragraph.textContent}</p>\n`;
+        } else if (button && !form) {
+            // Button element
+            const btnStyles = `width: 100%; height: 100%; background-color: ${button.style.backgroundColor || '#A08970'}; color: ${button.style.color || '#F1E3C6'}; border: none; border-radius: 4px; cursor: pointer;`;
+            htmlContent += `        <button style="${btnStyles}">${button.textContent}</button>\n`;
+        } else if (form) {
+            // Form element - strip out any event listeners and resize handles
+            let formHtml = form.outerHTML;
+            // Remove any resize handles or UI elements that might be nested
+            formHtml = formHtml.replace(/<div class="resize-handle.*?<\/div>/g, '');
+            htmlContent += `        ${formHtml}\n`;
+        } else if (element.style.height === '2px') {
+            // Horizontal rule
+            htmlContent += `        <hr style="width: 100%; height: 100%; margin: 0; border: none; background-color: ${backgroundColor || '#D9BF77'};">\n`;
+        }
+        
+        htmlContent += `    </div>\n`;
+    });
+    
+    // Close the HTML structure
+    htmlContent += `</body>
+</html>`;
+    
+    // Create download for the HTML file
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Unsiteled_Export.html';
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    showToast('HTML exported successfully!');
+}
+
+// Add event listener to the export button
+exportHtmlButton.addEventListener('click', exportToHtml);
 
 const uiButtons = [gridToggle, snapToggle, saveButton, loadButton, viewMode, undoButton, redoButton, helpButton, zoomOutButton, zoomInButton];
 uiButtons.forEach(btn => workspace.appendChild(btn));
