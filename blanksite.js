@@ -92,7 +92,7 @@ Object.assign(stylePanel.style, {
     boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
 });
 
-// Bit styling menu thing
+// Big styling menu thing
 stylePanel.innerHTML = `
     <h3 style="margin-top: 0; border-bottom: 1px solid #6a5b4e; padding-bottom: 5px;">Element Style</h3>
     <div style="margin-bottom: 8px;">
