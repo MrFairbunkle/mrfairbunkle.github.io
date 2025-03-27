@@ -64,7 +64,7 @@
             mainWebsite.style.display = 'block';
         }, totalLoadingTime);
 
-        // #7 Template loading
+        // Template loading
         const templateFiles = {
             'Template 1': 'template1.json',
             'Template 2': 'template2.json',
@@ -93,7 +93,7 @@
             });
         });
 
-        // #8 Saved project loading
+        // Saved project loading
         document.querySelectorAll('.saved-item').forEach(item => {
             item.addEventListener('click', () => {
                 const projectName = item.querySelector('span:nth-child(2)').textContent;
