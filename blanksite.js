@@ -685,9 +685,9 @@ viewMode.addEventListener('click', () => {
     const escHandler = (e) => {
         if (e.key === 'Escape') {
             toolbox.style.display = 'block';
-            stylePanel.style.display = selectedElement ? 'block' : 'none';
+            stylePanel.style.display = selectedElement ? 'block' : 'none'; // Don't display the hints once you press escape
             uiButtons.forEach(btn => btn.style.display = 'block');
-            document.removeEventListener('keydown', escHandler);
+            document.removeEventListener('keydown', escHandler); // Don't wait for escape button press anymore
         }
     };
     document.addEventListener('keydown', escHandler);
@@ -695,18 +695,18 @@ viewMode.addEventListener('click', () => {
 
 // Add keyboard shortcuts
 document.addEventListener('keydown', (e) => {
-    // Delete key for selected elements
-    if (e.key === 'Delete' && selectedElement) {
-        e.preventDefault();
+    // Delete key to delete selected elements
+    if (e.key === 'Delete' && selectedElement) { // Delete if you have something selected
+        e.preventDefault(); // Ignore default key behaviour
         selectedElement.remove();
         selectedElement = null;
         stylePanel.style.display = 'none';
-        history.saveState();
+        history.saveState(); // Save element deletion
         showToast('Element deleted');
     }
     
     // Ctrl+Z for undo
-    if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+    if (e.key === 'z' && (e.ctrlKey || e.metaKey)) { 
         e.preventDefault();
         if (history.undo()) {
             showToast('Undo');
@@ -735,7 +735,7 @@ workspace.addEventListener('mouseup', dragEnd);
 
 toolbox.addEventListener('dragstart', (e) => {
     if (e.target.classList.contains('draggable')) {
-        e.dataTransfer.setData('type', e.target.dataset.type);
+        e.dataTransfer.setData('type', e.target.dataset.type); // Keep the data of what is being moved for when it is placed back down
     }
 });
 
@@ -746,7 +746,7 @@ workspace.addEventListener('drop', (e) => {
     const type = e.dataTransfer.getData('type');
     if (!type) return;
     
-    const rect = workspace.getBoundingClientRect();
+    const rect = workspace.getBoundingClientRect(); // Gets the position of where to move the element to
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
@@ -763,7 +763,7 @@ function setupDraggable(element) {
     element.style.cursor = 'grab';
     
     element.addEventListener('mousedown', (e) => {
-        if (e.target.tagName.toLowerCase() === 'input' || e.target.classList.contains('resize-handle')) return;
+        if (e.target.tagName.toLowerCase() === 'input' || e.target.classList.contains('resize-handle')) return; // Does not move the text inside the box
         
         e.preventDefault();
         isDragging = true;
@@ -786,7 +786,7 @@ function drag(e) {
     if (!isDragging || !activeElement) return;
     
     e.preventDefault();
-    const workspaceRect = workspace.getBoundingClientRect();
+    const workspaceRect = workspace.getBoundingClientRect(); // Handles moving if zoomed in or out
     let newX = (e.clientX - workspaceRect.left) / zoomLevel - initialX;
     let newY = (e.clientY - workspaceRect.top) / zoomLevel - initialY;
     
@@ -802,7 +802,7 @@ function drag(e) {
 }
 
 function dragEnd() {
-    if (!isDragging) return;
+    if (!isDragging) return; // Stop dragging once you stop dragging
     
     isDragging = false;
     if (activeElement) {
@@ -817,7 +817,7 @@ function dragEnd() {
 
 // Add resize handles to elements
 function addResizeHandles(element) {
-    const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+    const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right']; // 4 corners of elements
     element.style.position = 'absolute';
     element.style.resize = 'none';
     element.style.minWidth = '50px';
@@ -859,7 +859,7 @@ function addResizeHandles(element) {
         'bottom-right': { bottom: '-5px', right: '-5px', cursor: 'nwse-resize' }
     };
 
-    corners.forEach(corner => {
+    corners.forEach(corner => { // For each of the 4 corners
         const handle = document.createElement('div');
         handle.classList.add('resize-handle', `resize-${corner}`);
         
@@ -869,7 +869,7 @@ function addResizeHandles(element) {
             height: '10px',
             backgroundColor: '#D9BF77',
             zIndex: '10',
-            ...handlePositions[corner]
+            ...handlePositions[corner] // Spread them all out at once
         });
 
         let isResizing = false;
@@ -879,7 +879,7 @@ function addResizeHandles(element) {
             e.stopPropagation();
             isResizing = true;
             
-            const rect = element.getBoundingClientRect();
+            const rect = element.getBoundingClientRect(); // Measure the element, note the dimensions
             originalWidth = rect.width;
             originalHeight = rect.height;
             originalX = e.clientX;
@@ -901,7 +901,7 @@ function addResizeHandles(element) {
 
             switch(corner) {
                 case 'bottom-right':
-                    newWidth = Math.max(originalWidth + deltaX, 50);
+                    newWidth = Math.max(originalWidth + deltaX, 50); // Delta just means how far you have moved, the difference
                     newHeight = Math.max(originalHeight + deltaY, 50);
                     break;
                 case 'top-right':
@@ -922,12 +922,12 @@ function addResizeHandles(element) {
                     break;
             }
 
-            if (newWidth !== undefined) element.style.width = `${newWidth}px`;
+            if (newWidth !== undefined) element.style.width = `${newWidth}px`; // Makes size in px so the computer knows what it means
             if (newHeight !== undefined) element.style.height = `${newHeight}px`;
             if (newLeft !== undefined) element.style.left = `${newLeft}px`;
             if (newTop !== undefined) element.style.top = `${newTop}px`;
 
-            // Update content dimensions
+            // Update content dimensions as well as box 
             if (input) {
                 input.style.width = '100%';
                 input.style.height = '100%';
@@ -954,31 +954,31 @@ function addResizeHandles(element) {
 
 // Element creation and management
 function addElementToWorkspace(type, x, y) {
-    const element = document.createElement('div');
+    const element = document.createElement('div'); // Create a div for the element
     element.classList.add('element');
     element.style.left = `${x}px`;
     element.style.top = `${y}px`;
 
     switch (type) {
-        case 'text':
-            element.style.width = '200px';
-            element.style.height = '40px';
-            element.innerHTML = `<input type="text" value="Text Box" style="color: #000000;" />`;
+        case 'text': // Text element
+            element.style.width = '200px'; // Default width
+            element.style.height = '40px'; // Default height
+            element.innerHTML = `<input type="text" value="Text Box" style="color: #000000;" />`; // Div content
             break;
-        case 'title':
+        case 'title': // Title element
             element.style.width = '300px';
             element.style.height = '50px';
             element.innerHTML = `<input type="text" value="Title" style="color: #000000; font-size: 1.5em; font-weight: bold;" />`;
             break;
-        case 'image':
-            setupImageElement(element);
+        case 'image': // Image element
+            setupImageElement(element); // Use the image function I made somewhere else 
             break;
-        case 'button':
+        case 'button': // Button element
             element.style.width = '120px';
             element.style.height = '40px';
             element.innerHTML = `<button style="width: 100%; height: 100%; background-color: #A08970; color: #F1E3C6; border: none; border-radius: 4px;">Click Me</button>`;
             break;
-        case 'form':
+        case 'form': // Form element, HTML code for the form
             element.style.width = '300px';
             element.style.height = '200px';
             element.innerHTML = `
@@ -989,17 +989,17 @@ function addElementToWorkspace(type, x, y) {
                 </form>
             `;
             break;
-        case 'break':
+        case 'break': // Section break element
             element.style.width = '100%';
             element.style.height = '2px';
             element.style.backgroundColor = '#D9BF77';
             element.style.border = 'none';
             break;
-        case 'text-rand':
-            setupRandomTextElement(element);
+        case 'text-rand': // Random text element
+            setupRandomTextElement(element); // Use the random text function I made somewhere else
             break;
-        case 'image-rand':
-            element.innerHTML = `<img src="https://picsum.photos/200/?random" />`;
+        case 'image-rand': // Random image element
+            element.innerHTML = `<img src="https://picsum.photos/200/?random" />`; // Lorem Picsum link generates a ranom image of dimensions 200x200px
             break;
         default:
             return;
@@ -1022,16 +1022,16 @@ function setupElementEvents(element) {
         element.classList.add('selected');
         stylePanel.style.display = 'block';
         
-        // Update style panel
+        // Update style panel according to element styles
         bgColor.value = element.style.backgroundColor ? rgbToHex(element.style.backgroundColor) : '#4B4239';
         textColor.value = element.style.color ? rgbToHex(element.style.color) : '#F1E3C6';
-        fontSize.value = parseInt(element.style.fontSize) || 16;
+        fontSize.value = parseInt(element.style.fontSize) || 16; // Change to whole number, or default at 16
     });
 }
 
 // Handle click outside elements
 workspace.addEventListener('click', (e) => {
-    if (!e.target.closest('.element') && !e.target.closest('#style-panel')) {
+    if (!e.target.closest('.element') && !e.target.closest('#style-panel')) { // Don't do anything to anything if clicking on nothing
         if (selectedElement) selectedElement.classList.remove('selected');
         selectedElement = null;
         stylePanel.style.display = 'none';
@@ -1039,7 +1039,7 @@ workspace.addEventListener('click', (e) => {
 });
 
 // Setup specialized element types
-function setupImageElement(element) {
+function setupImageElement(element) { 
     const container = document.createElement('div');
     const inputContainer = document.createElement('div');
     Object.assign(inputContainer.style, {
@@ -1055,11 +1055,11 @@ function setupImageElement(element) {
 
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = 'image/*';
+    fileInput.accept = 'image/*'; // Accept image files
     fileInput.style.display = 'none';
 
     const uploadButton = document.createElement('button');
-    uploadButton.textContent = 'Upload';
+    uploadButton.textContent = 'Upload'; // What to write in the button
     Object.assign(uploadButton.style, {
         padding: '4px 8px',
         backgroundColor: '#A08970',
@@ -1069,7 +1069,7 @@ function setupImageElement(element) {
         cursor: 'pointer'
     });
 
-    const img = document.createElement('img');
+    const img = document.createElement('img'); // Make it type img
     img.style.display = 'none';
     img.style.maxWidth = '200px';
     img.style.maxHeight = '200px';
@@ -1084,20 +1084,20 @@ function setupImageElement(element) {
             img.onerror = () => {
                 img.style.display = 'none';
                 inputContainer.style.display = 'flex';
-                alert('Failed to load image. Please check the URL.');
+                alert('Failed to load image. Please check the URL.'); // Error message if image invalid or load fails
             };
         }
     });
 
     fileInput.addEventListener('change', () => {
-        const file = fileInput.files[0];
+        const file = fileInput.files[0]; // Only choose the first file you select
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                img.src = e.target.result;
+                img.src = e.target.result; // Put the image into the "box"
                 img.style.display = 'block';
                 inputContainer.style.display = 'none';
-                urlInput.value = '';
+                urlInput.value = ''; // Clear URL on image upload
             };
             reader.readAsDataURL(file);
         }
@@ -1109,7 +1109,7 @@ function setupImageElement(element) {
         img.style.display = 'none';
     });
 
-    [urlInput, uploadButton].forEach(el => {
+    [urlInput, uploadButton].forEach(el => { // Don't accidentally press other buttons as well that are underneath 
         el.addEventListener('mousedown', (e) => e.stopPropagation());
     });
 
@@ -1132,22 +1132,33 @@ function setupRandomTextElement(element) {
         backgroundColor: '#554b42'
     });
 
+    // Example text for the markov chain
     const defaultText = ` 
         The sun dipped below the horizon, casting an orange glow across the sky.
         A stray cat wandered through the alley, searching for scraps of food.
         The sound of rain tapping against the window was oddly comforting.
         She flipped through the old book, its pages yellowed with age.
         The wind howled through the trees, making the branches sway wildly.
+        The waves crashed against the rocky shore, sending salty mist into the crisp evening air.
+        A gentle breeze rustled through the autumn leaves, scattering them across the winding path.
+        The old clock tower chimed solemnly, its echoes lingering in the quiet, foggy streets.
+        Snowflakes danced in the pale moonlight, blanketing the town in a shimmering white coat.
+        The city lights flickered to life as dusk settled in, painting the skyline with a golden hue.
+        Raindrops tapped against the windowpane, tracing jagged patterns down the fogged glass.
+        The forest hummed with life as dawn broke, light filtering through the thick canopy above.
+        Soft laughter floated from the garden, blending with the sweet scent of blooming roses.
+        Thunder rumbled in the distance, rolling ominously over the sprawling, empty fields.
+        A lone lantern swayed gently in the wind, casting shadows that danced along the cobblestones.
     `;
     
-    let sentence = "Random text failed to generate.";
+    let sentence = "Random text failed to generate."; // Default text if generation fails
     if (typeof RiTa !== 'undefined') {
         try {
-            let markov = RiTa.markov(3);
+            let markov = RiTa.markov(3); // Model version
             markov.addText(defaultText);
             sentence = markov.generate();
         } catch (e) {
-            console.error('RiTa generation failed:', e);
+            console.error('RiTa generation failed:', e); // Log error message in console, not on screen
         }
     }
     
@@ -1162,10 +1173,10 @@ function setupRandomTextElement(element) {
 
 // Save and load functionality
 function saveWorkspace() {
-    const elements = workspace.querySelectorAll('.element');
-    const savedElements = [];
+    const elements = workspace.querySelectorAll('.element'); // Select all the elements
+    const savedElements = []; // Save them in an array
 
-    elements.forEach(element => {
+    elements.forEach(element => { // Get all their styling and positioning
         const elementData = {
             type: '',
             left: element.style.left,
@@ -1181,42 +1192,42 @@ function saveWorkspace() {
         };
 
         // Detect element type and content
-        const input = element.querySelector('input[type="text"]');
-        const img = element.querySelector('img');
-        const randTextP = element.querySelector('p');
-        const button = element.querySelector('button');
-        const form = element.querySelector('form');
+        const input = element.querySelector('input[type="text"]'); // Input
+        const img = element.querySelector('img'); // Image
+        const randTextP = element.querySelector('p'); // Text
+        const button = element.querySelector('button'); // Button
+        const form = element.querySelector('form'); // Form
 
-        if (input && input.style.fontSize === '1.5em') {
+        if (input && input.style.fontSize === '1.5em') { // If input and large text, is title
             elementData.type = 'title';
             elementData.content = input.value;
-        } else if (input && !img) {
+        } else if (input && !img) { // If input but not image, is image
             elementData.type = 'text';
             elementData.content = input.value;
-        } else if (img && img.src.includes('picsum')) {
+        } else if (img && img.src.includes('picsum')) { // If URL contains picsum, is random image
             elementData.type = 'image-rand';
             elementData.content = img.src;
-        } else if (img) {
+        } else if (img) { // If image, is image, pretty self explanatory
             elementData.type = 'image';
             const urlInput = element.querySelector('input[type="text"]');
             elementData.content = {
-                src: img.src,
-                url: urlInput ? urlInput.value : ''
+                src: img.src, // Take the image source
+                url: urlInput ? urlInput.value : '' // Take the image URL is there is one otherwise leave as blank
             };
-        } else if (randTextP) {
+        } else if (randTextP) { // If random text, is random text
             elementData.type = 'text-rand';
-            elementData.content = randTextP.textContent;
-        } else if (button && !form) {
+            elementData.content = randTextP.textContent; // Save random text content
+        } else if (button && !form) { // If button but not form, is form
             elementData.type = 'button';
             elementData.content = button.textContent;
-        } else if (form) {
+        } else if (form) { // If form, is form
             elementData.type = 'form';
             elementData.content = form.outerHTML;
-        } else if (element.style.height === '2px') {
+        } else if (element.style.height === '2px') { // If styling that of section break, is section break
             elementData.type = 'break';
         }
 
-        savedElements.push(elementData);
+        savedElements.push(elementData); // Save all elements into the array
     });
 
     const saveData = {
@@ -1228,11 +1239,11 @@ function saveWorkspace() {
     };
 
     // Create and trigger download
-    const blob = new Blob([JSON.stringify(saveData, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(saveData, null, 2)], { type: 'application/json' }); // Make downloadable string data
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Unsiteled_Project.json';
+    a.download = 'Unsiteled_Project.json'; // Default file name
     a.click();
     URL.revokeObjectURL(url);
 }
@@ -1242,9 +1253,9 @@ function loadWorkspace(file) {
     const reader = new FileReader();
     reader.onload = (e) => {
         try {
-            loadWorkspaceFromJSON(JSON.parse(e.target.result));
+            loadWorkspaceFromJSON(JSON.parse(e.target.result)); // Parse text from saved data
         } catch (error) {
-            alert('Failed to load layout file. Please check the file format.');
+            alert('Failed to load layout file. Please check the file format.'); // Error message is file incorrect
             console.error('Load error:', error);
         }
     };
@@ -1255,7 +1266,7 @@ function loadWorkspaceFromJSON(data) {
     // Clear existing elements
     workspace.querySelectorAll('.element').forEach(el => el.remove());
     
-    // Apply settings
+    // Apply grid and snap settings
     snapToGrid = data.gridSettings.snapToGrid;
     snapToggle.style.backgroundColor = snapToGrid ? '#A08970' : '#888';
     
@@ -1267,7 +1278,7 @@ function loadWorkspaceFromJSON(data) {
         gridToggle.style.backgroundColor = '#888';
     }
 
-    // Recreate elements
+    // Recreate elements in original positions
     data.elements.forEach(elementData => {
         addElementToWorkspace(
             elementData.type,
@@ -1325,7 +1336,7 @@ function loadWorkspaceFromJSON(data) {
 }
 
 loadInput.addEventListener('change', (e) => {
-    if (e.target.files.length > 0) loadWorkspace(e.target.files[0]);
+    if (e.target.files.length > 0) loadWorkspace(e.target.files[0]); // Load saved file when you try to
 });
 
 // Load templates/projects from localStorage if available
