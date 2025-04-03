@@ -2,19 +2,19 @@
 const toolbox = document.querySelector('.toolbox');
 const workspace = document.getElementById('workspace');
 
-// Settings
+// Set default settings
 const GRID_SIZE = 20;
 let snapToGrid = true;
-let isDragging = false;
+let isDragging = false; 
 let initialX, initialY, currentX, currentY;
 let activeElement = null;
 let selectedElement = null;
 
 // Create UI elements
-const createButton = (text, top, right, customStyles = {}) => {
-    const btn = document.createElement('button');
-    btn.textContent = text;
-    Object.assign(btn.style, {
+const createButton = (text, top, right, customStyles = {}) => { // Makes buttons with text content, positioning, and styling
+    const btn = document.createElement('button'); // Creates blank button to be added to screen
+    btn.textContent = text; // The text for the button
+    Object.assign(btn.style, { // The various styling for the button
         position: 'absolute',
         width: '120px',
         top: `${top}px`,
@@ -32,12 +32,12 @@ const createButton = (text, top, right, customStyles = {}) => {
     });
     
     // Add hover effect
-    btn.addEventListener('mouseover', () => {
+    btn.addEventListener('mouseover', () => { // When hovering over button, apply styles
         btn.style.backgroundColor = '#b09a80';
         btn.style.transform = 'translateY(-2px)'; // Up a bit
     });
     
-    btn.addEventListener('mouseout', () => {
+    btn.addEventListener('mouseout', () => { // When no longer hovering, reapply styles
         btn.style.backgroundColor = customStyles.backgroundColor || '#A08970';
         btn.style.transform = 'translateY(0)';
     });
@@ -46,14 +46,14 @@ const createButton = (text, top, right, customStyles = {}) => {
 };
 
 // Create main UI buttons
-const gridToggle = createButton('Toggle Grid', 10, 10);
+const gridToggle = createButton('Toggle Grid', 10, 10); // Text for button, positioning, distance from top, distance from right
 const snapToggle = createButton('Toggle Snap', 10, 136);
 const saveButton = createButton('Export JSON', 48, 10);
 const loadButton = createButton('Load JSON', 48, 136);
 const viewMode = createButton('View Mode', 10, 10, { 
     right: 'auto', 
     left: '10px', 
-    backgroundColor: '#C6A64B' 
+    backgroundColor: '#C6A64B' // Different colour for this button
 });
 const undoButton = createButton('Undo', 86, 10);
 const redoButton = createButton('Redo', 86, 136);
@@ -77,8 +77,8 @@ workspace.appendChild(exportHtmlButton);
 function exportToHtml() {
     const elements = workspace.querySelectorAll('.element');
     
-    // Create the basic HTML structure
-    let htmlContent = `<!DOCTYPE html>
+    // Create the basic HTML structure, without created work added
+    let htmlContent = `<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -115,20 +115,20 @@ function exportToHtml() {
         const borderRadius = element.style.borderRadius;
         
         // Start the element div
-        htmlContent += `    <div class="element" style="left: ${left}; top: ${top}; width: ${width}; height: ${height}; `;
+        htmlContent += `    <div class="element" style="left: ${left}; top: ${top}; width: ${width}; height: ${height}; `; // Creates a div containing the element properties
         
         // Add styling if there is any on the element
-        if (backgroundColor) htmlContent += `background-color: ${backgroundColor}; `;
-        if (color) htmlContent += `color: ${color}; `;
-        if (fontSize) htmlContent += `font-size: ${fontSize}; `;
-        if (borderStyle && borderStyle !== 'none') {
+        if (backgroundColor) htmlContent += `background-color: ${backgroundColor}; `; // If there is background colour, add it
+        if (color) htmlContent += `color: ${color}; `; // If there is a text colour, add it
+        if (fontSize) htmlContent += `font-size: ${fontSize}; `; // If there is a font size, add it
+        if (borderStyle && borderStyle !== 'none') { // If there is border styling, add it
             htmlContent += `border-style: ${borderStyle}; `;
             if (borderWidth) htmlContent += `border-width: ${borderWidth}; `;
             if (borderColor) htmlContent += `border-color: ${borderColor}; `;
         }
         if (borderRadius) htmlContent += `border-radius: ${borderRadius}; `;
         
-        htmlContent += '">\n';
+        htmlContent += '">\n'; // Completes the html div
         
         // Process content based on element type
         const input = element.querySelector('input[type="text"]');
@@ -136,7 +136,8 @@ function exportToHtml() {
         const paragraph = element.querySelector('p');
         const button = element.querySelector('button');
         const form = element.querySelector('form');
-        
+
+        // Save all present content
         if (input && !form) {
             // Text or title element
             htmlContent += `        <div style="width: 100%; height: 100%; display: flex; align-items: center; padding: 5px; box-sizing: border-box;">${input.value}</div>\n`;
@@ -149,16 +150,15 @@ function exportToHtml() {
             htmlContent += `        <p style="margin: 0; padding: 10px; box-sizing: border-box;">${paragraph.textContent}</p>\n`;
         } else if (button && !form) {
             // Button element
-            const btnStyles = `width: 100%; height: 100%; background-color: ${button.style.backgroundColor || '#A08970'}; color: ${button.style.color || '#F1E3C6'}; border: none; border-radius: 4px; cursor: pointer;`;
+            const btnStyles = `width: 100%; height: 100%; background-color: ${button.style.backgroundColor || '#A08970'}; color: ${button.style.color || '#F1E3C6'}; border: none; border-radius: 4px; cursor: pointer;`; // Sets button colour from options
             htmlContent += `        <button style="${btnStyles}">${button.textContent}</button>\n`;
         } else if (form) {
-            // Form element - strip out any event listeners and resize handles
-            let formHtml = form.outerHTML;
-            // Remove any resize handles or UI elements that might be nested
-            formHtml = formHtml.replace(/<div class="resize-handle.*?<\/div>/g, '');
+            // Form element 
+            let formHtml = form.outerHTML; // Get all of the code and copy it into a new "box"
+            formHtml = formHtml.replace(/<div class="resize-handle.*?<\/div>/g, ''); // Remove all the resizing handles, if any found
             htmlContent += `        ${formHtml}\n`;
         } else if (element.style.height === '2px') {
-            // Horizontal rule
+            // Section break
             htmlContent += `        <hr style="width: 100%; height: 100%; margin: 0; border: none; background-color: ${backgroundColor || '#D9BF77'};">\n`;
         }
         
@@ -170,15 +170,15 @@ function exportToHtml() {
 </html>`;
     
     // Create download for the HTML file
-    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const blob = new Blob([htmlContent], { type: 'text/html' }); // Raw data for the file
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Unsiteled_Export.html';
+    a.download = 'Unsiteled_Export.html'; // Name for the file
     a.click();
     URL.revokeObjectURL(url);
     
-    showToast('HTML exported successfully!');
+    showToast('HTML exported successfully!'); // Popup message at bottom of screen
 }
 
 // Add event listener to the export button
@@ -189,15 +189,15 @@ uiButtons.forEach(btn => workspace.appendChild(btn));
 
 // Create file input for loading
 const loadInput = document.createElement('input');
-loadInput.type = 'file';
-loadInput.accept = '.json';
+loadInput.type = 'file'; // Only take files
+loadInput.accept = '.json'; // Only take JSON files
 loadInput.style.display = 'none';
 workspace.appendChild(loadInput);
 
 // Style panel
 const stylePanel = document.createElement('div');
 stylePanel.id = 'style-panel';
-Object.assign(stylePanel.style, {
+Object.assign(stylePanel.style, { // Various styles for the element styling panel
     position: 'absolute',
     top: '86px',
     right: '10px',
@@ -206,12 +206,12 @@ Object.assign(stylePanel.style, {
     padding: '10px',
     borderRadius: '4px',
     display: 'none',
-    zIndex: '1000',
+    zIndex: '1000', // Puts the panel ontop of any elements on the workaspace
     color: '#F1E3C6',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
+    boxShadow: '0 4px 8px rgba(0,0,0,0.3)' // Transparent shadow
 });
 
-// Big styling menu thing
+// Code for the styling panel as HTML
 stylePanel.innerHTML = `
     <h3 style="margin-top: 0; border-bottom: 1px solid #6a5b4e; padding-bottom: 5px;">Element Style</h3>
     <div style="margin-bottom: 8px;">
@@ -361,9 +361,9 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
 
 // History for undo/redo functionality
 const history = {
-    states: [],
-    currentIndex: -1,
-    maxStates: 30,
+    states: [], // No save states as default
+    currentIndex: -1, // No position in save states as default
+    maxStates: 30, // Adds max 30 save states
     
     saveState() {
         // Remove any future states if not at the end
@@ -397,9 +397,9 @@ const history = {
             });
         });
         
-        this.states.push(stateData);
+        this.states.push(stateData); // Pushes current data into available save state
         
-        // Limit the number of saved states because memory 
+        // Limit the number of saved states, memory management
         if (this.states.length > this.maxStates) {
             this.states.shift();
         } else {
@@ -412,8 +412,8 @@ const history = {
     
     undo() {
         if (this.currentIndex > 0) {
-            this.currentIndex--; // -1
-            this.restoreState();
+            this.currentIndex--; // -1 from current state position
+            this.restoreState(); // Go back to the previous state
             return true;
         }
         return false;
@@ -421,22 +421,22 @@ const history = {
     
     redo() {
         if (this.currentIndex < this.states.length - 1) {
-            this.currentIndex++; // +1
-            this.restoreState();
+            this.currentIndex++; // +1 from current state position
+            this.restoreState(); 
             return true;
         }
         return false;
     },
     
     restoreState() {
-        // Clear current workspace
+        // Clear current workspace to replace with what was there in specified state
         workspace.querySelectorAll('.element').forEach(el => el.remove());
         
         // Restore elements from saved state
         const state = this.states[this.currentIndex];
         state.forEach(elementData => {
             const tempContainer = document.createElement('div');
-            tempContainer.innerHTML = elementData.html;
+            tempContainer.innerHTML = elementData.html; // Temporary container for state 
             const element = tempContainer.firstChild;
             
             // Restore position and styles
@@ -449,7 +449,7 @@ const history = {
             workspace.appendChild(element);
         });
         
-        // Deselect any element
+        // Deselect any element when changing states
         if (selectedElement) {
             selectedElement.classList.remove('selected');
             selectedElement = null;
@@ -463,23 +463,23 @@ const history = {
 
 // Update undo/redo button states
 function updateUndoRedoButtons() {
-    undoButton.disabled = history.currentIndex <= 0;
-    undoButton.style.opacity = history.currentIndex <= 0 ? '0.5' : '1'; // Can't press if nothing to undo/redo
+    undoButton.disabled = history.currentIndex <= 0; // Can't undo if at front of states
+    undoButton.style.opacity = history.currentIndex <= 0 ? '0.5' : '1'; // Changed opacity of button
     
-    redoButton.disabled = history.currentIndex >= history.states.length - 1;
-    redoButton.style.opacity = history.currentIndex >= history.states.length - 1 ? '0.5' : '1';
+    redoButton.disabled = history.currentIndex >= history.states.length - 1; // Can't redo if at back of states
+    redoButton.style.opacity = history.currentIndex >= history.states.length - 1 ? '0.5' : '1'; // Changed opacity of button
 }
 
 // Helper functions
 function snapToGridPos(pos) {
-    return Math.round(pos / GRID_SIZE) * GRID_SIZE;
+    return Math.round(pos / GRID_SIZE) * GRID_SIZE; // Uses the grid size for positioning within the grid
 }
 
-// RGB to Hex as suggested by the name 
+// RGB to Hex, as suggested by the name
 function rgbToHex(rgb) {
-    if (!rgb || !rgb.startsWith('rgb')) return rgb;
-    const [r, g, b] = rgb.match(/\d+/g) || [0, 0, 0];
-    return `#${((1 << 24) + (parseInt(r) << 16) + (parseInt(g) << 8) + parseInt(b)).toString(16).slice(1)}`;
+    if (!rgb || !rgb.startsWith('rgb')) return rgb; // If not rgb, don't change it
+    const [r, g, b] = rgb.match(/\d+/g) || [0, 0, 0]; // Finds red, green, and blue values
+    return `#${((1 << 24) + (parseInt(r) << 16) + (parseInt(g) << 8) + parseInt(b)).toString(16).slice(1)}`; // Makes sure red, green, and blue are whole numbers, shifts numbers, concatenates them, removes the first character, and adds a "#" so the computer knows it is a colour
 }
 
 // Toast is a popup because toaster pops up toast 😱
@@ -489,11 +489,10 @@ function showToast(message, duration = 3000) {
     toast.textContent = message;
     document.body.appendChild(toast);
     
-    // Force reflow to trigger animation
     toast.offsetHeight;
     toast.style.opacity = '1';
     
-    setTimeout(() => {
+    setTimeout(() => { // Makes message pop back down after some time
         document.body.removeChild(toast);
     }, duration);
 }
@@ -502,21 +501,21 @@ function showToast(message, duration = 3000) {
 let zoomLevel = 1;
 const MIN_ZOOM = 0.5;
 const MAX_ZOOM = 2;
-const ZOOM_STEP = 0.1;
+const ZOOM_STEP = 0.5; // Zooms in/out by 0.5 each time
 
 function updateZoom() {
-    workspace.style.transform = `scale(${zoomLevel})`;
-    workspace.style.transformOrigin = 'center center';
+    workspace.style.transform = `scale(${zoomLevel})`; // Scales everything up/down
+    workspace.style.transformOrigin = 'center center'; // Keeps it all in the center
 }
 
-zoomInButton.addEventListener('click', () => {
+zoomInButton.addEventListener('click', () => { // Waits for click to zoom in
     if (zoomLevel < MAX_ZOOM) {
         zoomLevel += ZOOM_STEP;
         updateZoom();
     }
 });
 
-zoomOutButton.addEventListener('click', () => {
+zoomOutButton.addEventListener('click', () => { // Waits for click to zoom out
     if (zoomLevel > MIN_ZOOM) {
         zoomLevel -= ZOOM_STEP;
         updateZoom();
@@ -592,11 +591,11 @@ duplicateBtn.addEventListener('click', () => {
         const clone = selectedElement.cloneNode(true);
         const rect = selectedElement.getBoundingClientRect();
         
-        // Offset the cloned element a bit 
+        // Offset the cloned element a bit to show difference
         clone.style.left = `${parseInt(selectedElement.style.left) + 20}px`;
         clone.style.top = `${parseInt(selectedElement.style.top) + 20}px`;
         
-        // Don't select it anymore
+        // Don't select original element anymore
         clone.classList.remove('selected');
         
         // Re-attach event handlers
@@ -618,7 +617,7 @@ duplicateBtn.addEventListener('click', () => {
 
 deleteBtn.addEventListener('click', () => {
     if (selectedElement) {
-        selectedElement.remove();
+        selectedElement.remove(); // Removes the element
         selectedElement = null;
         stylePanel.style.display = 'none';
         history.saveState();
@@ -653,7 +652,7 @@ redoButton.addEventListener('click', () => {
 // Help overlay information 
 helpButton.addEventListener('click', () => {
     const helpOverlay = document.createElement('div');
-    helpOverlay.id = 'help-overlay';
+    helpOverlay.id = 'help-overlay'; // Show text for help overlay
     helpOverlay.innerHTML = `
         <h2>Unsiteled Help Guide</h2>
         <ul>
