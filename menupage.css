@@ -1,4 +1,4 @@
-:root {
+:root { /* Declares variables as root colours, able to be recalled later */
     --main-bg-colour: #2E2B27;
     --primary-acc-colour: #C6A64B;
     --second-acc-colour: #A08970;
@@ -12,14 +12,14 @@
     --item-border-colour: #6a5b4e;
 }
 
-body {
+body { /* Styling for HTML within body tag */
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--main-bg-colour);
+    background-color: var(--main-bg-colour); /* Recalled variable from root */
     color: var(--text-colour);
 }
 
-#loading-screen {
+#loading-screen { /* Styling for content within loading screen tag */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,7 +30,7 @@ body {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.typewriter p {
+.typewriter p { /* Styling for typewriter text */
     font-size: 2rem;
     overflow: hidden;
     white-space: nowrap;
@@ -39,26 +39,26 @@ body {
     animation: typing 2s steps(9) forwards, blink 1s step-end infinite;
 }
 
-@keyframes typing {
+@keyframes typing { /* Animation for typewriter */
     from {
-        width: 0;
+        width: 0; /* From nothing */
     }
     to {
-        width: 100%;
+        width: 100%; /* To full size */
     }
 }
 
-@keyframes blink {
+@keyframes blink { /* Blinking for cursor */
     50% {
         border-color: transparent;
     }
 }
 
-#main-website {
+#main-website { /* Hide main websie while on loading screen */
     display: none;
 }
 
-.header {
+.header { /* Styling for content within header tag */
     background-color: var(--header-bg-colour);
     color: white;
     padding: 8px 16px;
@@ -69,12 +69,12 @@ body {
     border-bottom: 1px solid var(--second-acc-colour);
 }
 
-.content {
+.content { /* Styling for content within content tag */
     display: flex;
     height: calc(100vh - 48px);
 }
 
-.left-panel {
+.left-panel { /* Styling for content withing left panel tag */
     width: 250px;
     background-color: var(--panel-bg-colour);
     padding: 20px;
@@ -82,14 +82,14 @@ body {
     border-right: 1px solid var(--second-acc-colour);
 }
 
-.main-content {
+.main-content { /* Styling for main content */
     flex: 1;
     padding: 20px;
     background-color: var(--main-content-bg-colour);
     overflow-y: auto;
 }
 
-.section-title {
+.section-title { /* Styling for section title */
     font-size: 30px;
     margin-bottom: 20px;
     color: var(--primary-acc-colour);
@@ -98,13 +98,13 @@ body {
     padding-bottom: 5px;
 }
 
-.template-grid {
+.template-grid { /* Styling for content grid */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
-.template-item {
+.template-item { /* Styling for template items */
     border: 1px solid var(--item-border-colour);
     border-radius: 8px;
     overflow: hidden;
@@ -113,13 +113,13 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.template-item:hover {
+.template-item:hover { /* Styling for hovering over template items */
     border-color: var(--primary-acc-colour);
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.template-preview {
+.template-preview { /* Styling for template preview */
     height: 140px;
     background-color: var(--second-acc-colour);
     display: flex;
@@ -128,7 +128,7 @@ body {
     border-bottom: 1px solid var(--item-border-colour);
 }
 
-.template-name {
+.template-name { /* Styling for template name */
     padding: 10px;
     font-size: 16px;
     text-align: center;
@@ -136,13 +136,13 @@ body {
     font-weight: 500;
 }
 
-.saved-list {
+.saved-list { /* Styling for saved items list */
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.saved-item {
+.saved-item { /* Styling for saved items */
     padding: 12px;
     cursor: pointer;
     display: flex;
@@ -152,16 +152,16 @@ body {
     transition: background-color 0.2s ease;
 }
 
-.saved-item:hover {
+.saved-item:hover { /* Styling for hovering over saved items */
     background-color: var(--saved-hover-colour);
 }
 
-.icon {
+.icon { /* Styling for icons */
     margin-right: 12px;
     color: var(--primary-acc-colour);
 }
 
-a {
+a { /* Styling for anchors (links) */
     text-decoration: none;
     color: var(--link-colour);
 }
