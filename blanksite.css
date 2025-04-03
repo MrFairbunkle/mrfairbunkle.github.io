@@ -47,20 +47,20 @@ main {
   border-left: 1px solid var(--item-border-colour);
   position: relative;
   background-image: 
-    linear-gradient(to right, var(--item-border-colour) 1px, transparent 1px),
+    linear-gradient(to right, var(--item-border-colour) 1px, transparent 1px), /* Adds gradient to  show grid */
     linear-gradient(to bottom, var(--item-border-colour) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
 .workspace.hide-grid {
-  background-image: none;
+  background-image: none; /* Hides grid */
 }
 
 .draggable {
   background-color: var(--panel-bg-colour);
   padding: 10px;
   margin: 5px 0;
-  cursor: grab;
+  cursor: grab; /* Changes cursor when hovering to grab */
   text-align: center;
   border: 1px solid var(--second-acc-colour);
   border-radius: 4px;
@@ -68,17 +68,17 @@ main {
 }
 
 .draggable:active {
-  cursor: grabbing;
+  cursor: grabbing; /* Keeps cursor while holding item as grab */
 }
 
-.workspace .element {
-  position: absolute;
+.workspace .element { /* Styling for elements in workspace */
+  position: absolute; /* Position is basically in a different layer and is based off of other things in that layer */
   padding: 5px;
-  border: 1px dashed var(--second-acc-colour);
+  border: 1px dashed var(--second-acc-colour); /* Adds a dashed, - - - , border to the elements */
   cursor: grab;
-  user-select: none;
+  user-select: none; /* The user canot select the text */
   background-color: var(--panel-bg-colour);
-  transition: transform 0.05s ease-out;
+  transition: transform 0.05s ease-out; /* Slows down towards animation end */
   color: var(--text-colour);
   overflow: hidden; 
 }
@@ -91,10 +91,10 @@ main {
   margin-top: 10px;
   max-width: 100%; 
   max-height: 100%; 
-  object-fit: contain;
+  object-fit: contain; /* Image resizes based on container size */
   border: 1px solid var(--item-border-colour);
   border-radius: 4px;
-  pointer-events: auto; 
+  pointer-events: auto; /* Pointer behaves as if unspecified */
 }
 
 .workspace .element input {
@@ -117,6 +117,6 @@ main {
 
 .workspace .element button, 
 .workspace .element form input, 
-.workspace .element form button {
-  box-sizing: border-box;
+.workspace .element form button { /* Styling for element button, form input, and form buttons within the workspace */
+  box-sizing: border-box; /* Box size contains all content */
 }
