@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drag and Drop Website Builder</title>
-  <link rel="stylesheet" href="blanksite.css">
+  <meta charset="UTF-8"> <!-- The language the computer reads the code in -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adapts screen size, starts with zoom of 1 -->
+  <title>Drag and Drop Website Builder</title> <!-- Sets title for tab -->
+  <link rel="stylesheet" href="blanksite.css"> <!-- Links file to CSS styling -->
 </head>
 <body>
   <main>
-    <aside class="toolbox">
-      <a href="index.html"><img style="height: 40px; width: 40px;" src="homeicon2.svg"></a>
-      <h2>Toolbox</h2>
-      <p>Drag elements into the workspace to start!</p>
-      <br>
+    <aside class="toolbox"> <!-- Section on the side is now the "toolbox" -->
+      <a href="index.html"><img style="height: 40px; width: 40px;" src="homeicon2.svg"></a> <!-- Home button to return to the landing page -->
+      <h2>Toolbox</h2> 
+      <p>Drag elements into the workspace to start!</p> <!-- Hint for user to know what to do -->
+      <br> <!-- Page break, adds horizontal blank space -->
       <p>General Elements</p>
-      <div class="draggable" draggable="true" contenteditable="false" data-type="title">Title Text</div>
+      <div class="draggable" draggable="true" contenteditable="false" data-type="title">Title Text</div> <!-- Title text element that you can drag -->
       <div class="draggable" draggable="true" contenteditable="false" data-type="text">Rich Text</div>
       <div class="draggable" draggable="true" contenteditable="false" data-type="image">Single Image</div>
       <div class="draggable" draggable="true" contenteditable="false" data-type="button">Button</div>
@@ -24,10 +24,10 @@
       <div class="draggable" draggable="true" contenteditable="false" data-type="text-rand">Random Text</div>
       <div class="draggable" draggable="true" contenteditable="false" data-type="image-rand">Random Image</div> 
     </aside>
-    <section id="workspace" class="workspace">
+    <section id="workspace" class="workspace"> <!-- Sets rest of screen to workspace section -->
     </section>
   </main>
-  <script src="blanksite.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/2.8.1/rita.js"></script>
+  <script src="blanksite.js"></script> <!-- Links file to Javascript for behaviour -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/2.8.1/rita.js"></script> <!-- Links RiTa library for random text generation -->
 </body>
 </html>
