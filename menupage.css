@@ -14,29 +14,29 @@
 
 body { /* Styling for HTML within body tag */
     margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif; /* Specific font to be used in the body content */
     background-color: var(--main-bg-colour); /* Recalled variable from root */
     color: var(--text-colour);
 }
 
 #loading-screen { /* Styling for content within loading screen tag */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
+    display: flex; /* Flex box style allows items to be arranged in rows or columns easily */
+    justify-content: center; /* Centers the content */
+    align-items: center; /* Centers the items */
+    width: 100vw; /* 100% of viewport width */
+    height: 100vh; /* 100% of viewport height */
     background-color: var(--header-bg-colour);
     color: var(--primary-acc-colour);
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', monospace; /* Jetbrains Mono font from Google Fonts */
 }
 
 .typewriter p { /* Styling for typewriter text */
-    font-size: 2rem;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid var(--primary-acc-colour);
-    width: 0;
-    animation: typing 2s steps(9) forwards, blink 1s step-end infinite;
+    font-size: 2rem; /* Font size based on root element */
+    overflow: hidden; /* Hides overflow */
+    white-space: nowrap; /* Whitespace will stay within one line */
+    border-right: 2px solid var(--primary-acc-colour); /* Adds border to the right to act as blinking cursor for typewriter animation */
+    width: 0; 
+    animation: typing 2s steps(9) forwards, blink 1s step-end infinite; /* Animation steps and timings */
 }
 
 @keyframes typing { /* Animation for typewriter */
@@ -54,24 +54,24 @@ body { /* Styling for HTML within body tag */
     }
 }
 
-#main-website { /* Hide main websie while on loading screen */
-    display: none;
+#main-website { 
+    display: none; /* Hide main website content while on loading sceen */
 }
 
 .header { /* Styling for content within header tag */
     background-color: var(--header-bg-colour);
     color: white;
-    padding: 8px 16px;
+    padding: 8px 16px; /* Adds padding of 8px to top and bottom, and 16px to left and right */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Evenly distributes left over space */
     align-items: center;
-    font-weight: bold;
+    font-weight: bold; /* Makes text bold */
     border-bottom: 1px solid var(--second-acc-colour);
 }
 
 .content { /* Styling for content within content tag */
     display: flex;
-    height: calc(100vh - 48px);
+    height: calc(100vh - 48px); /* Calculates the height as 48px less than the viewport */
 }
 
 .left-panel { /* Styling for content withing left panel tag */
@@ -83,39 +83,39 @@ body { /* Styling for HTML within body tag */
 }
 
 .main-content { /* Styling for main content */
-    flex: 1;
+    flex: 1; /* How much free space is assigned to the main content */
     padding: 20px;
     background-color: var(--main-content-bg-colour);
-    overflow-y: auto;
+    overflow-y: auto; /* Y-axis overflow is automatic */
 }
 
 .section-title { /* Styling for section title */
     font-size: 30px;
     margin-bottom: 20px;
     color: var(--primary-acc-colour);
-    font-weight: 600;
+    font-weight: 600; /* Semi-bold */
     border-bottom: 2px solid var(--highlight-colour);
     padding-bottom: 5px;
 }
 
 .template-grid { /* Styling for content grid */
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    display: grid; /* Display items in a grid format */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Autofill grid with contents */
+    gap: 20px; /* 20px gap between items */
 }
 
 .template-item { /* Styling for template items */
     border: 1px solid var(--item-border-colour);
-    border-radius: 8px;
+    border-radius: 8px; /* Rounds the corners of template items */
     overflow: hidden;
-    cursor: pointer;
+    cursor: pointer; /* Changed the cursor to the pointer */
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Adds shadow to the grid items */
 }
 
 .template-item:hover { /* Styling for hovering over template items */
     border-color: var(--primary-acc-colour);
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Moves the boxes up 5px when hovering over them */
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
@@ -133,13 +133,13 @@ body { /* Styling for HTML within body tag */
     font-size: 16px;
     text-align: center;
     color: var(--text-colour);
-    font-weight: 500;
+    font-weight: 500; /* Medium boldness */
 }
 
 .saved-list { /* Styling for saved items list */
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: none; /* No underlining or colouring etc */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
 }
 
 .saved-item { /* Styling for saved items */
