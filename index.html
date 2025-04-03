@@ -1,27 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="menupage.css">
-</head>
-<body>
-    <div id="loading-screen">
-        <div class="typewriter">
-            <p>Unsiteled</p>
+<!DOCTYPE html> <!-- Declare that the code is in HTML -->
+<html lang="en"> <!-- Set the language to English -->
+<head> <!-- Open the head section, links other documents and files -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet"> <!-- Allows use of Google Font JetBrains Mono -->
+    <link rel="stylesheet" href="menupage.css"> <!-- Links the CSS file in order to style this HTML -->
+</head> <!-- Close the head section -->
+<body> <!-- Open the body section, main code for the content -->
+    <div id="loading-screen"> <!-- Think of a div as a box, contains code for the loading screen -->
+        <div class="typewriter"> <!-- Uses the typewriter class created later -->
+            <p>Unsiteled</p>  <!-- The word that is displayed in the loading animation -->
         </div>
     </div>
-    <div id="main-website">
-        <div class="header">
-            <span>Unsiteled</span>
-            <datalist id="templates">
-                <option value="Blank site"></option>
+    <div id="main-website"> <!-- Main website content -->
+        <div class="header"> <!-- Header content, top section of the website -->
+            <span>Unsiteled</span> <!-- Title on website bar -->
+            <datalist id="templates"> <!-- Search bar for templates -->
+                <option value="Blank site"></option> <!-- Autofill options for search bar -->
                 <option value="Template 1"></option>
                 <option value="Template 2"></option>
                 <option value="Template 3"></option>
             </datalist>
         </div>
-        <div class="content">
-            <div class="left-panel">
+        <div class="content"> <!-- Content outside header -->
+            <div class="left-panel"> <!-- Left panel, contains saved websites -->
                 <div class="section-title">Saved Projects</div>
                 <ul class="saved-list">
                     <li class="saved-item"><span class="icon">📄</span><span>Project_001</span></li>
@@ -31,10 +31,10 @@
             </div>
             <div class="main-content">
                 <div class="section-title">Create New</div>
-                <div class="template-grid">
-                    <a href="blanksite.html" class="template-item">
-                        <div class="template-preview"><span style="font-size: 40px">📄</span></div>
-                        <div class="template-name">Blank site</div>
+                <div class="template-grid"> <!-- Grid containing templates for websites -->
+                    <a href="blanksite.html" class="template-item"> <!-- Anchors button to link relevant page -->
+                        <div class="template-preview"><span style="font-size: 40px">📄</span></div> <!-- Emoji for style -->
+                        <div class="template-name">Blank site</div> <!-- Template type -->
                     </a>
                     <a href="blanksite.html" class="template-item">
                         <div class="template-preview"><span style="font-size: 40px">🔨</span></div>
@@ -52,10 +52,10 @@
             </div>
         </div>
     </div>
-    <script>
-        const loadingScreen = document.getElementById('loading-screen');
+    <script> // Internal Javascript code for behaviours in the landing page
+        const loadingScreen = document.getElementById('loading-screen'); 
         const mainWebsite = document.getElementById('main-website');
-        const typingDuration = 2 * 1000;
+        const typingDuration = 2 * 1000; // Timing for loading screen animation
         const repeatCount = 2;
         const totalLoadingTime = typingDuration * repeatCount;
 
@@ -65,27 +65,27 @@
         }, totalLoadingTime);
 
         // Template loading
-        const templateFiles = {
+        const templateFiles = { // Connects template buttons to JSON files 
             'Template 1': 'template1.json',
             'Template 2': 'template2.json',
             'Template 3': 'template3.json'
         };
 
-        function loadTemplate(templateName) {
+        function loadTemplate(templateName) { // Function to load template files
             fetch(templateFiles[templateName])
                 .then(response => response.json())
                 .then(data => {
                     localStorage.setItem('loadedTemplate', JSON.stringify(data));
                     window.location.href = 'blanksite.html';
                 })
-                .catch(err => console.error('Template load failed:', err));
+                .catch(err => console.error('Template load failed:', err)); // Error popup if template file not found
         }
 
-        document.querySelectorAll('.template-item').forEach(item => {
+        document.querySelectorAll('.template-item').forEach(item => { // Waits for click on template items
             item.addEventListener('click', (e) => {
                 e.preventDefault();
                 const templateName = item.querySelector('.template-name').textContent;
-                if (templateName !== 'Blank site') {
+                if (templateName !== 'Blank site') { // If it is not the blank site then load the template
                     loadTemplate(templateName);
                 } else {
                     window.location.href = 'blanksite.html';
@@ -94,10 +94,10 @@
         });
 
         // Saved project loading
-        document.querySelectorAll('.saved-item').forEach(item => {
+        document.querySelectorAll('.saved-item').forEach(item => { // Waits for click on saved websites
             item.addEventListener('click', () => {
                 const projectName = item.querySelector('span:nth-child(2)').textContent;
-                fetch(`${projectName}.json`)
+                fetch(`${projectName}.json`) // Looks for the file in usr files
                     .then(response => response.json())
                     .then(data => {
                         localStorage.setItem('loadedProject', JSON.stringify(data));
@@ -105,7 +105,7 @@
                     })
                     .catch(err => {
                         console.error('Failed to load project:', err);
-                        alert('Could not load the project. Please ensure the file exists.');
+                        alert('Could not load the project. Please ensure the file exists.'); // Error popup if file not found
                     });
             });
         });
